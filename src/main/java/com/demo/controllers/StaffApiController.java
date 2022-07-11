@@ -57,7 +57,7 @@ public class StaffApiController {
     @RequestMapping(value="findstaffbyid", method=RequestMethod.GET)
     public ResponseEntity<StaffApi> findstaffbyid(@RequestParam("id") int staffApi_id) {
         try {
-            return new ResponseEntity<StaffApi>(staffService.findStaffById(staffApi_idgu),HttpStatus.OK);
+            return new ResponseEntity<StaffApi>(staffService.findStaffById(staffApi_id),HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<StaffApi>(HttpStatus.BAD_REQUEST);
