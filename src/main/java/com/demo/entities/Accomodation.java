@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,7 @@ public class Accomodation implements java.io.Serializable {
 	private City city;
 	private Staff staff;
 	private String name;
+	private boolean status;
 	private Set<Service> services = new HashSet<Service>(0);
 	private Set<Image> images = new HashSet<Image>(0);
 	private Set<Room> rooms = new HashSet<Room>(0);
@@ -34,12 +35,17 @@ public class Accomodation implements java.io.Serializable {
 	public Accomodation() {
 	}
 
-	public Accomodation(Category category, City city, Staff staff, String name, Set<Service> services,
+	public Accomodation(boolean status) {
+		this.status = status;
+	}
+
+	public Accomodation(Category category, City city, Staff staff, String name, boolean status, Set<Service> services,
                         Set<Image> images, Set<Room> rooms, Set<Voucher> vouchers) {
 		this.category = category;
 		this.city = city;
 		this.staff = staff;
 		this.name = name;
+		this.status = status;
 		this.services = services;
 		this.images = images;
 		this.rooms = rooms;
@@ -95,6 +101,15 @@ public class Accomodation implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accomodation")

@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,24 +29,27 @@ public class Customer implements java.io.Serializable {
 	private Date dob;
 	private String password;
 	private String civilIdentity;
+	private boolean status;
 	private Set<Booking> bookings = new HashSet<Booking>(0);
 	private Set<Review> reviews = new HashSet<Review>(0);
 
 	public Customer() {
 	}
 
-	public Customer(String civilIdentity) {
+	public Customer(String civilIdentity, boolean status) {
 		this.civilIdentity = civilIdentity;
+		this.status = status;
 	}
 
 	public Customer(String name, String email, String phone, Date dob, String password, String civilIdentity,
-			Set<Booking> bookings, Set<Review> reviews) {
+			boolean status, Set<Booking> bookings, Set<Review> reviews) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.dob = dob;
 		this.password = password;
 		this.civilIdentity = civilIdentity;
+		this.status = status;
 		this.bookings = bookings;
 		this.reviews = reviews;
 	}
@@ -116,6 +119,15 @@ public class Customer implements java.io.Serializable {
 
 	public void setCivilIdentity(String civilIdentity) {
 		this.civilIdentity = civilIdentity;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")

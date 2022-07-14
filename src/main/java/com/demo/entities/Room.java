@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,8 @@ public class Room implements java.io.Serializable {
 	private RoomType roomType;
 	private String name;
 	private String description;
+	private boolean status;
+	private double price;
 	private Set<Image> images = new HashSet<Image>(0);
 	private Set<BookingDetail> bookingDetails = new HashSet<BookingDetail>(0);
 	private Set<Review> reviews = new HashSet<Review>(0);
@@ -33,12 +35,19 @@ public class Room implements java.io.Serializable {
 	public Room() {
 	}
 
-	public Room(Accomodation accomodation, RoomType roomType, String name, String description, Set<Image> images,
-                Set<BookingDetail> bookingDetails, Set<Review> reviews) {
+	public Room(boolean status, double price) {
+		this.status = status;
+		this.price = price;
+	}
+
+	public Room(Accomodation accomodation, RoomType roomType, String name, String description, boolean status,
+                double price, Set<Image> images, Set<BookingDetail> bookingDetails, Set<Review> reviews) {
 		this.accomodation = accomodation;
 		this.roomType = roomType;
 		this.name = name;
 		this.description = description;
+		this.status = status;
+		this.price = price;
 		this.images = images;
 		this.bookingDetails = bookingDetails;
 		this.reviews = reviews;
@@ -92,6 +101,24 @@ public class Room implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	@Column(name = "PRICE", nullable = false, precision = 22, scale = 0)
+	public double getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")

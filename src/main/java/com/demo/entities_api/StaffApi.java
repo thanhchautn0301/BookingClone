@@ -1,6 +1,5 @@
 package com.demo.entities_api;
 
-import com.demo.entities.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -17,6 +16,24 @@ public class StaffApi {
     private String address;
     private int role_id;
     private String role_name;
+    private Boolean role_status;
+    private Boolean status;
+
+    public Boolean getRole_status() {
+        return role_status;
+    }
+
+    public void setRole_status(Boolean role_status) {
+        this.role_status = role_status;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -101,7 +118,7 @@ public class StaffApi {
     public StaffApi() {
     }
 
-    public StaffApi(int id, String name, String phone, String email, String civilIdentity, String password, Date dob, String address, int role_id, String role_name) {
+    public StaffApi(int id, String name, String phone, String email, String civilIdentity, String password, Date dob, String address, int role_id, String role_name, Boolean status, Boolean role_status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -112,5 +129,7 @@ public class StaffApi {
         this.address = address;
         this.role_id = role_id;
         this.role_name = role_name;
+        this.status = status;
+        this.role_status = role_status;
     }
 }

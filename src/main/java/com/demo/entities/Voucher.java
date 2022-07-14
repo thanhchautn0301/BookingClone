@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,15 +28,22 @@ public class Voucher implements java.io.Serializable {
 	private Accomodation accomodation;
 	private Double priceDiscount;
 	private Date expDate;
+	private boolean status;
 	private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
 	public Voucher() {
 	}
 
-	public Voucher(Accomodation accomodation, Double priceDiscount, Date expDate, Set<Invoice> invoices) {
+	public Voucher(boolean status) {
+		this.status = status;
+	}
+
+	public Voucher(Accomodation accomodation, Double priceDiscount, Date expDate, boolean status,
+			Set<Invoice> invoices) {
 		this.accomodation = accomodation;
 		this.priceDiscount = priceDiscount;
 		this.expDate = expDate;
+		this.status = status;
 		this.invoices = invoices;
 	}
 
@@ -79,6 +86,15 @@ public class Voucher implements java.io.Serializable {
 
 	public void setExpDate(Date expDate) {
 		this.expDate = expDate;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "voucher")

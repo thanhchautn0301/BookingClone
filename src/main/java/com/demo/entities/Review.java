@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -27,16 +27,22 @@ public class Review implements java.io.Serializable {
 	private Room room;
 	private String content;
 	private Date ondate;
+	private boolean status;
 
 	public Review() {
 	}
 
-	public Review(Customer customer, Rate rate, Room room, String content, Date ondate) {
+	public Review(boolean status) {
+		this.status = status;
+	}
+
+	public Review(Customer customer, Rate rate, Room room, String content, Date ondate, boolean status) {
 		this.customer = customer;
 		this.rate = rate;
 		this.room = room;
 		this.content = content;
 		this.ondate = ondate;
+		this.status = status;
 	}
 
 	@Id
@@ -98,6 +104,15 @@ public class Review implements java.io.Serializable {
 
 	public void setOndate(Date ondate) {
 		this.ondate = ondate;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

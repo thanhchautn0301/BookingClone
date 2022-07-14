@@ -44,6 +44,7 @@ public class StaffService implements IStaffService{
             staff.setPassword(staffApi.getPassword());
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
+            staff.setStatus(true);
 
             // Gan role cho staff
             staff.setRole(role);
@@ -73,6 +74,7 @@ public class StaffService implements IStaffService{
             staff.setPassword(staffApi.getPassword());
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
+            staff.setStatus(staffApi.getStatus());
 
             // Cap nhat role cho staff
             Role role = new Role();
@@ -81,6 +83,7 @@ public class StaffService implements IStaffService{
             // Gan roleApi cho role moi cua staff
             role.setId(roleApi.getId());
             role.setName(roleApi.getName());
+            role.setStatus(true);
 
             // Cap nhat lai role moi cua staff
             staff.setRole(role);

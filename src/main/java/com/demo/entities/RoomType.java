@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,20 +25,27 @@ public class RoomType implements java.io.Serializable {
 	private Integer quantityAdult;
 	private Integer quantityChildren;
 	private String description;
-	private Double price;
+	private boolean status;
+	private int staffId;
 	private Set<Room> rooms = new HashSet<Room>(0);
 
 	public RoomType() {
 	}
 
+	public RoomType(boolean status, int staffId) {
+		this.status = status;
+		this.staffId = staffId;
+	}
+
 	public RoomType(String name, Integer capacity, Integer quantityAdult, Integer quantityChildren, String description,
-			Double price, Set<Room> rooms) {
+			boolean status, int staffId, Set<Room> rooms) {
 		this.name = name;
 		this.capacity = capacity;
 		this.quantityAdult = quantityAdult;
 		this.quantityChildren = quantityChildren;
 		this.description = description;
-		this.price = price;
+		this.status = status;
+		this.staffId = staffId;
 		this.rooms = rooms;
 	}
 
@@ -99,13 +106,22 @@ public class RoomType implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@Column(name = "PRICE", precision = 22, scale = 0)
-	public Double getPrice() {
-		return this.price;
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	@Column(name = "STAFF_ID", nullable = false)
+	public int getStaffId() {
+		return this.staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roomType")

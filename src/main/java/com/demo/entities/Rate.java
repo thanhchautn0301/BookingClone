@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,13 +21,19 @@ public class Rate implements java.io.Serializable {
 
 	private Integer id;
 	private Integer point;
+	private boolean status;
 	private Set<Review> reviews = new HashSet<Review>(0);
 
 	public Rate() {
 	}
 
-	public Rate(Integer point, Set<Review> reviews) {
+	public Rate(boolean status) {
+		this.status = status;
+	}
+
+	public Rate(Integer point, boolean status, Set<Review> reviews) {
 		this.point = point;
+		this.status = status;
 		this.reviews = reviews;
 	}
 
@@ -50,6 +56,15 @@ public class Rate implements java.io.Serializable {
 
 	public void setPoint(Integer point) {
 		this.point = point;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rate")
