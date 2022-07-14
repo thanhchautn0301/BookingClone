@@ -1,12 +1,11 @@
 package com.demo.controllers;
 
-import com.demo.entities.Role;
 import com.demo.entities_api.RoleApi;
 import com.demo.services.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +22,30 @@ public class RoleApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoleApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findallrolewithsort", method=RequestMethod.GET)
+    public ResponseEntity<List<RoleApi>> findallrolewithsort(@RequestParam("field") String field) {
+        try {
+            return new ResponseEntity<List<RoleApi>>(roleService.findallrolewithsort(field), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoleApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findallrolepaginate/{offset}/{pagesize}", method=RequestMethod.GET)
+    public ResponseEntity<Object> findallrolepaginate(@PathVariable int offset, @PathVariable int pagesize) {
+        try {
+            return new ResponseEntity<Object>(new Object() {
+                public int totalQuantityRoles = roleService.findall().size();
+                public List<RoleApi> rolesDisplay = roleService.findallpaginate(offset, pagesize);
+                public double pagequantity = Math.ceil(Double.parseDouble(String.valueOf(roleService.findall().size()))/10);
+            }, HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
         }
     }
 

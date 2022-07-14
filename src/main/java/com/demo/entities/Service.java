@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,22 +26,25 @@ public class Service implements java.io.Serializable {
 	private String name;
 	private double price;
 	private String iconCanvas;
+	private boolean status;
 	private Set<ServiceDetail> serviceDetails = new HashSet<ServiceDetail>(0);
 
 	public Service() {
 	}
 
-	public Service(double price, String iconCanvas) {
+	public Service(double price, String iconCanvas, boolean status) {
 		this.price = price;
 		this.iconCanvas = iconCanvas;
+		this.status = status;
 	}
 
-	public Service(Accomodation accomodation, String name, double price, String iconCanvas,
+	public Service(Accomodation accomodation, String name, double price, String iconCanvas, boolean status,
 			Set<ServiceDetail> serviceDetails) {
 		this.accomodation = accomodation;
 		this.name = name;
 		this.price = price;
 		this.iconCanvas = iconCanvas;
+		this.status = status;
 		this.serviceDetails = serviceDetails;
 	}
 
@@ -92,6 +95,15 @@ public class Service implements java.io.Serializable {
 
 	public void setIconCanvas(String iconCanvas) {
 		this.iconCanvas = iconCanvas;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")

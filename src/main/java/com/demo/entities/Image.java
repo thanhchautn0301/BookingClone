@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,14 +22,20 @@ public class Image implements java.io.Serializable {
 	private Accomodation accomodation;
 	private Room room;
 	private String name;
+	private boolean status;
 
 	public Image() {
 	}
 
-	public Image(Accomodation accomodation, Room room, String name) {
+	public Image(boolean status) {
+		this.status = status;
+	}
+
+	public Image(Accomodation accomodation, Room room, String name, boolean status) {
 		this.accomodation = accomodation;
 		this.room = room;
 		this.name = name;
+		this.status = status;
 	}
 
 	@Id
@@ -71,6 +77,15 @@ public class Image implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

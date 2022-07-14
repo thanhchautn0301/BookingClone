@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,17 +21,20 @@ public class Role implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
+	private boolean status;
 	private Set<Staff> staffs = new HashSet<Staff>(0);
 
 	public Role() {
 	}
 
-	public Role(String name) {
+	public Role(String name, boolean status) {
 		this.name = name;
+		this.status = status;
 	}
 
-	public Role(String name, Set<Staff> staffs) {
+	public Role(String name, boolean status, Set<Staff> staffs) {
 		this.name = name;
+		this.status = status;
 		this.staffs = staffs;
 	}
 
@@ -54,6 +57,15 @@ public class Role implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")

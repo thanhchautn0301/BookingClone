@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,17 +28,23 @@ public class Booking implements java.io.Serializable {
 	private Customer customer;
 	private Date dateBooking;
 	private String payment;
+	private boolean status;
 	private Set<BookingDetail> bookingDetails = new HashSet<BookingDetail>(0);
 	private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
 	public Booking() {
 	}
 
-	public Booking(Customer customer, Date dateBooking, String payment, Set<BookingDetail> bookingDetails,
-                   Set<Invoice> invoices) {
+	public Booking(boolean status) {
+		this.status = status;
+	}
+
+	public Booking(Customer customer, Date dateBooking, String payment, boolean status,
+                   Set<BookingDetail> bookingDetails, Set<Invoice> invoices) {
 		this.customer = customer;
 		this.dateBooking = dateBooking;
 		this.payment = payment;
+		this.status = status;
 		this.bookingDetails = bookingDetails;
 		this.invoices = invoices;
 	}
@@ -82,6 +88,15 @@ public class Booking implements java.io.Serializable {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "booking")

@@ -12,9 +12,9 @@ import java.util.List;
 
 @Repository
 public interface StaffRepository extends CrudRepository<Staff,Integer> {
-    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name) from Staff ")
+    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff ")
     public List<StaffApi> findAllStaff();
 
-    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name) from Staff where id= :id")
+    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where id= :id")
     public StaffApi findStaffById(@Param("id" )int id);
 }

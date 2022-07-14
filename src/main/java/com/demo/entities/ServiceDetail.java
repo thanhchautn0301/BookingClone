@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +23,22 @@ public class ServiceDetail implements java.io.Serializable {
 	private Service service;
 	private Integer quantity;
 	private String description;
+	private boolean status;
 
 	public ServiceDetail() {
 	}
 
-	public ServiceDetail(BookingDetail bookingDetail, Service service, Integer quantity, String description) {
+	public ServiceDetail(boolean status) {
+		this.status = status;
+	}
+
+	public ServiceDetail(BookingDetail bookingDetail, Service service, Integer quantity, String description,
+			boolean status) {
 		this.bookingDetail = bookingDetail;
 		this.service = service;
 		this.quantity = quantity;
 		this.description = description;
+		this.status = status;
 	}
 
 	@Id
@@ -82,6 +89,15 @@ public class ServiceDetail implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

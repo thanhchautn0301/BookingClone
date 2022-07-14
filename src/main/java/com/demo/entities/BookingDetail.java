@@ -1,5 +1,5 @@
 package com.demo.entities;// default package
-// Generated Jul 8, 2022, 10:40:31 PM by Hibernate Tools 4.3.5.Final
+// Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,19 +31,25 @@ public class BookingDetail implements java.io.Serializable {
 	private Integer quantityChildren;
 	private Date checkin;
 	private Date checkout;
+	private boolean status;
 	private Set<ServiceDetail> serviceDetails = new HashSet<ServiceDetail>(0);
 
 	public BookingDetail() {
 	}
 
+	public BookingDetail(boolean status) {
+		this.status = status;
+	}
+
 	public BookingDetail(Booking booking, Room room, Integer quantityAdult, Integer quantityChildren, Date checkin,
-                         Date checkout, Set<ServiceDetail> serviceDetails) {
+                         Date checkout, boolean status, Set<ServiceDetail> serviceDetails) {
 		this.booking = booking;
 		this.room = room;
 		this.quantityAdult = quantityAdult;
 		this.quantityChildren = quantityChildren;
 		this.checkin = checkin;
 		this.checkout = checkout;
+		this.status = status;
 		this.serviceDetails = serviceDetails;
 	}
 
@@ -115,6 +121,15 @@ public class BookingDetail implements java.io.Serializable {
 
 	public void setCheckout(Date checkout) {
 		this.checkout = checkout;
+	}
+
+	@Column(name = "STATUS", nullable = false)
+	public boolean isStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookingDetail")
