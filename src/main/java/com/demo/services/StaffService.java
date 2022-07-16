@@ -33,8 +33,7 @@ public class StaffService implements IStaffService{
             // Tao moi 1 staff luu vao db
             Staff staff = new Staff();
             // Tao moi 1 role de luu cho staff
-            Role role = new Role();
-            role.setId(staffApi.getRole_id());
+            Role role = roleRepository.findById(staffApi.getRole_id()).get();
 
             // Bat dau mang nhung value cua staffApi gan cho staff
             staff.setName(staffApi.getName());
@@ -77,13 +76,7 @@ public class StaffService implements IStaffService{
             staff.setStatus(staffApi.getStatus());
 
             // Cap nhat role cho staff
-            Role role = new Role();
-            // Tim ve roleApi cua staffApi truoc
-            RoleApi roleApi = roleRepository.findRoleById(staffApi.getRole_id());
-            // Gan roleApi cho role moi cua staff
-            role.setId(roleApi.getId());
-            role.setName(roleApi.getName());
-            role.setStatus(true);
+            Role role = roleRepository.findById(staffApi.getRole_id()).get();
 
             // Cap nhat lai role moi cua staff
             staff.setRole(role);
