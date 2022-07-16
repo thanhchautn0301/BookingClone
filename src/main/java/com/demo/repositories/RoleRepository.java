@@ -15,16 +15,16 @@ import java.util.List;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role,Integer> {
-    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role ")
+    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role where status =true")
     public List<RoleApi> findAllRole();
 
-    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role ")
+    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role where status =true ")
     public List<RoleApi> findAllRoleSort(Sort sort);
 
-    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role ")
+    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role where status =true ")
     public List<RoleApi> findAllRolePagination(Pageable pageable);
 
-    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role where id = :id ")
+    @Query("select new com.demo.entities_api.RoleApi(id,name,status) from Role where id = :id and status = true ")
     public RoleApi findRoleById(@Param("id") int id);
 
 }
