@@ -48,6 +48,16 @@ public class RoomTypeApiController {
         }
     }
 
+    @RequestMapping(value="findroomtypebyid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<RoomTypeApi> findroomtypebyid(@PathVariable int id) {
+        try {
+            return new ResponseEntity<RoomTypeApi>(roomTypeService.findByRoomTypeId(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<RoomTypeApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value="create", method=RequestMethod.POST)
     public ResponseEntity<RoomTypeApi> create(@RequestBody RoomTypeApi roomTypeApi) {
         try {

@@ -54,10 +54,10 @@ public class StaffApiController {
         }
     }
 
-    @RequestMapping(value="findstaffbyid", method=RequestMethod.GET)
-    public ResponseEntity<StaffApi> findstaffbyid(@RequestParam("id") int staffApi_id) {
+    @RequestMapping(value="findstaffbyid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<StaffApi> findstaffbyid(@PathVariable("id") int id) {
         try {
-            return new ResponseEntity<StaffApi>(staffService.findStaffById(staffApi_id),HttpStatus.OK);
+            return new ResponseEntity<StaffApi>(staffService.findStaffById(id),HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<StaffApi>(HttpStatus.BAD_REQUEST);
