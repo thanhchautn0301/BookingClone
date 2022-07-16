@@ -79,10 +79,10 @@ public class RoleApiController {
         }
     }
 
-    @RequestMapping(value="findrolebyid", method=RequestMethod.GET)
-    public ResponseEntity<RoleApi> findrolebyid(@RequestParam("id") int roleApi_id) {
+    @RequestMapping(value="findrolebyid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<RoleApi> findrolebyid(@PathVariable int id) {
         try {
-            return new ResponseEntity<RoleApi>(roleService.findByRoleId(roleApi_id),HttpStatus.OK);
+            return new ResponseEntity<RoleApi>(roleService.findByRoleId(id),HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<RoleApi>(HttpStatus.BAD_REQUEST);

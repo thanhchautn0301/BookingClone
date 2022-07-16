@@ -46,6 +46,16 @@ public class RoomApiController {
         }
     }
 
+    @RequestMapping(value="findroombyid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<RoomApi> findallroomtypewithpaginate(@PathVariable int id) {
+        try {
+            return new ResponseEntity<RoomApi>(roomService.findByRoomId(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<RoomApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value="create", method=RequestMethod.POST)
     public ResponseEntity<RoomApi> create(@RequestBody RoomApi roomApi) {
         try {
