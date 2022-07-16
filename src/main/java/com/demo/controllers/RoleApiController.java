@@ -18,7 +18,7 @@ public class RoleApiController {
     @RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<RoleApi>> findall() {
         try {
-            return new ResponseEntity<List<RoleApi>>(roleService.findall(), HttpStatus.OK);
+            return new ResponseEntity<List<RoleApi>>(roleService.findAll(), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoleApi>>(HttpStatus.BAD_REQUEST);
@@ -28,7 +28,7 @@ public class RoleApiController {
     @RequestMapping(value="findallrolewithsort", method=RequestMethod.GET)
     public ResponseEntity<List<RoleApi>> findallrolewithsort(@RequestParam("field") String field) {
         try {
-            return new ResponseEntity<List<RoleApi>>(roleService.findallrolewithsort(field), HttpStatus.OK);
+            return new ResponseEntity<List<RoleApi>>(roleService.findAllRoleWithSort(field), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoleApi>>(HttpStatus.BAD_REQUEST);
@@ -39,9 +39,9 @@ public class RoleApiController {
     public ResponseEntity<Object> findallrolepaginate(@PathVariable int offset, @PathVariable int pagesize) {
         try {
             return new ResponseEntity<Object>(new Object() {
-                public int totalQuantityRoles = roleService.findall().size();
+                public int totalQuantityRoles = roleService.findAll().size();
                 public List<RoleApi> rolesDisplay = roleService.findallpaginate(offset, pagesize);
-                public double pagequantity = Math.ceil(Double.parseDouble(String.valueOf(roleService.findall().size()))/10);
+                public double pagequantity = Math.ceil(Double.parseDouble(String.valueOf(roleService.findAll().size()))/10);
             }, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();

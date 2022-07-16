@@ -16,7 +16,7 @@ public class RoleService implements IRoleService {
     @Autowired
     private RoleRepository roleRepository;
     @Override
-    public List<RoleApi> findall() {
+    public List<RoleApi> findAll() {
         return roleRepository.findAllRole();
     }
 
@@ -54,7 +54,7 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public List<RoleApi> findallrolewithsort(String field) {
+    public List<RoleApi> findAllRoleWithSort(String field) {
         return roleRepository.findAllRoleSort(Sort.by(field));
     }
 
