@@ -2,11 +2,14 @@ package com.demo.entities_api;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class VoucherApi {
 	
 	private int id;
 	private int accomodation_id;
 	private Double priceDiscount;
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date expDate;
 	private boolean status;
 	public VoucherApi(int id, int accomodation_id, Double priceDiscount, Date expDate, boolean status) {
