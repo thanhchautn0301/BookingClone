@@ -27,19 +27,29 @@ public class RoleService implements IRoleService {
 
     @Override
     public boolean create(RoleApi roleApi) {
-        // Tao moi 1 role de luu xuong csdl
-        Role role = new Role();
-        role.setName(roleApi.getName());
-        role.setStatus(true);
-        return roleRepository.save(role) != null;
+        try {
+            // Tao moi 1 role de luu xuong csdl
+            Role role = new Role();
+            role.setName(roleApi.getName());
+            role.setStatus(true);
+            return roleRepository.save(role) != null;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean update(RoleApi roleApi) {
-        Role role = roleRepository.findById(roleApi.getId()).get();
-        role.setName(roleApi.getName());
-        role.setStatus(roleApi.getStatus());
-        return roleRepository.save(role) != null;
+       try {
+           Role role = roleRepository.findById(roleApi.getId()).get();
+           role.setName(roleApi.getName());
+           role.setStatus(roleApi.getStatus());
+           return roleRepository.save(role) != null;
+       } catch(Exception e) {
+           e.printStackTrace();
+           return false;
+       }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.demo.repositories;
 
+import com.demo.entities.Customer;
 import com.demo.entities.Role;
 import com.demo.entities_api.CustomerApi;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Role,Integer> {
+public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Query("select new com.demo.entities_api.CustomerApi(id, name, email, phone, dob, password, civilIdentity, status) from Customer where status =true")
     public List<CustomerApi> findAllCustomer();
 
