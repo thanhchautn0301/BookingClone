@@ -6,9 +6,9 @@ import com.demo.entities_api.RoleApi;
 import java.util.List;
 
 public interface IBookingService {
-    public List<BookingApi> findaAll();
+    public List<BookingApi> findAll();
     public BookingApi findByBookingId(int bookingApi_id);
-    public boolean create(BookingApi bookingApi);
+    public BookingApi create(BookingApi bookingApi);
     public boolean update(BookingApi bookingApi);
     public boolean delete(Integer id);
     public List<BookingApi> findAllBookingWithSort(String field);

@@ -1,6 +1,7 @@
 package com.demo.entities_api;
 
 import com.demo.entities.Customer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -59,7 +60,7 @@ public class BookingApi {
 
     public BookingApi() {
     }
-
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dateBooking;
     private String payment;
     private boolean status;
