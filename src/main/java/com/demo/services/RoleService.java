@@ -55,8 +55,9 @@ public class RoleService implements IRoleService {
     @Override
     public boolean delete(Integer roleApi_id) {
         try {
-            roleRepository.deleteById(roleApi_id);
-            return true;
+            Role role = roleRepository.findById(roleApi_id).get();
+            role.setStatus(true);
+            return roleRepository.save(role)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;

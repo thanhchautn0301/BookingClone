@@ -71,8 +71,9 @@ public class RoomTypeService implements IRoomTypeService {
     @Override
     public boolean delete(Integer id) {
         try {
-            roomTypeRepository.deleteById(id);
-            return true;
+            RoomType roomType = roomTypeRepository.findById(id).get();
+            roomType.setStatus(true);
+            return roomTypeRepository.save(roomType)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;
