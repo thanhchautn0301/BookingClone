@@ -12,6 +12,8 @@ public class CustomerApi {
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob;
     private String password;
+    private String civilIdentity;
+    private boolean status;
 
     public CustomerApi() {
     }
@@ -91,6 +93,5 @@ public class CustomerApi {
         this.status = status;
     }
 
-    private String civilIdentity;
-    private boolean status;
+    
 }
