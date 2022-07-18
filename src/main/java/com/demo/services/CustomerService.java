@@ -41,7 +41,7 @@ public class CustomerService implements ICustomerService {
 		customer.setEmail(customerApi.getEmail());
 		customer.setPhone(customerApi.getPhone()); 
 		customer.setDob(customerApi.getDob());
-		customer.setPassword(Encrypt.Md5(customerApi.getPassword()));
+		customer.setPassword(Encrypt.BcryptPass(customerApi.getPassword()));
 		customer.setCivilIdentity(customerApi.getCivilIdentity());
 		customer.setStatus(customerApi.isStatus());
 		return customerRepository.save(customer) != null;
@@ -55,7 +55,7 @@ public class CustomerService implements ICustomerService {
 		customer.setEmail(customerApi.getEmail());
 		customer.setPhone(customerApi.getPhone()); 
 		customer.setDob(customerApi.getDob());
-		customer.setPassword(Encrypt.Md5(customerApi.getPassword()));
+		customer.setPassword(Encrypt.BcryptPass(customerApi.getPassword()));
 		customer.setCivilIdentity(customerApi.getCivilIdentity());
 		customer.setStatus(customerApi.isStatus());
 		return customerRepository.save(customer) != null;
