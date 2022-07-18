@@ -1,6 +1,7 @@
 package com.demo.repositories;
 
 import com.demo.entities.City;
+<<<<<<< HEAD
 import com.demo.entities_api.CityApi;
 
 import org.springframework.data.domain.Page;
@@ -28,4 +29,12 @@ public interface CityRepository extends JpaRepository<City,Integer> {
     @Query("select new com.demo.entities_api.CityApi(id,name,status) from City where id = :id ")
     public CityApi findCityById(@Param("id") int id);
 
+=======
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public interface CityRepository extends JpaRepository<City, Integer> {
+>>>>>>> 539e3587ac3d7cefaffbf15a8c3f2cc242421d67
 }

@@ -18,4 +18,5 @@ public  class Encrypt {
 		}
 		return result;
 	}
+
 }
