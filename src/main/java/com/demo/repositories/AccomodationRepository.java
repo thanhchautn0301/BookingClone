@@ -18,6 +18,9 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
     @Query("select new com.demo.entities_api.AccomodationApi(id, category.id, city.id, staff.id, name, status) from Accomodation where status =true")
     public List<AccomodationApi> findAllAccomodation();
 
+    @Query("select new com.demo.entities_api.AccomodationApi(id, category.id, city.id, staff.id, name, status) from Accomodation where status =true and staff.id = :hostId")
+    public List<AccomodationApi> findAllAccomodationByHostId(int hostId);
+
     @Query("select new com.demo.entities_api.AccomodationApi(id, category.id, city.id, staff.id, name, status) from Accomodation where status =true")
     public List<AccomodationApi> findAllAccomodationSort(Sort sort);
 

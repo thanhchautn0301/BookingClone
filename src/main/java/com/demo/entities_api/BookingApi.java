@@ -60,7 +60,7 @@ public class BookingApi {
 
     public BookingApi() {
     }
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date dateBooking;
     private String payment;
     private boolean status;

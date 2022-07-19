@@ -1,6 +1,8 @@
 package com.demo.entities;// default package
 // Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,7 @@ public class Review implements java.io.Serializable {
 	private Rate rate;
 	private Room room;
 	private String content;
+	@JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
 	private Date ondate;
 	private boolean status;
 
