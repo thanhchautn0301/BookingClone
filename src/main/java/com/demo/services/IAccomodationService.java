@@ -12,4 +12,5 @@ public interface IAccomodationService {
     public boolean delete(int accomodationId);
     public List<AccomodationApi> findallaccomodationwithsort(String field);
     public List<AccomodationApi> findallaccomodationpaginate(int offset, int no);
+    public List<AccomodationApi> findallaccomodationbyhost(int hostId);
 }

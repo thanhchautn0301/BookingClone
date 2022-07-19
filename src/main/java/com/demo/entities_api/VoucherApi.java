@@ -9,7 +9,7 @@ public class VoucherApi {
 	private int id;
 	private int accomodation_id;
 	private Double priceDiscount;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
 	private Date expDate;
 	private boolean status;
 	public VoucherApi(int id, int accomodation_id, Double priceDiscount, Date expDate, boolean status) {

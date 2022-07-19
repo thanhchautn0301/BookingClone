@@ -9,7 +9,7 @@ public class CustomerApi {
     private String name;
     private String email;
     private String phone;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date dob;
     private String password;
 
