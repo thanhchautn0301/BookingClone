@@ -90,8 +90,9 @@ public class RoomService implements IRoomService {
     @Override
     public boolean delete(Integer roomId) {
         try {
-            roomRepository.deleteById(roomId);
-            return true;
+            Room room = roomRepository.findById(roomId).get();
+            room.setStatus(true);
+            return roomRepository.save(room)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;
