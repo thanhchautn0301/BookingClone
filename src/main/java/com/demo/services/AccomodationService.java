@@ -105,4 +105,9 @@ public class AccomodationService implements IAccomodationService {
     public List<AccomodationApi> findallaccomodationpaginate(int offset, int no) {
         return accomodationRepository.findAllAccomodationPagination(PageRequest.of(offset,no));
     }
+
+    @Override
+    public List<AccomodationApi> findallaccomodationbyhost(int hostId) {
+        return accomodationRepository.findAllAccomodationByHostId(hostId);
+    }
 }

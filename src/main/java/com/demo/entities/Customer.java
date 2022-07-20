@@ -1,6 +1,8 @@
 package com.demo.entities;// default package
 // Generated Jul 13, 2022, 9:23:11 AM by Hibernate Tools 4.3.5.Final
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class Customer implements java.io.Serializable {
 	private String name;
 	private String email;
 	private String phone;
+	@JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
 	private Date dob;
 	private String password;
 	private String civilIdentity;
