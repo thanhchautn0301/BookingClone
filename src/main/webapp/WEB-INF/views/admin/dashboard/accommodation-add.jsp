@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,7 +212,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
@@ -223,13 +224,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-service" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-type" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>
@@ -246,13 +247,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-info" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-add" class="nav-link active">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>
@@ -293,30 +294,29 @@
         <div class="row">
           <div class="col-12">
             <div class="card card-primary">
-              <form id="accomodationAddForm">
+              <form method="post" enctype="multipart/form-data"
+               action="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" id="accomodationAddForm">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="">Tên chỗ nghỉ</label>
-                    <input type="text" name="accomodationName" class="form-control" id=""
+                    <input type="text" name="name" class="form-control" id=""
                     placeholder="Nhập tên chỗ nghỉ">
                   </div>
                   
                   <div class="form-group">
                     <label>Thành phố</label>
-                    <select class="form-control select2" name="CITY_ID" style="width: 100%;">
-                      <option value="Thành phố 1">Thành phố 1</option>
-                      <option value="Thành phố 2">Thành phố 2</option>
-                      <option value="Thành phố 3">Thành phố 3</option>
-                      <option value="Thành phố 4">Thành phố 4</option>
+                    <select class="form-control select2" name="city_id" style="width: 100%;">
+                      <c:forEach var="city" items="${cities }">
+                      		<option value="${city.id }">${city.name }</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="form-group">
                     <label>Loại danh mục</label>
-                    <select class="form-control select2" name="accomodation-type" style="width: 100%;">
-                      <option value="danh mục 1">Danh mục 1</option>
-                      <option value="danh mục 2">Danh mục 2</option>
-                      <option value="danh mục 3">Danh mục 3</option>
-                      <option value="danh mục 4">Danh mục 4</option>
+                    <select class="form-control select2" name="category_id" style="width: 100%;">
+                      <c:forEach var="category" items="${categories }">
+                      		<option value="${category.id }">${category.name }</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="form-group">

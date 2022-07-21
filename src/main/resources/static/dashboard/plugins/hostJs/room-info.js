@@ -1,19 +1,30 @@
 $(function () {
     bsCustomFileInput.init();
+    $('#summernote').summernote({
+      toolbar: [
+       // [groupName, [list of button]]
+       ['style', ['bold', 'italic', 'underline', 'clear']],
+       ['font', ['strikethrough']],
+       ['fontsize', ['fontsize']],
+       ['color', ['color']],
+       ['para', ['ul', 'ol', 'paragraph']],
+       ['height', ['height']]
+       ]
+     });
     $("#infoTable").DataTable({
       language:{    
           "decimal":        "",
-          "emptyTable":     "Không có chỗ nghỉ nào",
-          "info":           "Hiển thị _START_ đến _END_ của _TOTAL_ chỗ nghỉ",
-          "infoEmpty":      "Hiển thị 0 đến 0 của 0 chỗ nghỉ",
+          "emptyTable":     "Không có phòng nào",
+          "info":           "Hiển thị _START_ đến _END_ của _TOTAL_ phòng",
+          "infoEmpty":      "Hiển thị 0 đến 0 của 0 phòng",
           "infoFiltered":   "",
           "infoPostFix":    "",
           "thousands":      ",",
-          "lengthMenu":     "Hiển thị _MENU_ chỗ nghỉ",
+          "lengthMenu":     "Hiển thị _MENU_ phòng",
           "loadingRecords": "Loading...",
           "processing":     "",
           "search":         "Tìm kiếm:",
-          "zeroRecords":    "Không tìm thấy chỗ nghỉ này",
+          "zeroRecords":    "Không tìm thấy phòng này",
           "paginate": {
               "first":      "First",
               "last":       "Last",
@@ -64,14 +75,23 @@ $(function () {
           required: true,
           minlength: 5
         },
+        price:{
+          required: true,
+          min: 0
+        },
         photos:{
           accept: "image/jpeg, image/pjpeg, image/png"
         }
     }
     ,messages:{
       name: {
-        required: 'Vui lòng nhập tên chỗ nghỉ',
-        minlength: 'Tên chỗ nghỉ phải có ít nhất 5 chữ cái'
+        required: 'Vui lòng nhập tên phòng',
+        minlength: 'Tên phòng phải có ít nhất 5 chữ cái'
+      },
+      price:{
+        required: 'Vui lòng nhập giá phòng',
+        min: 'Giá không được nhỏ hơn 0',
+        number: 'Giá không được chứa chữ'
       },
       photos:{
         accept: 'Vui lòng thêm đúng định dạng ảnh jpg,jpeg,png'
@@ -98,13 +118,19 @@ $(function () {
 
   var id = currentRow.find("input[type='hidden'][name='id']").val(); 
   var name = currentRow.find("td:eq(1)").text(); 
-  var city = currentRow.find("td:eq(2)").data('id'); 
-  var category = currentRow.find("td:eq(3)").data('id'); 
+  var roomType = currentRow.find("td:eq(2)").data('id'); 
+  var accommodation = currentRow.find("td:eq(3)").data('id'); 
+  var price = currentRow.find("td:eq(4)").text(); 
+  var desc = currentRow.find("input[type='hidden'][name='description']").val(); 
 
+  console.log(desc);
 
   $('#modal-info #editForm input[name="name"]').val(name.trim());
   $('#modal-info #editForm input[name="id"]').val(id);
-  $('#modal-info #editForm select[name="city_id"]').val(city).trigger('change');
-  $('#modal-info #editForm select[name="category_id"]').val(category).trigger('change');
+  $('#modal-info #editForm select[name="accomodation_id"]').val(accommodation).trigger('change');
+  $('#modal-info #editForm select[name="roomType_id"]').val(roomType).trigger('change');
+  $('#modal-info #editForm input[name="price"]').val(price);
+
+  $('#modal-info #editForm #summernote[name="description"]').summernote('code',desc); 
 
 }) 

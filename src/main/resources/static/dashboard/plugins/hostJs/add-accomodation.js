@@ -10,20 +10,32 @@ $(function () {
 
   $('#accomodationAddForm').validate({
     rules:{
-        accomodationName: {
+        name: {
             required: true,
             minlength: 5
       },
+      	city_id:{
+			required: true
+		},
+		category_id:{
+			required: true
+		},
         photos:{
             required: true,
             accept: "image/jpeg, image/pjpeg, image/png"
         }
     }
     ,messages:{
-        accomodationName: {
+        name: {
             required: 'Vui lòng nhập tên chỗ nghỉ',
             minlength: 'Tên chỗ nghỉ phải có ít nhất 5 chữ cái'
-      },
+      	},
+      	city_id:{
+			required: 'Vui lòng chọn thành phố'
+		},
+		category_id:{
+			required: 'Vui lòng chọn danh mục'
+		},
         photos:{
             required: 'Vui lòng thêm ít nhất 1 hình cho chỗ nghỉ',
             accept: 'Vui lòng thêm đúng định dạng ảnh jpg,jpeg,png'

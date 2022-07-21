@@ -341,7 +341,7 @@
                     <label class="d-block">Cấp quyền</label>
                     <c:forEach var="role" items="${roles }" varStatus="index">
 	                    <div class="custom-control d-inline-block mr-2 custom-radio">
-	                      <input class="custom-control-input" type="radio" value="${role.id}" id="${index.index}" name="role_id">
+	                      <input class="custom-control-input" type="radio" value="${role.id}" id="${index.index}" name="role_id" checked>
 	                      <%  Role roleItem = (Role) pageContext.getAttribute("role");
 	                      	  String role_name = "";
 	                      	if(roleItem.getName().equalsIgnoreCase("ROLE_ADMIN")){

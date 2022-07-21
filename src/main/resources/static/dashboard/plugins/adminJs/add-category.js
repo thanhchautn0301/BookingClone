@@ -6,7 +6,7 @@ $(function () {
           "emptyTable":     "Không có danh mục nào",
           "info":           "Hiển thị _START_ đến _END_ của _TOTAL_ danh mục",
           "infoEmpty":      "Hiển thị 0 đến 0 của 0 danh mục",
-          "infoFiltered":   "(filtered from _MAX_ total entries)",
+          "infoFiltered":   "",
           "infoPostFix":    "",
           "thousands":      ",",
           "lengthMenu":     "Hiển thị _MENU_ danh mục",

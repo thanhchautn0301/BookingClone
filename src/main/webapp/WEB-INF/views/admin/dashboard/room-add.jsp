@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -216,7 +217,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-add" class="nav-link active">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
@@ -228,13 +229,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-service" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-type" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>
@@ -251,13 +252,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-info" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>
@@ -298,41 +299,29 @@
         <div class="row">
           <div class="col-12">
             <div class="card card-primary">
-              <form id="roomAddForm">
+              <form method="post" action="${pageContext.request.contextPath}/admin/dashboard/room/add" id="roomAddForm">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="">Tên phòng</label>
-                    <input type="text" name="roomName" class="form-control"
+                    <input type="text" name="name" class="form-control"
                     autocomplete="off" id="" placeholder="Nhập tên phòng">
                   </div>
-                  
                   <div class="form-group">
-                    <label>Loại phòng</label>
-                    <select class="form-control select2" name="room-type" style="width: 100%;">
-                      <option value="room 1">Room 1</option>
-                      <option value="room 2">Room 2</option>
-                      <option value="room 3">Room 3</option>
-                      <option value="room 4">Room 4</option>
+                    <label>Kiểu phòng</label>
+                    <select class="form-control select2" name="roomType_id" style="width: 100%;">
+                      <c:forEach var="roomType" items="${roomTypes}">
+                      	<option value="${roomType.id }">${roomType.name}(Sức chứa: ${roomType.capacity },Người lớn: ${roomType.quantityAdult},Trẻ em: ${roomType.quantityChildren})</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="form-group">
                     <label>Loại chỗ nghỉ</label>
-                    <select class="form-control select2" name="accomodation-type" style="width: 100%;">
-                      <option value="accomodation 1">Accomodation 1</option>
-                      <option value="accomodation 2">Accomodation 2</option>
-                      <option value="accomodation 3">Accomodation 3</option>
-                      <option value="accomodation 4">Accomodation 4</option>
+                    <select class="form-control select2" name="accomodation_id" style="width: 100%;">
+                      <c:forEach var="accommo" items="${accommos }">
+                      	<option value="${accommo.id }">${accommo.name}</option>
+                      </c:forEach>
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Kiểu phòng</label>
-                    <select class="form-control select2" name="room-type" style="width: 100%;">
-                      <option value="room 1">Type 1</option>
-                      <option value="room 2">Type 2</option>
-                      <option value="room 3">Type 3</option>
-                      <option value="room 4">Type 4</option>
-                    </select>
-                  </div>
+                  </div> 
                   <div class="form-group">
                     <label for="">Mô tả</label>
                     <textarea class="form-control" name="description" id="summernote" cols="30" rows="10"></textarea>
@@ -341,7 +330,7 @@
                     <label for="">Giá phòng</label>
                     <div class="input-group">
                       <input type="number" name="price" class="form-control" 
-                      autocomplete="off" id="" placeholder="Nhập giá phòng">
+                      autocomplete="off" placeholder="Nhập giá phòng">
                       <div class="input-group-append">
                         <span class="input-group-text">$</span>
                       </div>
@@ -351,7 +340,7 @@
                     <label for="">Thêm ảnh</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="roomPhoto" id="" accept=".png, .jpg, .jpeg" multiple>
+                        <input type="file" class="custom-file-input" name="photos" accept=".png, .jpg, .jpeg" multiple>
                         <label class="custom-file-label" for="exampleInputFile">Chọn</label>
                       </div>
                     </div>

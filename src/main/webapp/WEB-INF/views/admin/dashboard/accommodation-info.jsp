@@ -1,4 +1,6 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"
+isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,7 +216,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
@@ -226,13 +228,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-service" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-type" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>
@@ -249,13 +251,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="./accomodation-info.html" class="nav-link active">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>
@@ -304,27 +306,24 @@
                 <table id="infoTable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Id</th>
+                    <th>#</th>
                     <th>Tên chỗ nghỉ</th>
                     <th>Thành phố</th>
                     <th>Danh mục</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
+                  <c:forEach var="accommo" items="${accoms }">
                     <tr>
-                      <input type="hidden" name="id" value="01">
+                      <input type="hidden" name="id" value="${accommo.id}">
                       <td></td>
-                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">Chỗ nghỉ 1</a></td>
-                      <td data-id="hcm1">Hồ Chí Minh</td>
-                      <td data-id="category1">Danh mục 1</td>
-                    </tr>  
-                    <tr>
-                      <input type="hidden" name="id" value="02">
-                      <td></td>
-                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">Chỗ nghỉ 2</a></td>
-                      <td data-id="tn1">Tây Ninh</td>
-                      <td data-id="category2">Danh mục 2</td>
-                    </tr>  
+                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">${accommo.name}</a></td>
+                      <td data-id="${accommo.city_id}">${accommo.city_name}</td>
+                      <td data-id="${accommo.category_id}">${accommo.category_name}</td>
+                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/accommodation/delete/${accommo.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
+                    </tr>   
+                  </c:forEach>  
                   </tbody>
                 </table>
               </div>
@@ -349,7 +348,9 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-info">
   <div class="modal-dialog h-100 my-0 py-3">
-    <form action="" id="editForm" class="modal-content">
+    <form enctype="multipart/form-data"
+     	  action="${pageContext.request.contextPath}/admin/dashboard/accommodation/update" method="post" 
+    	  id="editForm" class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Thông tin thành phố</h4>
         <button
@@ -368,18 +369,20 @@
         </div>
         <div class="form-group">
           <label>Thành phố</label>
-          <select class="form-control select2" name="CITY_ID" style="width: 100%;">
-            <option value="tn1">Tây Ninh</option>
-            <option value="hcm1">Hồ Chí Minh</option>
-          </select>
+            <select class="form-control select2" name="city_id" style="width: 100%;">
+            	<c:forEach var="city" items="${cities}">
+	            	<option value="${city.id}">${city.name}</option>
+          		</c:forEach>
+          	</select>
         </div>
         <div class="form-group">
           <label>Loại danh mục</label>
-          <select class="form-control select2" name="CATEGORY_ID" style="width: 100%;">
-            <option value="category1">Danh mục 1</option>
-            <option value="category2">Danh mục 2</option>
+          <select class="form-control select2" name="category_id" style="width: 100%;">
+          	<c:forEach var="category" items="${categories}">
+	            <option value="${category.id}">${category.name}</option>
+          	</c:forEach>
           </select>
-        </div>
+        </div>        
         <div class="form-group">
           <label for="">Thêm ảnh</label>
           <div class="input-group">

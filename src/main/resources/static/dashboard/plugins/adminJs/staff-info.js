@@ -6,7 +6,7 @@ $(function () {
           "emptyTable":     "Không có Staff nào",
           "info":           "Hiển thị _START_ đến _END_ của _TOTAL_ Staff",
           "infoEmpty":      "Hiển thị 0 đến 0 của 0 Staff",
-          "infoFiltered":   "(filtered from _MAX_ total entries)",
+          "infoFiltered":   "",
           "infoPostFix":    "",
           "thousands":      ",",
           "lengthMenu":     "Hiển thị _MENU_ Staff",

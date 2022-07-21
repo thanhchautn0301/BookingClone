@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,29 +7,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Host Dashboard</title>
 
-   <!-- Google Font: Source Sans Pro -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/fontawesome-free/css/all.min.css">
-   <!-- Ionicons -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/css/select2.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-   <!-- Select2 -->
-   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-   <!-- Tempusdominus Bootstrap 4 -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-   <!-- iCheck -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-   <!-- JQVMap -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/jqvmap/jqvmap.min.css">
-   <!-- Theme style -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/dist/css/adminlte.min.css">
-   <!-- overlayScrollbars -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-   <!-- Daterange picker -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/daterangepicker/daterangepicker.css">
-   <!-- summernote -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.css">
+ <!-- Google Font: Source Sans Pro -->
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+ <!-- Font Awesome -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/fontawesome-free/css/all.min.css">
+ <!-- Ionicons -->
+ <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+ <!-- iCheck -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Select2 -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+ <!-- JQVMap -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/jqvmap/jqvmap.min.css">
+ <!-- Theme style -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/dist/css/adminlte.min.css">
+ <!-- overlayScrollbars -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+ <!-- summernote -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/customStyle/style.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -44,7 +46,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="add-room.html" class="nav-link">Home</a>
+        <a href="add-service.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -208,33 +210,39 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="fas fa-house-user mx-1"></i>
-              <p>
-                Quản lý phòng
-                <i class="right fas fa-angle-left"></i>
-              </p>
+                <i class="fas fa-house-user mx-1"></i>
+                <p>
+                  Quản lý phòng
+                  <i class="right fas fa-angle-left"></i>
+                </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
+                <a href="./add-room.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/voucher" class="nav-link">
+                <a href="./add-room-type.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xem danh sách phòng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./add-voucher.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo voucher</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link active">
+                <a href="./add-service.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link">
+                <a href="./add-room-type.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>
@@ -251,13 +259,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link">
+                <a href="./accomodation-info.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" class="nav-link">
+                <a href="./add-accomodation.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>
@@ -279,12 +287,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Thêm dịch vụ</h1>
+            <h1 class="m-0">Thông tin các phòng</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Quản lý phòng</a></li>
-              <li class="breadcrumb-item active">Tạo dịch vụ</li>
+              <li class="breadcrumb-item active">Xem danh sách phòng</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -297,35 +305,38 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <form id="roomAddForm">
-                <div class="card-body">
-                  <div class="form-group">
-                    <label>Chọn chỗ nghỉ</label>
-                    <select class="form-control select2" name="room-type" style="width: 100%;">
-                      <option value="accomodation1">Accomodation 1</option>
-                      <option value="accomodation2">Accomodation 2</option>
-                      <option value="accomodation3">Accomodation 3</option>
-                      <option value="accomodation4">Accomodation 4</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Chọn dịch vụ</label>
-                    <div class="select2-maroon">
-                        <select class="form-control select2" multiple="multiple" name="accomodationType" style="width: 100%;">
-                            <option value="service1">Service 1</option>
-                            <option value="service2">Service 2</option>
-                            <option value="service3">Service 3</option>
-                            <option value="service4">Service 4</option>
-                        </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Thêm dịch vụ</button>
-                </div>
-              </form>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Danh sách phòng</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="infoTable" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tên phòng</th>
+                    <th>Kiểu phòng</th>
+                    <th>Loại chỗ nghỉ</th>
+                    <th>$</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  	<c:forEach var="room" items="${rooms }">
+	                  	<tr>
+	                      <input type="hidden" name="id" value="${room.id}">
+	                      <td></td>
+	                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">${room.name}</a></td>
+	                      <td data-id="${room.roomType_id}">${room.roomType_name}</td>
+	                      <td data-id="${room.accomodation_id}">${room.accomodation_name}</td>
+	                      <td>${room.price}</td>
+	                      <input type="hidden" name="description" value="${room.description}">
+	                    </tr> 
+                  	</c:forEach>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
           </div>
         </div>
@@ -338,18 +349,109 @@
     <strong>Copyright &copy; 2022 TLTC Company</strong>
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
+
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<!-- Modal -->
+<div class="modal fade p-17" id="modal-info">
+  <div class="modal-dialog modal-dialog-w-100 h-100 w-100 m-0 pr-0">
+    <form action="" id="editForm" class="modal-content h-100 overflow-auto">
+      <div class="modal-header pl-5">
+        <h4 class="modal-title">Thông tin thành phố</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>            
+      <div class="modal-body container-fluid px-5">
+        <div class="row">
+          <div class="form-group col-12">
+            <label>Tên phòng</label>
+            <input type="text" autocomplete="off" class="form-control" name="name">
+          </div>
+          <div class="form-group col-12">
+            <label>Kiểu phòng</label>
+            <select class="form-control select2" name="roomType_id" style="width: 100%;">
+              <c:forEach var="roomType" items="${roomTypes}">
+       			<option value="${roomType.id}">${roomType.name}</option>
+              </c:forEach>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <label>Loại chỗ nghỉ</label>
+            <select class="form-control select2" name="accomodation_id" style="width: 100%;">
+              <c:forEach var="accommo" items="${accommos}">
+       			<option value="${accommo.id}">${accommo.name}</option>
+              </c:forEach>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <label for="">Giá phòng</label>
+            <div class="input-group">
+              <input type="number" name="price" class="form-control" 
+              autocomplete="off" id="" placeholder="Nhập giá phòng">
+              <div class="input-group-append">
+                <span class="input-group-text">$</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label for="">Mô tả</label>
+            <textarea class="form-control" name="description" id="summernote" cols="30" rows="10"></textarea>
+          </div>
+          <div class="form-group col-12">
+            <label for="">Thêm ảnh</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" name="photos" class="custom-file-input" id="" accept=".png, .jpg, .jpeg" multiple>
+                <label class="custom-file-label" for="exampleInputFile">Chọn hình của chỗ nghỉ</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="id">
+      </div>
+      <div class="modal-footer px-5 justify-content-between">
+        <button
+          type="button"
+          class="btn btn-default"
+          data-dismiss="modal"
+        >
+          Đóng
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Lưu
+        </button>
+      </div>
+    </form>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jszip/jszip.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- bs-custom-file-input -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
@@ -364,17 +466,23 @@
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/moment/moment.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <!-- jquery-validation -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Summernote -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- InputMask -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/moment/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/inputmask/jquery.inputmask.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/dist/js/adminlte.js"></script>
 <!-- Select2 -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/js/select2.full.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/hostJs/add-service.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/hostJs/room-info.js"></script>
 </body>
 </html>

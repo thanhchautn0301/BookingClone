@@ -36,12 +36,6 @@ public class DashboardStaffController {
 	
 	@RequestMapping(value = "add",method = RequestMethod.POST)
 	public String staffAddSubmit(Staff staff,RedirectAttributes redirectAttributes) {
-//		System.out.println("Staff name : " + staff.getName());
-//		System.out.println("Staff dob : " + staff.getDob());
-//		System.out.println("Staff phone : " + staff.getPhone());
-//		System.out.println("Staff address : " + staff.getAddress());
-//		System.out.println("Staff Civil identity : " + staff.getCivilIdentity());
-//		System.out.println("Staff Role : " + staff.getRole_id());
 		staff.setPassword("abc");
 		staffService.create(staff);
 		if(staff != null) {

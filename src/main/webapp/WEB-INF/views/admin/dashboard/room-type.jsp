@@ -220,7 +220,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
@@ -232,13 +232,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-service" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room-type" class="nav-link active">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>
@@ -255,13 +255,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-info" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation-add" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>

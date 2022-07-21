@@ -1,6 +1,16 @@
 $(function () {
     bsCustomFileInput.init();
-    $('#summernote').summernote();
+    $('#summernote').summernote({
+	 toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strikethrough']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']]
+  	]
+	});
   });
   $('.select2').select2()
 
@@ -11,7 +21,7 @@ $(function () {
 
   $('#roomAddForm').validate({
     rules:{
-      roomName: {
+      name: {
         required: true,
         minlength: 5
       },
@@ -19,12 +29,12 @@ $(function () {
         required: true,
         min: 0
       },
-      roomPhoto:{
+      photos:{
         accept: "image/jpeg, image/pjpeg, image/png"
       }
     }
     ,messages:{
-      roomName: {
+      name: {
         required: 'Vui lòng nhập tên phòng',
         minlength: 'Tên phòng phải có ít nhất 5 chữ cái'
       },
@@ -33,7 +43,7 @@ $(function () {
         min: 'Giá không được nhỏ hơn 0',
         number: 'Giá không được chứa chữ'
       },
-      roomPhoto:{
+      photos:{
         accept: 'Vui lòng thêm đúng định dạng ảnh jpg,jpeg,png'
       }
     },

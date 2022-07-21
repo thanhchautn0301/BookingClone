@@ -1,0 +1,26 @@
+/* .td-mw{
+    max-width: 120px;
+    word-break: break-word;
+    vertical-align: top;
+} */
+.modal-dialog-w-100{
+    max-width: 100%;
+}
+.px-17{
+    padding-left: 17px !important;
+    padding-right: 17px !important;
+}
+.p-17{
+   padding: 17px;
+}
+#editForm::-webkit-scrollbar{
+    width: 6px;
+    background-color: #ccc;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+#editForm::-webkit-scrollbar-thumb{
+    background-color: rgb(188, 190, 193);
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+}

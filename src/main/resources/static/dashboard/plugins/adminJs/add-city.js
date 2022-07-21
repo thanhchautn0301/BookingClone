@@ -6,7 +6,7 @@ $(function () {
 	          "emptyTable":     "Không có thành phố nào",
 	          "info":           "Hiển thị _START_ đến _END_ của _TOTAL_ thành phố",
 	          "infoEmpty":      "Hiển thị 0 đến 0 của 0 thành phố",
-	          "infoFiltered":   "(filtered from _MAX_ total entries)",
+	          "infoFiltered":   "",
 	          "infoPostFix":    "",
 	          "thousands":      ",",
 	          "lengthMenu":     "Hiển thị _MENU_ thành phố",

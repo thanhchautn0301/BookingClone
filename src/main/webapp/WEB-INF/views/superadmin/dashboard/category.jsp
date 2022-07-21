@@ -415,7 +415,7 @@
                             <td></td>
                             <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">${category.name }</a></td>
                             <input type="hidden" name="id" value="${category.id }">
-                            <td><a href="${pageContext.request.contextPath }/superadmin/dashboard/category/delete/${category.id}" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></a></td>
+                            <td><a href="${pageContext.request.contextPath }/superadmin/dashboard/category/delete/${category.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
                           </tr> 
                         </c:forEach>                  
                         </tbody>
