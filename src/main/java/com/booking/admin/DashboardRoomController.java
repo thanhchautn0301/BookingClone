@@ -3,6 +3,7 @@ package com.booking.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,5 +70,35 @@ public class DashboardRoomController {
 			redirectAttributes.addFlashAttribute("result","success");
 		}
 		return "redirect:/admin/dashboard/room/add";
+	}
+	
+	@RequestMapping(value = "edit",method = RequestMethod.POST)
+	public String roomEdit(Room room,@RequestParam(name =  "photos", required = false)
+	MultipartFile[] photos,
+	RedirectAttributes redirectAttributes) {
+		int hostId = 1;
+		room.setStaff_id(hostId);
+		boolean result = roomService.update(room);
+		if(!result) {
+			redirectAttributes.addFlashAttribute("result","failed");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("result","success");
+		}
+		return "redirect:/admin/dashboard/room/info";
+	}
+	
+	@RequestMapping(value = "delete",method = RequestMethod.GET)
+	public String roomDelete(@RequestParam("id") int id,
+	RedirectAttributes redirectAttributes) {
+		
+		boolean result = roomService.delete(id);
+		if(!result) {
+			redirectAttributes.addFlashAttribute("result","failed");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("result","success");
+		}
+		return "redirect:/admin/dashboard/room/info";
 	}
 }

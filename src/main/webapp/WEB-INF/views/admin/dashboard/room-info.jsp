@@ -1,3 +1,5 @@
+<%@page import="java.math.BigDecimal"%>
+<%@page import="com.booking.entities.Room"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -218,25 +220,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./add-room.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo phòng mới</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./add-room-type.html" class="nav-link active">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/info" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách phòng</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./add-voucher.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/voucher" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo voucher</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./add-service.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/service" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo dịch vụ</p>
                 </a>
@@ -259,13 +261,13 @@
             </a>
             <ul class="nav nav-treeview">  
               <li class="nav-item">
-                <a href="./accomodation-info.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/accommodation/info" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách chỗ nghỉ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./add-accomodation.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm chỗ nghỉ</p>
                 </a>
@@ -319,6 +321,7 @@
                     <th>Kiểu phòng</th>
                     <th>Loại chỗ nghỉ</th>
                     <th>$</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -329,8 +332,11 @@
 	                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">${room.name}</a></td>
 	                      <td data-id="${room.roomType_id}">${room.roomType_name}</td>
 	                      <td data-id="${room.accomodation_id}">${room.accomodation_name}</td>
-	                      <td>${room.price}</td>
-	                      <input type="hidden" name="description" value="${room.description}">
+	                      <% Room room = (Room) pageContext.getAttribute("room");
+	                      	 String price = String.format("%.2f", room.getPrice());%>
+	                      <td><%= price %></td>
+	                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/room/delete?id=${room.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
+	                      <textarea name="description" data-id="${room.id}" hidden>${room.description }</textarea>
 	                    </tr> 
                   	</c:forEach>
                   </tbody>
@@ -357,7 +363,7 @@
 <!-- Modal -->
 <div class="modal fade p-17" id="modal-info">
   <div class="modal-dialog modal-dialog-w-100 h-100 w-100 m-0 pr-0">
-    <form action="" id="editForm" class="modal-content h-100 overflow-auto">
+    <form action="${pageContext.request.contextPath}/admin/dashboard/room/edit" method="post" id="editForm" class="modal-content h-100 overflow-auto">
       <div class="modal-header pl-5">
         <h4 class="modal-title">Thông tin thành phố</h4>
         <button

@@ -226,6 +226,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/info" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xem danh sách phòng</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/dashboard/voucher" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tạo voucher</p>
