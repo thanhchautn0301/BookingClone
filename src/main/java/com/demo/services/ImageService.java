@@ -7,6 +7,7 @@ import com.demo.entities.Category;
 import com.demo.entities.City;
 import com.demo.entities.Staff;
 import com.demo.entities_api.ImageApi;
+import com.demo.helper.FileUpload;
 import com.demo.repositories.ImageRepository;
 import com.demo.repositories.RoomRepository;
 import com.demo.repositories.AccomodationRepository;
@@ -17,11 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 @Service
-public class ImageService implements IImageService {
+public class ImageService implements IImageService, ServletContextAware {
 	
     @Autowired
     private ImageRepository imageRepository;
@@ -29,6 +34,8 @@ public class ImageService implements IImageService {
     private AccomodationRepository accomodationRepository;
     @Autowired
     private RoomRepository roomRepository;
+    
+    private ServletContext servletContext;
     
     @Override
     public List<ImageApi> findall() {
@@ -41,7 +48,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public ImageApi create(ImageApi imageApi) {
+    public ImageApi create(ImageApi imageApi, MultipartFile multipartFile) {
         try {
         	Image image = new Image();
 
@@ -54,6 +61,12 @@ public class ImageService implements IImageService {
         	image.setStatus(imageApi.isStatus());
         	
         	Image newImage = imageRepository.save(image);
+        	
+        	if(newImage != null) {
+        		FileUpload.upload(servletContext, multipartFile);
+        	}
+        	
+        	
         	imageApi.setId(newImage.getId());
             return imageApi;
         } catch (Exception e) {
@@ -103,4 +116,10 @@ public class ImageService implements IImageService {
     public List<ImageApi> findallimagepaginate(int offset, int no) {
         return imageRepository.findAllImagePagination(PageRequest.of(offset,no));
     }
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		// TODO Auto-generated method stub
+		this.servletContext = servletContext;
+	}
 }

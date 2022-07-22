@@ -46,6 +46,7 @@ public class AccomodationApiController {
 
     @RequestMapping(value="create", method=RequestMethod.POST)
     public ResponseEntity<AccomodationApi> create(@RequestBody AccomodationApi accomodationApi) {
+    	
         try {
             return new ResponseEntity<AccomodationApi>(accomodationService.create(accomodationApi), HttpStatus.OK);
         } catch (Exception ex) {

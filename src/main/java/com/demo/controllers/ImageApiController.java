@@ -2,18 +2,29 @@ package com.demo.controllers;
 
 import com.demo.entities_api.ImageApi;
 import com.demo.services.IImageService;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import javax.servlet.ServletContext;
 
 @RestController
 @RequestMapping(value = {"api/image"})
 public class ImageApiController {
     @Autowired
     private IImageService imageService;
+    
+    private ServletContext servletContext ;
+    
     @RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<ImageApi>> findall() {
         try {
@@ -45,9 +56,9 @@ public class ImageApiController {
     }
 
     @RequestMapping(value="create", method=RequestMethod.POST)
-    public ResponseEntity<ImageApi> create(@RequestBody ImageApi imageApi) {
+    public ResponseEntity<ImageApi> create(@RequestBody ImageApi imageApi, MultipartFile file) {
         try {
-            return new ResponseEntity<ImageApi>(imageService.create(imageApi), HttpStatus.OK);
+            return new ResponseEntity<ImageApi>(imageService.create(imageApi, file), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<ImageApi>(HttpStatus.BAD_REQUEST);
@@ -82,5 +93,19 @@ public class ImageApiController {
             ex.printStackTrace();
             return new ResponseEntity<ImageApi>(HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @RequestMapping(value="getimage/{name}", method=RequestMethod.GET ,produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImage(@PathVariable("name") String name) {
+    
+    	try {
+    		InputStream in = servletContext.getResourceAsStream("/images/"+ name);
+			return  IOUtils.toByteArray(in) ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    	
     }
 }
