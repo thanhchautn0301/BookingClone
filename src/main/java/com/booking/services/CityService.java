@@ -24,15 +24,15 @@ public class CityService implements ICityService {
 
 
 	@Override
-	public City create(String name) {
+	public boolean create(String name) {
 		City city = new City();
 		city.setName(name);
 		try {
-			Response<City> response = cityAPI.create(city).execute();
+			Response<Boolean> response = cityAPI.create(city).execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
 

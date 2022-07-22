@@ -43,4 +43,29 @@ public class RoomService implements IRoomService{
 		}
 	}
 
+	@Override
+	public boolean update(Room room) {
+		Response<Boolean> response;
+		try {
+			room.setStatus(true);
+			response = roomAPI.update(room).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(int id) {
+		Response<Boolean> response;
+		try {
+			response = roomAPI.delete(id).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

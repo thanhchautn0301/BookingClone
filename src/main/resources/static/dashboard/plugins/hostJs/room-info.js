@@ -75,9 +75,16 @@ $(function () {
           required: true,
           minlength: 5
         },
+        roomType_id:{
+		  required: true
+		},
+		accomodation_id:{
+		  required: true
+		},
         price:{
           required: true,
-          min: 0
+          min: 0,
+          maxlength: 13
         },
         photos:{
           accept: "image/jpeg, image/pjpeg, image/png"
@@ -88,10 +95,18 @@ $(function () {
         required: 'Vui lòng nhập tên phòng',
         minlength: 'Tên phòng phải có ít nhất 5 chữ cái'
       },
+      roomType_id:{
+		required: 'Vui lòng chọn kiểu phòng'
+	  }
+      ,
+      accomodation_id:{
+		required : 'Vui lòng chọn chỗ nghỉ'
+	  },
       price:{
         required: 'Vui lòng nhập giá phòng',
         min: 'Giá không được nhỏ hơn 0',
-        number: 'Giá không được chứa chữ'
+        number: 'Giá không được chứa chữ',
+        maxlength: 'Giá không được vượt quá 12 chữ số'
       },
       photos:{
         accept: 'Vui lòng thêm đúng định dạng ảnh jpg,jpeg,png'
@@ -121,9 +136,8 @@ $(function () {
   var roomType = currentRow.find("td:eq(2)").data('id'); 
   var accommodation = currentRow.find("td:eq(3)").data('id'); 
   var price = currentRow.find("td:eq(4)").text(); 
-  var desc = currentRow.find("input[type='hidden'][name='description']").val(); 
+  var desc = $('.card-body').find("textarea[name='description'][data-id='"+id+"']").val();
 
-  console.log(desc);
 
   $('#modal-info #editForm input[name="name"]').val(name.trim());
   $('#modal-info #editForm input[name="id"]').val(id);
