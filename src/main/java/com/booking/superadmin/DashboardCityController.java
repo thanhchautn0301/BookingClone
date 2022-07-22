@@ -31,8 +31,8 @@ public class DashboardCityController {
 	@RequestMapping(value = "add",method = RequestMethod.POST)
 	public String city(@RequestParam("name") String cityName
 			,RedirectAttributes redirectAttributes) {
-			City city = cityService.create(cityName);
-			if(city != null) {
+			boolean result = cityService.create(cityName);
+			if(result) {
 				redirectAttributes.addFlashAttribute("result","success");
 			}
 			else {

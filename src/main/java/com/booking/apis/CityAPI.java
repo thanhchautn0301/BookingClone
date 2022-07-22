@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 
 public interface CityAPI {
 	@POST("city/create")
-	public Call<City> create(@Body City city);
+	public Call<Boolean> create(@Body City city);
 	
 	@PUT("city/update")
 	public Call<Boolean> update(@Body City city);
