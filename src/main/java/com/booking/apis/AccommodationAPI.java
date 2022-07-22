@@ -31,4 +31,5 @@ public interface AccommodationAPI {
 	
 	@POST("accomodation/create")
 	Call<Accommodation> create(@Body Accommodation accommodation);
+
 }

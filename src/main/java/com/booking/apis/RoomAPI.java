@@ -16,4 +16,5 @@ public interface RoomAPI {
 	
 	@GET("room/findAllByHostId/{hostId}")
 	Call<List<Room>> findAllByHostId(@Path("hostId") int hostId);
+	
 }

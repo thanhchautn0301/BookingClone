@@ -33,6 +33,7 @@ public class DashboardAccommodationController {
 		modelMap.put("accoms", accommodationService.findAllByHostId(1));
 		modelMap.put("categories", categoryService.findAll());
 		modelMap.put("cities",cityService.findAll());
+		System.out.println(accommodationService.findAllByHostId(1));
 		return "admin/dashboard/accommodation-info";
 	}
 	
