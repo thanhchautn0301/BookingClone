@@ -13,4 +13,5 @@ public interface IRoomService {
     public boolean delete(Integer roomId);
     public List<RoomApi> findallroomwithsort(String field);
     public List<RoomApi> findallroompaginate(int offset, int no);
+    public List<RoomApi> findAllByHostId(int hostId);
 }

@@ -107,4 +107,9 @@ public class RoomService implements IRoomService {
     public List<RoomApi> findallroompaginate(int offset, int no) {
         return roomRepository.findAllRoomPagination(PageRequest.of(offset,no));
     }
+
+	@Override
+	public List<RoomApi> findAllByHostId(int hostId) {
+		return roomRepository.findAllRoomByHostId(hostId);
+	}
 }

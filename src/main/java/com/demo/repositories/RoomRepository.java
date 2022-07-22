@@ -15,15 +15,18 @@ import java.util.List;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, roomType.id, name, description, status, price) from Room where status =true")
+    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, accomodation.name, roomType.id , roomType.name , roomType.staffId , name, description, status, price) from Room where status =true")
     public List<RoomApi> findAllRoom();
+    
+    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, accomodation.name, roomType.id , roomType.name , roomType.staffId , name, description, status, price) from Room where status =true and roomType.staffId = :hostId")
+    public List<RoomApi> findAllRoomByHostId(int hostId);
 
-    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, roomType.id, name, description, status, price) from Room where status =true")
+    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, accomodation.name, roomType.id , roomType.name , roomType.staffId , name, description, status, price) from Room where status =true")
     public List<RoomApi> findAllRoomSort(Sort sort);
 
-    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, roomType.id, name, description, status, price) from Room where status =true")
+    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, accomodation.name, roomType.id , roomType.name , roomType.staffId , name, description, status, price) from Room where status =true")
     public List<RoomApi> findAllRoomPagination(Pageable pageable);
 
-    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, roomType.id, name, description, status, price) from Room where status =true and id =:id")
+    @Query("select new com.demo.entities_api.RoomApi(id, accomodation.id, accomodation.name, roomType.id , roomType.name , roomType.staffId , name, description, status, price) from Room where status =true and id =:id")
     public RoomApi findRoomById(@Param("id") int id);
 }

@@ -89,4 +89,9 @@ public class RoomTypeService implements IRoomTypeService {
         List<RoomTypeApi> roomtypes = roomTypeRepository.findAllRoomTypePagination(PageRequest.of(offset,no));
         return roomtypes;
     }
+
+	@Override
+	public List<RoomTypeApi> findAllByHostId(int hostId) {
+		return roomTypeRepository.findAllByHostId(hostId);
+	}
 }

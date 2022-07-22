@@ -17,4 +17,7 @@ public interface StaffRepository extends CrudRepository<Staff,Integer> {
 
     @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where id= :id and status = true")
     public StaffApi findStaffById(@Param("id" )int id);
+    
+    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where email= :email")
+    public StaffApi findStaffByEmail(@Param("email" )String email);
 }
