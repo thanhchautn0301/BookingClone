@@ -93,8 +93,9 @@ public class StaffService implements IStaffService{
     @Override
     public boolean delete(int staffApi_id) {
         try {
-            staffRepository.deleteById(staffApi_id);
-            return true;
+            Staff staff = staffRepository.findById(staffApi_id).get();
+            staff.setStatus(true);
+            return staffRepository.save(staff)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;

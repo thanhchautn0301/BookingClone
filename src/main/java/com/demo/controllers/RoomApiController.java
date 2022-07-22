@@ -9,7 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 @RestController
 @RequestMapping(value = {"api/room"})
@@ -36,6 +41,38 @@ public class RoomApiController {
         }
     }
 
+    @RequestMapping(value="findroombyguestrequest", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomApi>> findroombyguestrequest(@RequestParam("id") int id,@RequestParam(value = "daterange") String dateRange,@RequestParam("capacity") int capacity,@RequestParam("childrenquantity") int childrenQuantity,@RequestParam("adultquantity") int adultQuantity) {
+        try {
+            Date from = null;
+            Date to = null;
+            if(dateRange !=null) {
+                String[] dates = dateRange.split("to");
+
+                String f = dates[0].trim().replace("-","/");
+                String t = dates[1].trim().replace("-","/");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                from = sdf.parse(f);
+                to = sdf.parse(t);
+            }
+            return new ResponseEntity<List<RoomApi>>(roomService.findroombyguestrequest(id, from, to, capacity, childrenQuantity, adultQuantity), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findroombyadminrequest", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomApi>> findroombyadminrequest(@RequestParam("id") int id, @RequestParam("capacity") int capacity,@RequestParam("childrenquantity") int childrenquantity,@RequestParam("adultquantity") int adultquantity) {
+        try {
+            return new ResponseEntity<List<RoomApi>>(roomService.findroombyadminrequest(id,capacity, childrenquantity, adultquantity), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value="findallroomwithsort", method=RequestMethod.GET)
     public ResponseEntity<List<RoomApi>> findallroomtypewithsort(@RequestParam("field") String field) {
         try {
@@ -55,6 +92,25 @@ public class RoomApiController {
             return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
         }
     }
+//
+//    @RequestMapping(value="findallroomwithaccomidandbookingdetail", method=RequestMethod.GET)
+//    public ResponseEntity<List<RoomApi>> findallroomwithaccomidandbookingdetail(@RequestParam("id") int id, @RequestParam("daterange") String dateRange) {
+//        try {
+//            String[] dates = dateRange.split("to");
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+////            Date from = sdf.parse(dates[0].trim());
+//            Date from = sdf.parse("02/07/2022");
+////            Date to = sdf.parse((dates[1]).trim());
+//            Date to = sdf.parse("03/07/2022");
+//            System.out.println(from);
+//            System.out.println(to);
+//            return new ResponseEntity<List<RoomApi>>(roomService.findallroomwithaccomidandbookingdetail(id, from, to), HttpStatus.OK);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @RequestMapping(value="findroombyid/{id}", method=RequestMethod.GET)
     public ResponseEntity<RoomApi> findallroomtypewithpaginate(@PathVariable int id) {

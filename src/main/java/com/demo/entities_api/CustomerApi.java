@@ -9,9 +9,11 @@ public class CustomerApi {
     private String name;
     private String email;
     private String phone;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date dob;
     private String password;
+    private String civilIdentity;
+    private boolean status;
 
     public CustomerApi() {
     }
@@ -91,6 +93,5 @@ public class CustomerApi {
         this.status = status;
     }
 
-    private String civilIdentity;
-    private boolean status;
+    
 }

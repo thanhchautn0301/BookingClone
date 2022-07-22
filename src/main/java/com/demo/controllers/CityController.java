@@ -28,12 +28,12 @@ public class CityController {
 	
 	@RequestMapping(value = "create" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
 	consumes = MimeTypeUtils.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
-	public ResponseEntity<CityApi> create(@RequestBody CityApi cityApi){
+	public ResponseEntity<Boolean> create(@RequestBody CityApi cityApi){
 		
 		try {
-			return new ResponseEntity<CityApi>(cityService.create(cityApi),HttpStatus.OK);
+			return new ResponseEntity<Boolean>(cityService.create(cityApi),HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class CityController {
 			method = RequestMethod.GET)
 	public ResponseEntity<List<CityApi>> findall(){
 				try {
-					return new ResponseEntity<List<CityApi>>(cityService.findAll(),HttpStatus.OK);
+					return new ResponseEntity<List<CityApi>>(cityService.findAllCity(),HttpStatus.OK);
 				} catch (Exception e) {
 					return new ResponseEntity<List<CityApi>>(HttpStatus.BAD_REQUEST);
 				}
@@ -52,7 +52,7 @@ public class CityController {
 			public ResponseEntity<CityApi> findById(@PathVariable("id") int id){
 				
 				try {
-					return new ResponseEntity<CityApi>(cityService.findById(id),HttpStatus.OK);
+					return new ResponseEntity<CityApi>(cityService.findCityById(id),HttpStatus.OK);
 				} catch (Exception e) {
 					return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 				}
