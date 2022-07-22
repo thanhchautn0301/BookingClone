@@ -9,9 +9,9 @@ public class BookingDetailApi {
     private Integer roomId;
     private Integer quantityAdult;
     private Integer quantityChildren;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date checkin;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date checkout;
     private boolean status;
 

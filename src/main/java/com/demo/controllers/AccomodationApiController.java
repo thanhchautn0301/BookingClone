@@ -84,4 +84,13 @@ public class AccomodationApiController {
             return new ResponseEntity<AccomodationApi>(HttpStatus.BAD_REQUEST);
         }
     }
+    @RequestMapping(value="findaccomodationbyhostid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<List<AccomodationApi>> findaccomodationbyhostid(@PathVariable("id") int id) {
+        try {
+            return new ResponseEntity<List<AccomodationApi>>(accomodationService.findallaccomodationbyhost(id),HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<AccomodationApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

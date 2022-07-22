@@ -76,8 +76,9 @@ public class BookingService implements IBookingService {
     @Override
     public boolean delete(Integer bookingApi_Id) {
         try {
-            bookingRepository.deleteById(bookingApi_Id);
-            return true;
+            Booking booking = bookingRepository.findById(bookingApi_Id).get();
+            booking.setStatus(true);
+            return bookingRepository.save(booking)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;

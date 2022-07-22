@@ -25,4 +25,7 @@ public interface RoomTypeRepository extends JpaRepository<RoomType, Integer> {
 
     @Query("select new com.demo.entities_api.RoomTypeApi(id, name, capacity, quantityAdult, quantityChildren, description, status, staffId) from RoomType where status =true and id = :id")
     public RoomTypeApi findRoomTypeById(@Param("id") int id);
+    
+    @Query("select new com.demo.entities_api.RoomTypeApi(id, name, capacity, quantityAdult, quantityChildren, description, status, staffId) from RoomType where status =true and staffId = :staffId")
+    public List<RoomTypeApi> findAllByHostId(@Param("staffId") int staffId);
 }

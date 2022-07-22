@@ -11,7 +11,7 @@ public class StaffApi {
     private String email;
     private String civilIdentity;
     private String password;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     private Date dob;
     private String address;
     private int role_id;

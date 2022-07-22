@@ -14,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService implements IRoomService {
@@ -90,8 +92,9 @@ public class RoomService implements IRoomService {
     @Override
     public boolean delete(Integer roomId) {
         try {
-            roomRepository.deleteById(roomId);
-            return true;
+            Room room = roomRepository.findById(roomId).get();
+            room.setStatus(false);
+            return roomRepository.save(room)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;
@@ -106,5 +109,19 @@ public class RoomService implements IRoomService {
     @Override
     public List<RoomApi> findallroompaginate(int offset, int no) {
         return roomRepository.findAllRoomPagination(PageRequest.of(offset,no));
+    }
+
+	@Override
+	public List<RoomApi> findAllByHostId(int hostId) {
+		return roomRepository.findAllRoomByHostId(hostId);
+	}
+    @Override
+    public List<RoomApi> findroombyguestrequest(Integer id, Date from, Date to, int capacity, int childrenQuantity, int adultQuantity ) {
+        return roomRepository.findRoomByGuestRequest(id, from, to, capacity,childrenQuantity, adultQuantity);
+    }
+
+    @Override
+    public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity) {
+        return roomRepository.findRoomByAdminRequest(id, capacity,childrenQuantity, adultQuantity);
     }
 }

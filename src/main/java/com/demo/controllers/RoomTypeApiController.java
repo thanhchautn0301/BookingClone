@@ -87,4 +87,14 @@ public class RoomTypeApiController {
             return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @RequestMapping(value="findAllByHostId/{hostId}", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomTypeApi>> findAllByHostId(@PathVariable("hostId") int hostId) {
+        try {
+            return new ResponseEntity<List<RoomTypeApi>>(roomTypeService.findAllByHostId(hostId), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomTypeApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

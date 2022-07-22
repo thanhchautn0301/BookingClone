@@ -2,11 +2,14 @@ package com.demo.controllers;
 
 import com.demo.entities_api.InvoiceApi;
 import com.demo.services.IInvoiceService;
+import com.demo.services.ITurnoverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -14,6 +17,8 @@ import java.util.List;
 public class InvoiceApiController {
     @Autowired
     private IInvoiceService invoiceService;
+    @Autowired
+    private ITurnoverService turnoverService;
     @RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<InvoiceApi>> findall() {
         try {
@@ -81,6 +86,22 @@ public class InvoiceApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<InvoiceApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="turnoverOfHost", method=RequestMethod.POST)
+    public ResponseEntity<Double> turnoverOfHost(@RequestParam("hostId") int hostId, @RequestParam(value = "accomodationId", required=false) Integer accomodationId,
+    @RequestParam("fromDate") String fromDate, @RequestParam("untilDate") String untilDate) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date _fromDate = formatter.parse(fromDate);
+            Date _untilDate = formatter.parse(untilDate);
+            int _accomodationId = 0;
+            if(accomodationId != null) _accomodationId = accomodationId.intValue();
+            return new ResponseEntity<Double>(turnoverService.caculateTurnover(hostId,_accomodationId, _fromDate, _untilDate),HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
         }
     }
 }

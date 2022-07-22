@@ -90,8 +90,9 @@ public class BookingDetailService implements IBookingDetailService {
     @Override
     public boolean delete(Integer bookingDetailApi_Id) {
         try {
-            bookingDetailRepository.deleteById(bookingDetailApi_Id);
-            return true;
+            BookingDetail bookingDetail = bookingDetailRepository.findById(bookingDetailApi_Id).get();
+            bookingDetail.setStatus(false);
+            return bookingDetailRepository.save(bookingDetail)!=null;
         } catch(Exception e) {
             e.printStackTrace();
             return false;
