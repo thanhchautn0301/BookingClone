@@ -12,4 +12,5 @@ public interface IStaffService {
     public StaffApi create(StaffApi staffApi);
     public boolean update(StaffApi staffApi);
     public boolean delete(int staffApi_id);
+    public StaffApi findStaffByEmail(String email);
 }

@@ -93,7 +93,7 @@ public class RoomService implements IRoomService {
     public boolean delete(Integer roomId) {
         try {
             Room room = roomRepository.findById(roomId).get();
-            room.setStatus(true);
+            room.setStatus(false);
             return roomRepository.save(room)!=null;
         } catch(Exception e) {
             e.printStackTrace();
@@ -111,6 +111,10 @@ public class RoomService implements IRoomService {
         return roomRepository.findAllRoomPagination(PageRequest.of(offset,no));
     }
 
+	@Override
+	public List<RoomApi> findAllByHostId(int hostId) {
+		return roomRepository.findAllRoomByHostId(hostId);
+	}
     @Override
     public List<RoomApi> findroombyguestrequest(Integer id, Date from, Date to, int capacity, int childrenQuantity, int adultQuantity ) {
         return roomRepository.findRoomByGuestRequest(id, from, to, capacity,childrenQuantity, adultQuantity);
