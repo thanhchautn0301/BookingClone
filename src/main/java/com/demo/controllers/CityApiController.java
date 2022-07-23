@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping(value = {"api/city"})
 public class CityApiController {
 	@Autowired
 	private ICityService cityService;
-	
+
+//	@RolesAllowed("HOST")
 	@RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<CityApi>> findAll() {
         try {

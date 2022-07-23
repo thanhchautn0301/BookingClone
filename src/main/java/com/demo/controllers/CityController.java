@@ -19,6 +19,8 @@ import com.demo.entities.City;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping( value = "api/city")
 public class CityController {
@@ -36,7 +38,8 @@ public class CityController {
 			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+//	@RolesAllowed("HOST")
 	@RequestMapping(value = "findall" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
 			method = RequestMethod.GET)
 	public ResponseEntity<List<CityApi>> findall(){
