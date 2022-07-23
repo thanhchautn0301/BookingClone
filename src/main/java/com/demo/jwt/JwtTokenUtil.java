@@ -33,6 +33,7 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .setSubject(staffApi.getId()+","+staffApi.getEmail())
                 .claim("role",staffApi.getRole_name())
+                .claim("id",staffApi.getId())
                 .setIssuer("GiaTuan")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))

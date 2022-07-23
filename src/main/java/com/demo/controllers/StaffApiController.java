@@ -61,7 +61,7 @@ public class StaffApiController {
     }
 
     @RequestMapping(value="login", method= RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
             System.out.println(request.getEmail());
             System.out.println(request.getPassword());
@@ -72,16 +72,9 @@ public class StaffApiController {
 
             String accessToken = jwtTokenUtil.generateAccessToken(staffApi);
 
-            AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken);
-
-            // create a cookie
-            Cookie cookie = new Cookie("token", accessToken);
-            cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
-            cookie.setSecure(true);
-            cookie.setHttpOnly(true);
-
-            //add cookie to response
-            response.addCookie(cookie);
+            AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken, staffApi.getId());
+            System.out.println("Access token: "+accessToken);
+            System.out.println("Id: "+Integer.parseInt(String.valueOf(authResponse.getId())));
 
             return ResponseEntity.ok(authResponse);
 

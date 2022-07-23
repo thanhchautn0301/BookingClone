@@ -85,7 +85,7 @@ public class AccomodationApiController {
         }
     }
 
-    @RolesAllowed("SUPERADMIN")
+//    @RolesAllowed("SUPERADMIN")
     @RequestMapping(value="findaccomodationbyhostid/{id}", method=RequestMethod.GET)
     public ResponseEntity<List<AccomodationApi>> findaccomodationbyhostid(@PathVariable("id") int id) {
         try {

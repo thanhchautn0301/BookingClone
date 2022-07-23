@@ -111,9 +111,14 @@ public class StaffService implements IStaffService{
             return false;
         }
     }
-    
+
     @Override
-	public StaffApi findStaffByEmail(String email) {
-		return staffRepository.findStaffByEmail(email);
-	}
+    public StaffApi findStaffByEmail(String email) {
+        return null;
+    }
+
+//    @Override
+//	public StaffApi findStaffByEmail(String email) {
+//		return staffRepository.findStaffApiByEmail(email);
+//	}
 }

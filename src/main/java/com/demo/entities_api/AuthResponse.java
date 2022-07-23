@@ -3,6 +3,15 @@ package com.demo.entities_api;
 public class AuthResponse {
     private String email;
     private String accessToken;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -20,9 +29,10 @@ public class AuthResponse {
         this.accessToken = accessToken;
     }
 
-    public AuthResponse(String email, String accessToken) {
+    public AuthResponse(String email, String accessToken, int id) {
         this.email = email;
         this.accessToken = accessToken;
+        this.id = id;
     }
 
     public AuthResponse() {
