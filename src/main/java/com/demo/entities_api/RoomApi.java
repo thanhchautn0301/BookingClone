@@ -5,19 +5,11 @@ import com.demo.entities.RoomType;
 
 public class RoomApi {
     private Integer id;
-
-    public RoomApi(Integer id, Integer accomodation_id, Integer roomType_id, String name, String description, boolean status, double price) {
-        this.id = id;
-        this.accomodation_id = accomodation_id;
-        this.roomType_id = roomType_id;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.price = price;
-    }
-
     private Integer accomodation_id;
+    private String accomodation_name;
     private Integer roomType_id;
+    private String roomType_name;
+    private Integer staff_id;
     private String name;
     private String description;
 
@@ -26,7 +18,49 @@ public class RoomApi {
 
     private boolean status;
 
-    public Integer getId() {
+    
+  
+
+	public RoomApi(Integer id, Integer accomodation_id, String accomodation_name, Integer roomType_id,
+			String roomType_name, Integer staff_id, String name, String description, boolean status, double price) {
+		super();
+		this.id = id;
+		this.accomodation_id = accomodation_id;
+		this.accomodation_name = accomodation_name;
+		this.roomType_id = roomType_id;
+		this.roomType_name = roomType_name;
+		this.staff_id = staff_id;
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.price = price;
+	}
+
+	public String getAccomodation_name() {
+		return accomodation_name;
+	}
+
+	public void setAccomodation_name(String accomodation_name) {
+		this.accomodation_name = accomodation_name;
+	}
+
+	public String getRoomType_name() {
+		return roomType_name;
+	}
+
+	public void setRoomType_name(String roomType_name) {
+		this.roomType_name = roomType_name;
+	}
+
+	public Integer getStaff_id() {
+		return staff_id;
+	}
+
+	public void setStaff_id(Integer staff_id) {
+		this.staff_id = staff_id;
+	}
+
+	public Integer getId() {
         return id;
     }
 

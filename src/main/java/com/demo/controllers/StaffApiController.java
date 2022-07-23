@@ -63,4 +63,14 @@ public class StaffApiController {
             return new ResponseEntity<StaffApi>(HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @RequestMapping(value="findByEmail/{email}", method=RequestMethod.GET)
+    public ResponseEntity<StaffApi> findByEmail(@PathVariable("email") String email) {
+        try {
+            return new ResponseEntity<StaffApi>(staffService.findStaffByEmail(email), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<StaffApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -23,7 +23,8 @@ public class CityService implements ICityService {
 		return cityRepository.findCityById(id);
 	}
 
-	@Override
+	
+
 	public boolean create(CityApi cityApi) {
 		// TODO Auto-generated method stub
 		City city = new City();
@@ -40,19 +41,18 @@ public class CityService implements ICityService {
         return cityRepository.save(city) != null;
 	}
 
+	
+	
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		 try {
-			 City city = cityRepository.findById(id).get();
-			 city.setStatus(false);
-			 cityRepository.save(city);
-	            return true;
-	        } catch(Exception e) {
-	            e.printStackTrace();
-	            return false;
-	        }
-		
+		try {
+			City city = cityRepository.findById(id).get();
+			city.setStatus(false);
+			return cityRepository.save(city)!=null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

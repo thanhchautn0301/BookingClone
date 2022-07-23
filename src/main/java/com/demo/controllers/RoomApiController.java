@@ -30,6 +30,16 @@ public class RoomApiController {
             return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @RequestMapping(value="findAllByHostId/{hostId}", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomApi>> findAllByHostId(@PathVariable("hostId") int hostId) {
+        try {
+            return new ResponseEntity<List<RoomApi>>(roomService.findAllByHostId(hostId), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @RequestMapping(value="findroombyguestrequest", method=RequestMethod.GET)
     public ResponseEntity<List<RoomApi>> findroombyguestrequest(@RequestParam("id") int id,@RequestParam(value = "daterange") String dateRange,@RequestParam("capacity") int capacity,@RequestParam("childrenquantity") int childrenQuantity,@RequestParam("adultquantity") int adultQuantity) {
