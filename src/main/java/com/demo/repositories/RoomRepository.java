@@ -45,7 +45,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "R.id not in ( " +
             "select BDT.room.id " +
             "from BookingDetail BDT " +
-            "where (( BDT.checkout >= :from and  BDT.checkin <= :from) or (BDT.checkout >= :to and  BDT.checkin <= :to )) " +
+            "where (( BDT.checkout > :from and  BDT.checkin = :from) or (BDT.checkout > :to and  BDT.checkin < :to )) " +
             ") " +
             "group by R.id, R.accomodation.id , R.accomodation.name , R.roomType.id, R.roomType.name , R.roomType.staffId, R.name, R.description, R.status, R.price")
     public List<RoomApi> findRoomByGuestRequest(@Param("id") int id, @Param("from") Date from, @Param("to") Date to, @Param("total") int total, @Param("childrenQuantity") int childrenQuantity, @Param("adultQuantity") int adultQuantity);
