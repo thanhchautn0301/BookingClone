@@ -9,17 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.http.HttpHeaders;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
 @RestController
 @RequestMapping(value = {"api/image"})
-public class ImageApiController {
+public class ImageApiController implements ServletContextAware{
     @Autowired
     private IImageService imageService;
     
@@ -94,13 +96,19 @@ public class ImageApiController {
             return new ResponseEntity<ImageApi>(HttpStatus.BAD_REQUEST);
         }
     }
-    
+    @ResponseBody
     @RequestMapping(value="getimage/{name}", method=RequestMethod.GET ,produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getImage(@PathVariable("name") String name) {
+    public ResponseEntity<byte[]> getImage(@PathVariable("name") String name) {
     
     	try {
-    		InputStream in = servletContext.getResourceAsStream("/images/"+ name);
-			return  IOUtils.toByteArray(in) ;
+    		
+    		String path = "/images/"+ name;
+    		System.out.println("ten hinh anh:"+path);
+    		InputStream in = servletContext.getResourceAsStream(path);
+    		 org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+    		    headers.setContentType(MediaType.IMAGE_PNG);
+
+    		    return new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,4 +116,10 @@ public class ImageApiController {
 		}
     	
     }
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		// TODO Auto-generated method stub
+		this.servletContext = servletContext;
+	}
 }

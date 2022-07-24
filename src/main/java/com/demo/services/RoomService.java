@@ -6,6 +6,7 @@ import com.demo.entities.RoomType;
 import com.demo.entities_api.AccomodationApi;
 import com.demo.entities_api.RoomApi;
 import com.demo.entities_api.RoomTypeApi;
+import com.demo.helper.FileUpload;
 import com.demo.repositories.AccomodationRepository;
 import com.demo.repositories.RoomRepository;
 import com.demo.repositories.RoomTypeRepository;
@@ -13,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.ServletContext;
 
 @Service
 public class RoomService implements IRoomService {
@@ -124,4 +128,10 @@ public class RoomService implements IRoomService {
     public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity) {
         return roomRepository.findRoomByAdminRequest(id, capacity,childrenQuantity, adultQuantity);
     }
+
+	@Override
+	public String uploadImage(ServletContext servletContext, MultipartFile file) {
+		FileUpload.upload(servletContext, file);
+		return null;
+	}
 }

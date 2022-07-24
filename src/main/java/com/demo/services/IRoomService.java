@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public interface IRoomService {
     public List<RoomApi> findall();
     public RoomApi findByRoomId(int roomId);
@@ -17,5 +21,7 @@ public interface IRoomService {
     public List<RoomApi> findallroompaginate(int offset, int no);
     public List<RoomApi> findAllByHostId(int hostId);
     public List<RoomApi> findroombyguestrequest(Integer id, Date from, Date to, int capacity, int childrenQuantity, int adultQuantity);
-    public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity);
+    public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity);  
+    public String uploadImage(ServletContext servletContext,MultipartFile file);
+
 }
