@@ -1,6 +1,7 @@
 package com.demo.repositories;
 
 import com.demo.entities.City;
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 
 	@Query("select new com.demo.entities_api.CityApi(id,name,status) from City where status = true and id = :id")
     public CityApi findCityById(@Param("id") int id);
+
+    @Query("select new com.demo.entities_api.AccommodationOfCityApi(c.id,c.name,c.status, count(a.id)) " + 
+        "from Accomodation as a, City as c where c.status = true and a.status = true and a.city.id = c.id " + 
+        "group by c.id")
+    public List<AccommodationOfCityApi> findAllCityWithAccommodation();
 
 }
