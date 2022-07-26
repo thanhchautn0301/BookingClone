@@ -27,6 +27,8 @@ public class Accomodation implements java.io.Serializable {
 	private Staff staff;
 	private String name;
 	private boolean status;
+	private String description;
+
 	private Set<Service> services = new HashSet<Service>(0);
 	private Set<Image> images = new HashSet<Image>(0);
 	private Set<Room> rooms = new HashSet<Room>(0);
@@ -39,13 +41,14 @@ public class Accomodation implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Accomodation(Category category, City city, Staff staff, String name, boolean status, Set<Service> services,
+	public Accomodation(Category category, City city, Staff staff, String name, boolean status, String description, Set<Service> services,
                         Set<Image> images, Set<Room> rooms, Set<Voucher> vouchers) {
 		this.category = category;
 		this.city = city;
 		this.staff = staff;
 		this.name = name;
 		this.status = status;
+		this.description = description;
 		this.services = services;
 		this.images = images;
 		this.rooms = rooms;
@@ -101,6 +104,15 @@ public class Accomodation implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "DESCRIPTION")
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Column(name = "STATUS", nullable = false)

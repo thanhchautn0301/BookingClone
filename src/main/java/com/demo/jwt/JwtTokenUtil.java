@@ -15,21 +15,18 @@ public class JwtTokenUtil {
 
     private static final long EXPIRE_DURATION = 24*60*60*1000; //24h
 
+    private static final long EXPIRE_DURATION_FOR_ACTIVATE_ACCOUNT = 5*60*1000; //5min
+
+    private static final long EXPIRE_DURATION_FOR_RESET_PW = 2*60*1000; //2min
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     @Value("${app.jwt.secret}")
     private String secretKey;
 
-    // generate jwt
+    // generate diffrence token for diffrence purpose
 
     public String generateAccessToken(StaffApi staffApi) {
-        // Indicate staff role
-//        RoleApi roleApi = new RoleApi();
-//        roleApi.setId(staffApi.getRole_id());
-//        roleApi.setName(staffApi.getName());
-//        roleApi.setStatus(staffApi.getStatus());
-
-        System.out.println("Role ben jwt token util la: "+staffApi.getRole_name());
         return Jwts.builder()
                 .setSubject(staffApi.getId()+","+staffApi.getEmail())
                 .claim("role",staffApi.getRole_name())
@@ -41,13 +38,37 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    // validate access token
+    public String generateActivateToken(StaffApi staffApi) {
+        return Jwts.builder()
+                .setSubject(staffApi.getId()+","+staffApi.getEmail())
+                .claim("role",staffApi.getRole_name())
+                .claim("id",staffApi.getId())
+                .setIssuer("GiaTuan")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION_FOR_ACTIVATE_ACCOUNT))
+                .signWith(SignatureAlgorithm.HS512,secretKey)
+                .compact();
+    }
+
+    public String generateResetPwToken(StaffApi staffApi) {
+        return Jwts.builder()
+                .setSubject(staffApi.getId()+","+staffApi.getEmail())
+                .claim("role",staffApi.getRole_name())
+                .claim("id",staffApi.getId())
+                .setIssuer("GiaTuan")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION_FOR_RESET_PW))
+                .signWith(SignatureAlgorithm.HS512,secretKey)
+                .compact();
+    }
+
+    // validate token
     public boolean validateAccessToken(String token) {
         try {
           Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
           return true;
         } catch(ExpiredJwtException ex) {
-            LOGGER.error("JWT expired",ex);
+            LOGGER.error("JWT is expire",ex);
         } catch(IllegalArgumentException ex) {
             LOGGER.error("JWT is null, empty or has only whitespace",ex);
         } catch(MalformedJwtException ex) {

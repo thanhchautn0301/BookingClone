@@ -110,14 +110,23 @@ public class StaffService implements IStaffService{
             return false;
         }
     }
-
     @Override
-    public StaffApi findStaffByEmail(String email) {
-        return null;
+    public int activateAccount(int id) {
+        try {
+            return staffRepository.activateAccount(id);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
-//    @Override
-//	public StaffApi findStaffByEmail(String email) {
-//		return staffRepository.findStaffApiByEmail(email);
-//	}
+    @Override
+    public int resetPassword(int id, String password) {
+        try {
+            return staffRepository.resetPassword(id, Encrypt.BcryptPass(password));
+        } catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

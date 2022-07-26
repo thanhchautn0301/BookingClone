@@ -32,7 +32,7 @@ public class AccomodationService implements IAccomodationService {
     private RoomTypeRepository roomTypeRepository;
 
 
-    
+
     @Override
     public List<AccomodationApi> findall() {
         return accomodationRepository.findAllAccomodation();
@@ -114,6 +114,11 @@ public class AccomodationService implements IAccomodationService {
     @Override
     public List<AccomodationApi> findallaccomodationbyhost(int hostId) {
         return accomodationRepository.findAllAccomodationByHostId(hostId);
+    }
+
+    @Override
+    public List<AccomodationApi> findallaccomodationbycityid(int cityId) {
+        return accomodationRepository.findAllAccomodationByCityId(cityId);
     }
 
     @Override

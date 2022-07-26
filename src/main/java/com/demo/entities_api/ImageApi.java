@@ -15,6 +15,13 @@ public class ImageApi {
         this.status = status;
     }
 
+    // Field can lay ve
+
+    public ImageApi(String name, boolean status) {
+        this.name = name;
+        this.status = status;
+    }
+
     public ImageApi() {
     }
 
