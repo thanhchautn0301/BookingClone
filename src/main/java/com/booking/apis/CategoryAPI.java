@@ -4,6 +4,7 @@ package com.booking.apis;
 
 import java.util.List;
 
+import com.booking.entities.AccommodationOfCategory;
 import com.booking.entities.Category;
 
 import retrofit2.Call;
@@ -29,4 +30,7 @@ public interface CategoryAPI {
 	
 	@GET("category/findcategoryById/{id}")
 	public Call<Category> findcategoryById(@Path("id") int id);
+
+	@GET("category/findAllAccommodationOfCategory")
+	public Call<List<AccommodationOfCategory>> findAllAccommodationOfCategory();
 }
