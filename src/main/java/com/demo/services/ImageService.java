@@ -7,6 +7,7 @@ import com.demo.entities.Category;
 import com.demo.entities.City;
 import com.demo.entities.Staff;
 import com.demo.entities_api.ImageApi;
+import com.demo.helper.FileUpload;
 import com.demo.repositories.ImageRepository;
 import com.demo.repositories.RoomRepository;
 import com.demo.repositories.AccomodationRepository;
@@ -17,11 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 @Service
-public class ImageService implements IImageService {
+public class ImageService implements IImageService, ServletContextAware {
 	
     @Autowired
     private ImageRepository imageRepository;
@@ -29,6 +34,8 @@ public class ImageService implements IImageService {
     private AccomodationRepository accomodationRepository;
     @Autowired
     private RoomRepository roomRepository;
+    
+    private ServletContext servletContext;
     
     @Override
     public List<ImageApi> findall() {
@@ -43,17 +50,25 @@ public class ImageService implements IImageService {
     @Override
     public ImageApi create(ImageApi imageApi) {
         try {
+            System.out.println( "ten image:"+imageApi.getName());
         	Image image = new Image();
 
         	image.setName(imageApi.getName());
-        	
-            Accomodation  accomodation = accomodationRepository.findById(imageApi.getAccomodation_id()).get();
-            image.setAccomodation(accomodation);
-            Room room = roomRepository.findById(imageApi.getRoom_id()).get();
-            image.setRoom(room);
-        	image.setStatus(imageApi.isStatus());
+        	if(imageApi.getAccomodation_id() != 0) {
+        		 Accomodation  accomodation = accomodationRepository.findById(imageApi.getAccomodation_id()).get();
+                 image.setAccomodation(accomodation);
+        	}
+           
+        	if(imageApi.getRoom_id() != 0) {
+        		  Room room = roomRepository.findById(imageApi.getRoom_id()).get();
+                  image.setRoom(room);
+        	}
+
+            System.out.println( "ten image:"+image.getName());
+        	image.setStatus(true);
         	
         	Image newImage = imageRepository.save(image);
+        	
         	imageApi.setId(newImage.getId());
             return imageApi;
         } catch (Exception e) {
@@ -103,4 +118,22 @@ public class ImageService implements IImageService {
     public List<ImageApi> findallimagepaginate(int offset, int no) {
         return imageRepository.findAllImagePagination(PageRequest.of(offset,no));
     }
+    
+	@Override
+	public String uploadImage(ServletContext servletContext, MultipartFile file) {
+		try {
+			String name =   FileUpload.upload(servletContext, file);
+
+			return name;
+		} catch (Exception e) {
+
+			return "";
+		}
+	}
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		// TODO Auto-generated method stub
+		this.servletContext = servletContext;
+	}
 }

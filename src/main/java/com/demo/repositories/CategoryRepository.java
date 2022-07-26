@@ -13,15 +13,15 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    @Query("select new com.demo.entities_api.CategoryApi(id,name, status) from Category where status =true")
+    @Query("select new com.demo.entities_api.CategoryApi(id,name, status, image) from Category where status =true")
     public List<CategoryApi> findAllCategory();
 
-    @Query("select new com.demo.entities_api.CategoryApi(id,name, status) from Category where status =true")
+    @Query("select new com.demo.entities_api.CategoryApi(id,name, status, image) from Category where status =true")
     public List<CategoryApi> findAllCategorySort(Sort sort);
 
-    @Query("select new com.demo.entities_api.CategoryApi(id,name, status) from Category where status =true")
+    @Query("select new com.demo.entities_api.CategoryApi(id,name, status, image) from Category where status =true")
     public List<CategoryApi> findAllCategoryPagination(Pageable pageable);
 
-    @Query("select new com.demo.entities_api.CategoryApi(id,name, status) from Category where status =true and id =:id")
+    @Query("select new com.demo.entities_api.CategoryApi(id,name, status, image) from Category where status =true and id =:id")
     public CategoryApi findCategoryById(@Param("id") int id);
 }

@@ -28,7 +28,7 @@ public class CategoryService implements ICategoryService {
     public CategoryApi create(CategoryApi categoryApi) {
         try {
         	Category category = new Category();
-
+            category.setImage(categoryApi.getImage());
         	category.setName(categoryApi.getName());
         	category.setStatus(categoryApi.isStatus());
         	

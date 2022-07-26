@@ -4,17 +4,14 @@ import com.demo.entities.Accomodation;
 import com.demo.entities.Category;
 import com.demo.entities.City;
 import com.demo.entities.Staff;
-import com.demo.entities_api.AccomodationApi;
-import com.demo.repositories.AccomodationRepository;
-import com.demo.repositories.CategoryRepository;
-import com.demo.repositories.StaffRepository;
-import com.demo.repositories.CityRepository;
+import com.demo.entities_api.*;
+import com.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AccomodationService implements IAccomodationService {
@@ -27,7 +24,15 @@ public class AccomodationService implements IAccomodationService {
     private StaffRepository staffRepository;
     @Autowired
     private CityRepository cityRepository;
-    
+
+    @Autowired
+    private RoomRepository roomRepository;
+
+    @Autowired
+    private RoomTypeRepository roomTypeRepository;
+
+
+
     @Override
     public List<AccomodationApi> findall() {
         return accomodationRepository.findAllAccomodation();
@@ -114,5 +119,28 @@ public class AccomodationService implements IAccomodationService {
     @Override
     public List<AccomodationApi> findallaccomodationbycityid(int cityId) {
         return accomodationRepository.findAllAccomodationByCityId(cityId);
+    }
+
+    @Override
+    public AccommodationDetail getAccommodationDetail(Integer accommodationId) {
+        if(accommodationId != null) {
+            List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
+
+
+            List<ServiceApi> services = new ArrayList<ServiceApi>();
+
+            List<String> images = new ArrayList<String>();
+
+            AccomodationApi accommodation = new AccomodationApi();
+
+            roomDetails = roomRepository.findRoomByAccommodationId(accommodationId);
+
+
+
+
+        }
+
+
+        return null;
     }
 }

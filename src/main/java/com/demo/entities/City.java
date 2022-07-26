@@ -22,6 +22,9 @@ public class City implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private boolean status;
+
+	private String image;
+
 	private Set<Accomodation> accomodations = new HashSet<Accomodation>(0);
 
 	public City() {
@@ -31,10 +34,20 @@ public class City implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public City(String name, boolean status, Set<Accomodation> accomodations) {
+	@Column(name = "IMAGE", length = 100)
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public City(String name, boolean status, String image , Set<Accomodation> accomodations) {
 		this.name = name;
 		this.status = status;
 		this.accomodations = accomodations;
+		this.image = image;
 	}
 
 	@Id

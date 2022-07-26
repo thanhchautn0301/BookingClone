@@ -59,13 +59,13 @@ public class CityApiController {
 	        }
 	    }
 	 
-	 @RequestMapping(value="create", method=RequestMethod.POST)
-	    public ResponseEntity<Boolean> create(@RequestBody CityApi cityApi) {
+	 @RequestMapping(value="create1", method=RequestMethod.POST)
+	    public ResponseEntity<CityApi> create(@RequestBody CityApi cityApi) {
 	        try {
-	            return new ResponseEntity<Boolean>(cityService.create(cityApi),HttpStatus.OK);
+	            return new ResponseEntity<CityApi>(cityService.create(cityApi),HttpStatus.OK);
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
-	            return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 	        }
 	    }
 	 

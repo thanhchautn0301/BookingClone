@@ -2,6 +2,8 @@ package com.demo.repositories;
 
 import com.demo.entities.Accomodation;
 import com.demo.entities_api.AccomodationApi;
+import com.demo.entities_api.RoleApi;
+import com.demo.entities_api.RoomDetail;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -50,5 +52,9 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
             "on A.city.id = :cityId and A.id = I.accomodation.id " +
             "where A.status =true")
     public List<AccomodationApi> findAllAccomodationByCityId(@Param("cityId") int cityId);
+
+
+
+
 
 }
