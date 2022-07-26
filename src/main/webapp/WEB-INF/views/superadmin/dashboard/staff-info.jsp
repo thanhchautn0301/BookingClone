@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -398,28 +399,19 @@
                         </tr>
                       </thead>
                       <tbody>
+                      <c:forEach var="staff" items="${staffs }">
                         <tr>
                           <td></td>
-                          <td><a href="" role="button" data-toggle="modal" data-target="#modal-staff">Staff 1</a></td>
-                          <td>012345678</td>
-                          <td>abc@gmail.com</td>
-                          <td>07220101010</td>
-                          <td>01-01-2001</td>
-                          <td>HCMC</td>
-                          <td>Admin</td>
-                          <input type="hidden" name="id" value="01">
+                          <td><a href="" role="button" data-toggle="modal" data-target="#modal-staff">${staff.name}</a></td>
+                          <td>${staff.phone}</td>
+                          <td>${staff.email}</td>
+                          <td>${staff.civilIdentity}</td>
+                          <td>${staff.dob.toString("dd/MM/yyyy")}</td>
+                          <td>${staff.address}</td>
+                          <td>${staff.role_name}</td>
+                          <input type="hidden" name="id" value="${staff.id}">
                         </tr>
-                        <tr>
-                          <td></td>
-                          <td><a href="" role="button" data-toggle="modal" data-target="#modal-staff">Staff 2</a></td>
-                          <td>0546564789</td>
-                          <td>abc2@gmail.com</td>
-                          <td>07221212345</td>
-                          <td>05-05-2005</td>
-                          <td>TN</td>
-                          <td>Admin</td>
-                          <input type="hidden" name="id" value="02">
-                        </tr>
+                      </c:forEach>
                       </tbody>
                     </table>
                   </div>

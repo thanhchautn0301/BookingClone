@@ -16,6 +16,8 @@ import com.booking.services.ICityService;
 
 import retrofit2.Response;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping(value = "home")
 public class HomeController {
@@ -34,7 +36,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = {"search"}, method = RequestMethod.GET)
-	public String search() {
+	public String search(HttpServletRequest request) {
 		return "home/search";
 	}
 	
