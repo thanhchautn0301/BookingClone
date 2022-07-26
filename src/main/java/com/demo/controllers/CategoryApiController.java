@@ -1,5 +1,6 @@
 package com.demo.controllers;
 
+import com.demo.entities_api.AccommodationOfCategoryApi;
 import com.demo.entities_api.AccomodationApi;
 import com.demo.entities_api.CategoryApi;
 import com.demo.services.ICategoryService;
@@ -82,6 +83,15 @@ public class CategoryApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<CategoryApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(value="findAllAccommodationOfCategory", method=RequestMethod.GET)
+    public ResponseEntity<List<AccommodationOfCategoryApi>> findAllAccommodationOfCategory() {
+        try {
+            return new ResponseEntity<List<AccommodationOfCategoryApi>>(categoryService.findAllAccommodationOfCategory(), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<AccommodationOfCategoryApi>>(HttpStatus.BAD_REQUEST);
         }
     }
 }

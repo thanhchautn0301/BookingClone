@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.demo.entities.City;
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 import com.demo.repositories.CityRepository;
 @Service
@@ -80,6 +81,20 @@ public class CityService implements ICityService {
 	public List<CityApi> findAllCity() {
 		// TODO Auto-generated method stub
 		return cityRepository.findAllCity();
+	}
+
+
+
+	@Override
+	public List<AccommodationOfCityApi> findAllAccommodationOfCity() {
+		return cityRepository.findAllCityWithAccommodation();
+	}
+
+
+
+	@Override
+	public List<CityApi> findHomeCity() {
+		return cityRepository.findHomeCity().subList(0, 5);
 	}
 	
 	

@@ -22,10 +22,10 @@ public class Category implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private boolean status;
-
 	private String image;
 	private Set<Accomodation> accomodations = new HashSet<Accomodation>(0);
 
+	
 	public Category() {
 	}
 
@@ -45,6 +45,12 @@ public class Category implements java.io.Serializable {
 	}
 
 	public void setImage(String image) {
+		this.image = image;
+	}
+	public Category(String name, boolean status, Set<Accomodation> accomodations, String image) {
+		this.name = name;
+		this.status = status;
+		this.accomodations = accomodations;
 		this.image = image;
 	}
 
@@ -86,5 +92,14 @@ public class Category implements java.io.Serializable {
 	public void setAccomodations(Set<Accomodation> accomodations) {
 		this.accomodations = accomodations;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 
 }

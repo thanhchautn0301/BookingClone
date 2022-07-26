@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.entities.City;
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
@@ -81,5 +82,14 @@ public class CityController {
 				} catch (Exception e) {
 					return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 				}
+			}
+	@RequestMapping(value = "findAllAccommodationOfCity" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
+			method = RequestMethod.GET)
+			public ResponseEntity<List<AccommodationOfCityApi>> findAllAccommodationOfCity(){
+						try {
+							return new ResponseEntity<List<AccommodationOfCityApi>>(cityService.findAllAccommodationOfCity(),HttpStatus.OK);
+						} catch (Exception e) {
+							return new ResponseEntity<List<AccommodationOfCityApi>>(HttpStatus.BAD_REQUEST);
+						}
 			}
 }

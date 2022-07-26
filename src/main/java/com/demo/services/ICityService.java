@@ -2,6 +2,7 @@ package com.demo.services;
 
 import java.util.List;
 
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 
 
@@ -14,4 +15,6 @@ public interface ICityService {
 	    public List<CityApi> findAllCityWithSort(String field);
 
 	    public List<CityApi> findAllPaginate(int offset, int no);
+	    public List<AccommodationOfCityApi> findAllAccommodationOfCity();
+	    public List<CityApi> findHomeCity();
 }
