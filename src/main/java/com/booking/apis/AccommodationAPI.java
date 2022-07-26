@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.booking.entities.Accommodation;
 
+import com.booking.entities.SearchAccommodation;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -19,6 +20,9 @@ public interface AccommodationAPI {
 	
 	@GET("accomodation/findaccomodationbyid/{id}")
 	Call<List<Accommodation>> findById(@Path("id") int id);
+
+	@GET("accomodation/findaccomodationbycityid/{id}")
+	Call<SearchAccommodation> findByCityId(@Path("id") int id);
 	
 	@GET("accomodation/findaccomodationbyhostid/{id}")
 	Call<List<Accommodation>> findByHostId(@Path("id") int id);

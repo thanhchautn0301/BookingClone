@@ -5,14 +5,11 @@ import com.booking.entities.AuthResponse;
 import com.booking.entities.Staff;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 import java.util.List;
 
-public interface StaffAPI {
+public interface StaffAPI<activateaccoun> {
 	@GET("staff/findByEmail/{email}")
 	public Call<Staff> staffFindByEmail(@Path("email") String email);
 
@@ -24,4 +21,13 @@ public interface StaffAPI {
 
 	@POST("staff/login")
 	public Call<AuthResponse> login(@Body AuthRequest authRequest);
+
+	@GET("staff/activateaccount")
+	public Call<Integer> activate(@Query("id") int id);
+
+	@GET("staff/resetpw")
+	public Call<Integer> resetpw(@Query("id") int id, @Query("password") String password);
+
+	@POST("staff/forgotpw")
+	public Call<AuthResponse> forgotPw(@Query("email") String email);
 }

@@ -17,14 +17,20 @@ public class AccountController {
 	public String login() {
 		return "account/sign-pw";
 	}
-	
+
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
 	public String logout() {
 		return "redirect:/account/login";
 	}
-	
+
 	@RequestMapping(value = "register",method = RequestMethod.GET)
 	public String register() {
 		return "account/register-pw";
 	}
+
+	@RequestMapping(value = "resetpw",method = RequestMethod.GET)
+	public String resetpw() {
+		return "account/resetpw";
+	}
+
 }

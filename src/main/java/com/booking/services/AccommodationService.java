@@ -3,6 +3,7 @@ package com.booking.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.booking.entities.SearchAccommodation;
 import com.booking.helpers.TokenReader;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,18 @@ public class AccommodationService implements IAccommodationService {
 			e.printStackTrace();
 			return null;
 		}	
+	}
+
+	@Override
+	public SearchAccommodation findAllByCityId(int id) {
+		Response<SearchAccommodation> response;
+		try {
+			response = accommodationAPI.findByCityId(id).execute();
+			return response.body();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
