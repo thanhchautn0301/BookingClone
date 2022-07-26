@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.demo.entities.City;
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 import com.demo.repositories.CityRepository;
 @Service
@@ -25,12 +26,20 @@ public class CityService implements ICityService {
 
 	
 
-	public boolean create(CityApi cityApi) {
+	public CityApi create(CityApi cityApi) {
 		// TODO Auto-generated method stub
-		City city = new City();
-		city.setName(cityApi.getName());
-		city.setStatus(true);
-		return cityRepository.save(city) != null;
+		try {
+			City city = new City();
+			city.setName(cityApi.getName());
+			city.setImage(cityApi.getImage());
+			city.setStatus(true);
+			City newCity = cityRepository.save(city);
+			cityApi.setId(newCity.getId());
+			return cityApi;
+		}catch(Exception e){
+				e.printStackTrace();
+				return null;
+		}
 	}
 
 	@Override
@@ -72,6 +81,20 @@ public class CityService implements ICityService {
 	public List<CityApi> findAllCity() {
 		// TODO Auto-generated method stub
 		return cityRepository.findAllCity();
+	}
+
+
+
+	@Override
+	public List<AccommodationOfCityApi> findAllAccommodationOfCity() {
+		return cityRepository.findAllCityWithAccommodation();
+	}
+
+
+
+	@Override
+	public List<CityApi> findHomeCity() {
+		return cityRepository.findHomeCity().subList(0, 5);
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.demo.services;
 
+import com.demo.entities_api.AccommodationOfCategoryApi;
 import com.demo.entities_api.CategoryApi;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface ICategoryService {
     public boolean delete(int categoryId);
     public List<CategoryApi> findallcategorywithsort(String field);
     public List<CategoryApi> findallcategorypaginate(int offset, int no);
+    public List<AccommodationOfCategoryApi> findAllAccommodationOfCategory();
+
 }

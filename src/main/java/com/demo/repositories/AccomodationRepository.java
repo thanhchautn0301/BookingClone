@@ -4,6 +4,7 @@ import com.demo.entities.Accomodation;
 import com.demo.entities.Role;
 import com.demo.entities_api.AccomodationApi;
 import com.demo.entities_api.RoleApi;
+import com.demo.entities_api.RoomDetail;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,5 +31,9 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
     
     @Query("select new com.demo.entities_api.AccomodationApi(id, category.id, category.name, city.id, city.name , staff.id , name, status) from Accomodation where status =true and staff.id = :hostId")
     public List<AccomodationApi> findAllAccomodationByHostId(@Param("hostId") int hostId);
+
+
+
+
 
 }

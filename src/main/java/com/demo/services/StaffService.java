@@ -8,9 +8,12 @@ import com.demo.helper.Encrypt;
 import com.demo.repositories.RoleRepository;
 import com.demo.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StaffService implements IStaffService{
@@ -26,6 +29,11 @@ public class StaffService implements IStaffService{
     @Override
     public StaffApi findStaffById(int id) {
         return staffRepository.findStaffById(id);
+    }
+
+    @Override
+    public Optional<StaffApi> findStaffApiByEmail(String email) {
+        return staffRepository.findStaffApiByEmail(email);
     }
 
     @Override
@@ -102,9 +110,14 @@ public class StaffService implements IStaffService{
             return false;
         }
     }
-    
+
     @Override
-	public StaffApi findStaffByEmail(String email) {
-		return staffRepository.findStaffByEmail(email);
-	}
+    public StaffApi findStaffByEmail(String email) {
+        return null;
+    }
+
+//    @Override
+//	public StaffApi findStaffByEmail(String email) {
+//		return staffRepository.findStaffApiByEmail(email);
+//	}
 }
