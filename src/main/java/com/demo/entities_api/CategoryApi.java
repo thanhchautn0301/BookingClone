@@ -5,10 +5,11 @@ import com.demo.entities.Accomodation;
 public class CategoryApi {
     private int id;
 
-    public CategoryApi(int id, String name, boolean status) {
+    public CategoryApi(int id, String name, boolean status, String image) {
         this.id = id;
         this.name = name;
         this.status = status;
+        this.image = image;
     }
 
     
@@ -18,6 +19,16 @@ public class CategoryApi {
     }
 
     private boolean status;
+
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getId() {
         return id;

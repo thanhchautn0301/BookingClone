@@ -30,12 +30,12 @@ public class CityController {
 	
 	@RequestMapping(value = "create" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
 	consumes = MimeTypeUtils.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
-	public ResponseEntity<Boolean> create(@RequestBody CityApi cityApi){
+	public ResponseEntity<CityApi> create(@RequestBody CityApi cityApi){
 		
 		try {
-			return new ResponseEntity<Boolean>(cityService.create(cityApi),HttpStatus.OK);
+			return new ResponseEntity<CityApi>(cityService.create(cityApi),HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
