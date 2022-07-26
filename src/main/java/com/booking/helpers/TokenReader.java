@@ -12,31 +12,17 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class TokenReader {
-    public static String accessToken = null;
+    public static String token = null;
     public static int userid =0;
 
-    public static void assignToken(String token) {
-        if(token !=null) accessToken = token;
+    // asign token for user
+    // user at 3 state
+    // logged, forgot pw or account not activate
+    public static void assignToken(String generatedToken) {
+            token = generatedToken;
     }
-//
+    // assign user id
     public static void assignUserId(int id) {
         if(id >0) userid = id;
     }
-
-//
-//    public static int getUserId() {
-//        int userid=-1;
-//        if(accessToken !=null) {
-//            Claims claims = parseClaims(accessToken);
-//            userid = Integer.parseInt(String.valueOf(claims.get("id")));
-//        }
-//        return userid;
-//    }
-//
-//    public static Claims parseClaims(String token) {
-//        return Jwts.parser()
-//                .setSigningKey("Chauisgay")
-//                .parseClaimsJws(token)
-//                .getBody();
-//    }
 }

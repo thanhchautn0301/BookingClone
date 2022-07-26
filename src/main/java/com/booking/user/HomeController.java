@@ -2,6 +2,9 @@ package com.booking.user;
 
 
 
+import com.booking.entities.Accommodation;
+import com.booking.entities.SearchAccommodation;
+import com.booking.services.IAccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +20,7 @@ import com.booking.services.ICityService;
 import retrofit2.Response;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "home")
@@ -28,6 +32,9 @@ public class HomeController {
 	@Autowired
 	private ICityService cityService;
 
+	@Autowired
+	private IAccommodationService accommodationService;
+
 	@RequestMapping(value = {"index",""}, method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		modelMap.put("accommodationOfCity", cityService.findAllAccommodationOfCity());
@@ -35,8 +42,16 @@ public class HomeController {
 		return "home/index";
 	}
 	
-	@RequestMapping(value = {"search"}, method = RequestMethod.GET)
-	public String search(HttpServletRequest request) {
+	@RequestMapping(value = {"search/{cityid}"}, method = RequestMethod.GET)
+	public String search(HttpServletRequest request, @PathVariable("cityid") int cityid, ModelMap modelMap) {
+		// Success
+		SearchAccommodation searchAccommodation = accommodationService.findAllByCityId(cityid);
+		int result = searchAccommodation.getAccommodationQuantity();
+		List<Accommodation> accomodations = searchAccommodation.getAccommodations();
+		String city = searchAccommodation.getAccommodations().get(0).getCity_name();
+		modelMap.put("result",result);
+		modelMap.put("city",city);
+		modelMap.put("accomms",accomodations);
 		return "home/search";
 	}
 	

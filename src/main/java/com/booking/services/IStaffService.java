@@ -11,5 +11,11 @@ public interface IStaffService {
 
 	public AuthResponse login(AuthRequest auth);
 
+	public Integer activate(int id);
+
+	public Integer resetpw(int id, String password);
+
 	public List<Staff> findAll();
+
+	public AuthResponse forgotPw(String email);
 }

@@ -22,7 +22,7 @@ public class APIClient {
                 .addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder().addHeader("Authorization", "Bearer "+TokenReader.accessToken).build();
+                Request request = chain.request().newBuilder().addHeader("Authorization", "Bearer "+TokenReader.token).build();
                 return chain.proceed(request);
             }
         });

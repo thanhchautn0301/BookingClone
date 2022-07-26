@@ -16,7 +16,7 @@ public class AccountController {
 	
 	@Autowired
 	private IStaffService staffService;
-	
+
 	@RequestMapping(value = "sign",method = RequestMethod.GET)
 	public String sign() {
 		return "account/sign";
@@ -26,22 +26,28 @@ public class AccountController {
 	public String login() {
 		return "account/sign-pw";
 	}
-	
+
 	@RequestMapping(value = "logout",method = RequestMethod.GET)
 	public String logout() {
 		return "redirect:/account/login";
 	}
-	
+
 	@RequestMapping(value = "register",method = RequestMethod.GET)
 	public String register() {
 		return "account/register-pw";
 	}
-	
+
+	@RequestMapping(value = "resetpw",method = RequestMethod.GET)
+	public String resetpw() {
+		return "account/resetpw";
+	}
+
+
 	@RequestMapping(value = "host/login", method = RequestMethod.GET)
 	public String loginHost() {
 		return "account/host-login";
 	}
-	
+
 	@RequestMapping(value = "host/register",method = RequestMethod.POST)
 	public String registerHost(Staff staff,RedirectAttributes redirectAttributes) {
 		staff.setRole_id(1);

@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,7 +169,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb my-2">
                 <li class="breadcrumb-item fs-12"><a href="#" class="text-decoration-none text-blue">Trang chủ</a></li>
-                <li class="breadcrumb-item fs-12"><a href="#" class="text-decoration-none text-blue">Việt Nam</a></li>
+                <li class="breadcrumb-item fs-12"><a href="#" class="text-decoration-none text-blue">${city}</a></li>
                 <li class="breadcrumb-item fs-12 active" aria-current="page">Kết quả tìm kiếm</li>
               </ol>
             </nav>
@@ -519,17 +520,11 @@
                  </aside>
               </div>
               <div class="col-sm-8 col-md-9">
-                <h4 class="h4 fw-bold">Việt Nam: tìm thấy 32 chỗ nghỉ</h4>
+                <h4 class="h4 fw-bold">${city}: ${result} accomodations found.</h4>
                 <div class="row">
                   <div class="col-sm-12"><hr style="color: #ccc;"></div>
                 </div>
-                <div class="row mb-3">
-                  <div class="col sm-3 text-secondary fw-bold">Những bãi biển gần đó:</div>
-                  <div class="col sm-3 text-dark fw-bold">Long Hai Beach</div>
-                  <div class="col sm-3 text-dark fw-bold">Deo Nuoc Ngot Beach</div>
-                  <div class="col sm-3 text-dark fw-bold">Phuoc Tinh Beach</div>
-                </div>
-                
+
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="d-flex">
@@ -537,13 +532,11 @@
                       <button class="btn text-blue btn-action2 border-end-0 shadow-none 
                       -start-0 br-0 text-white bd-r-2 br-r-0 px-lg-5">Ưu tiên nhà & căn hộ</button>
                       <div class="d-flex flex-fill">
-                      <button class="btn btn-action2 text-blue flex-fill shadow-none br-0 br-l-0 px-lg-5">Giá(ưu tiên thấp nhất)</button>
                         <div class="dropdown">
                           <button class="btn btn-action2 br-l-0 bd-r-2 h-100 shadow-none dropdown-toggle border-start-0" type="button" id="filter-more" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-ellipsis text-blue"></i>
                           </button>
                           <ul class="dropdown-menu bd-r-2 dropdown-menu-cs py-0" aria-labelledby="filter-more">
-                            <li><a class="dropdown-item fs-14 p-2" href="#">Được đánh giá tốt nhất và có giá thấp nhất</a></li>
                             <li><a class="dropdown-item fs-14 p-2" href="#">Hạng sao (ưu tiên cao nhất)</a></li>
                             <li><a class="dropdown-item fs-14 p-2" href="#">Hạng sao (ưu tiên thấp nhất)</a></li>
                           </ul>
@@ -556,10 +549,13 @@
                 </div>
 
                 <article class="hotel-article row mt-3">
-                  <div class="col-sm-12 mb-3">
+                  <c:forEach var="acc" items="${accomms }">
+                    <c:set var="rand1"><%= java.lang.Math.round(java.lang.Math.random() * 2 +1) %></c:set>
+                    <c:set var="rand2"><%= java.lang.Math.round(java.lang.Math.random() * 4 +1) %></c:set>
+                    <div class="col-sm-12 mb-3">
                     <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
                       <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
+                        <img src="${pageContext.request.contextPath}/resources/assets/img/${acc.image}" class="img-article bd-r-4" alt="">
                         <i class="fa-regular fa-heart position-absolute end-0 top-0 
                         text-white p-c fs-20 m-2 text-shadow-icon"
                         data-bs-toggle="tooltip" data-bs-placement="top"
@@ -572,7 +568,7 @@
 
                           <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
                             <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
+                              ${acc.name}
                             </a>
                             <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
                             bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -585,13 +581,13 @@
                           </h5>
 
                           <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
+                            <a href="" class="text-blue fs-14 fw-500">${acc.city_name}</a>
                             <span class="text-secondary fs-12">
                               <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
+                              ${rand1}km away from center.
                             </span>
                             <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
+                              ${acc.description}
                             </p>
                           </div>
 
@@ -600,17 +596,17 @@
                         <div class="flex-fill">
                           <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
                             <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
+                              <p class="fw-bold text-dark fs-6 mb-0">${acc.category_name}</p>
                               <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
                             </div>
                             <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
+                              ${rand2}
                             </span>
                           </a>
                           <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
+                            <p class="text-secondary fs-12 mb-0">Is available</p>
+                            <h5 class="mb-0">${acc.status?"Always available":"Not available"}</h5>
+                            <p class="text-secondary fs-12 mb-0">Top booking</p>
                           </div>
                           <div class="text-end mt-2">
                             <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
@@ -623,687 +619,8 @@
 
                       </div>
                     </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
-                  <div class="col-sm-12 mb-3">
-                    <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
-                      <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/hotellove.jpg" class="img-article bd-r-4" alt="">
-                        <i class="fa-regular fa-heart position-absolute end-0 top-0 
-                        text-white p-c fs-20 m-2 text-shadow-icon"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Lưu"></i>
-                        <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
-                      </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
-
-                        <div class="w-75">
-
-                          <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
-                            <a href="" class="text-blue text-decoration-none me-2">
-                              Villas at Oceanami Resort         
-                            </a>
-                            <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
-                            bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Đây là chỗ nghỉ Đối tác Ưu tiên. 
-                            Nơi đây cam kết cung cấp cho khách những 
-                            trải nghiệm tích cực đáng giá tiền với dịch vụ tốt. 
-                            Chỗ nghỉ này có thể phải chi trả thêm một khoản nhỏ cho 
-                            Booking.com để tham gia Chương trình."
-                            ></i>
-                          </h5>
-
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">VietNam</a>
-                            <span class="text-secondary fs-12">
-                              <span class="fs-20 fw-bold op-0-5">.</span>  
-                              Cách trung tâm 2,7km
-                            </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
-                              Nằm cách Căn cứ Minh Đạm khoảng 2,3 km, The New Okinawa Villas and Beach cung cấp chỗ nghỉ với sân hiên, ban công và tầm nhìn ra vườn. Biệt thự này có hồ bơi riêng, vườn và chỗ đỗ xe riêng miễn phí.
-                            </p>
-                          </div>
-
-                        </div>
-
-                        <div class="flex-fill">
-                          <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
-                            <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">Tuyệt vời</p>
-                              <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
-                            </div>
-                            <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
-                              8.7
-                            </span>
-                          </a>
-                          <div class="mt-2 text-end">
-                            <p class="text-secondary fs-12 mb-0">1 đêm, 2 người lớn</p>
-                            <h5 class="mb-0">VND 500.000</h5>
-                            <p class="text-secondary fs-12 mb-0">Đã bao gồm thuế và phí</p>
-                          </div>
-                          <div class="text-end mt-2">
-                            <a href="details.html" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
-                              Xem chỗ trống
-                              <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
-                            </a>
-                            
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>      
+                  </div>
+                  </c:forEach>
                 </article>
                 
                 <div class="row">
