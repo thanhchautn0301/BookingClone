@@ -3,12 +3,15 @@ package com.booking.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.apis.APIClient;
 import com.booking.apis.RoomAPI;
 import com.booking.entities.Room;
 
+import okhttp3.MultipartBody;
 import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 @Service
 public class RoomService implements IRoomService{
@@ -30,6 +33,7 @@ public class RoomService implements IRoomService{
 			return null;
 		}
 	}
+
 
 	@Override
 	public List<Room> findAllByHostId(int hostId) {

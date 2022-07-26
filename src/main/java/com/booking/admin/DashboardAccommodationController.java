@@ -1,5 +1,10 @@
 package com.booking.admin;
 
+import com.booking.entities.Image;
+import com.booking.services.IImageService;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import com.booking.helpers.TokenReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +21,14 @@ import com.booking.services.IAccommodationService;
 import com.booking.services.ICategoryService;
 import com.booking.services.ICityService;
 
+import java.io.File;
+import java.io.IOException;
+
 @Controller
 @RequestMapping(value = "admin/dashboard/accommodation")
 public class DashboardAccommodationController {
-	
+	@Autowired
+	private IImageService imageService;
 	@Autowired
 	private IAccommodationService accommodationService;
 	
@@ -34,7 +43,6 @@ public class DashboardAccommodationController {
 		modelMap.put("accoms", accommodationService.findAllByHostId(6));
 		modelMap.put("categories", categoryService.findAll());
 		modelMap.put("cities",cityService.findAll());
-		System.out.println();
 		return "admin/dashboard/accommodation-info";
 	}
 	
@@ -66,11 +74,36 @@ public class DashboardAccommodationController {
 	@RequestMapping(value = "add",method = RequestMethod.POST)
 	public String accommodationAddSubmit(Accommodation accommodation,@RequestParam(name =  "photos", required = false )
 	MultipartFile[] photos,
-	RedirectAttributes redirectAttributes) {
+	RedirectAttributes redirectAttributes) throws IOException {
 		accommodation.setStaff_id(1);
-		System.out.println("File size : " + photos.length);
-		boolean result = accommodationService.create(accommodation) != null;
-		if(!result) {
+
+		Accommodation result = accommodationService.create(accommodation);
+
+		if(photos.length > 0) {
+			for (MultipartFile file : photos) {
+
+				File imageFile = new File(System.getProperty("java.io.tmpdir")+"/"+ file.getOriginalFilename());
+				file.transferTo(imageFile);
+
+				RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+
+				MultipartBody.Part imageBody = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile);
+				String nameImageString = "";
+				nameImageString = imageService.uploadFile(imageBody);
+
+				if(nameImageString != "") {
+					Image image = new Image();
+					image.setName(nameImageString);
+					image.setAccommodation_id(result.getId());
+					image.setStatus(true);
+					imageService.create(image);
+				}
+
+			}
+		}
+
+
+		if(result == null) {
 			redirectAttributes.addFlashAttribute("result", "failed");
 		}
 		else {

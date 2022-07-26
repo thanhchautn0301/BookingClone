@@ -2,6 +2,7 @@ package com.booking.services;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import org.springframework.stereotype.Service;
 
 import com.booking.apis.APIClient;
@@ -25,15 +26,17 @@ public class CityService implements ICityService {
 
 
 	@Override
-	public boolean create(String name) {
+	public City create(String name, String image) {
 		City city = new City();
+		city.setImage(image);
 		city.setName(name);
+		city.setStatus(true);
 		try {
-			Response<Boolean> response = cityAPI.create(city).execute();
+			Response<City> response = cityAPI.create(city).execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 
@@ -74,6 +77,17 @@ public class CityService implements ICityService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	@Override
+	public String uploadFile(MultipartBody.Part file) {
+		try {
+			Response<String> response = cityAPI.uploadImage(file).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

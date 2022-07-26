@@ -4,13 +4,9 @@ import java.util.List;
 
 import com.booking.entities.Accommodation;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 public interface AccommodationAPI {
 
@@ -31,4 +27,9 @@ public interface AccommodationAPI {
 	
 	@POST("accomodation/create")
 	Call<Accommodation> create(@Body Accommodation accommodation);
+
+	@Multipart
+	@POST("image/uploadImage")
+	Call<String> uploadImage(@Part MultipartBody.Part file);
+
 }

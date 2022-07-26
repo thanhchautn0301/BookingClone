@@ -4,6 +4,17 @@ public class City {
 	private int id;
 	private String name;
 	private boolean status;
+
+	private String image;
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -22,11 +33,12 @@ public class City {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public City(int id, String name, boolean status) {
+	public City(int id, String name, boolean status, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.status = status;
+		this.image = image;
 	}
 	public City() {}
 	
