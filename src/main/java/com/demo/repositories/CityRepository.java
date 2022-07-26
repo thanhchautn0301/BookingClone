@@ -22,16 +22,16 @@ import java.util.List;
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> {
     
-    @Query("select new com.demo.entities_api.CityApi(id,name,status) from City where status = 1")
+    @Query("select new com.demo.entities_api.CityApi(id,name,status,image) from City where status = 1")
     public List<CityApi> findAllCity();
 
-    @Query("select new com.demo.entities_api.CityApi(id,name,status) from City where status = 1")
+    @Query("select new com.demo.entities_api.CityApi(id,name,status,image) from City where status = 1")
     public List<CityApi> findAllCitySort(Sort sort);
 
-    @Query("select new com.demo.entities_api.CityApi(id,name,status) from City where status = 1 ")
+    @Query("select new com.demo.entities_api.CityApi(id,name,status,image) from City where status = 1 ")
     public List<CityApi> findAllCityPagination(Pageable pageable);
 
-	@Query("select new com.demo.entities_api.CityApi(id,name,status) from City where status = true and id = :id")
+	@Query("select new com.demo.entities_api.CityApi(id,name,status,image) from City where status = true and id = :id")
     public CityApi findCityById(@Param("id") int id);
 
     @Query("select new com.demo.entities_api.AccommodationOfCityApi(c.id,c.name,c.status, count(a.id), c.image) " + 

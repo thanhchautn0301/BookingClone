@@ -61,10 +61,20 @@ public class City implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public City(String name, boolean status, Set<Accomodation> accomodations) {
+	@Column(name = "IMAGE", length = 100)
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public City(String name, boolean status, String image , Set<Accomodation> accomodations) {
 		this.name = name;
 		this.status = status;
 		this.accomodations = accomodations;
+		this.image = image;
 	}
 
 	public City(String name, boolean status, Set<Accomodation> accomodations, String image) {

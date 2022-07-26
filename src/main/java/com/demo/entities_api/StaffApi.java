@@ -1,10 +1,16 @@
 package com.demo.entities_api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-public class StaffApi {
+public class StaffApi implements UserDetails {
     private int id;
     private String name;
     private String phone;
@@ -17,6 +23,7 @@ public class StaffApi {
     private int role_id;
     private String role_name;
     private Boolean role_status;
+
     private Boolean status;
 
     public Boolean getRole_status() {
@@ -75,8 +82,43 @@ public class StaffApi {
         this.civilIdentity = civilIdentity;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//        System.out.println("role_name: "+role_name);
+        SimpleGrantedAuthority sGA = new SimpleGrantedAuthority(role_name);
+        authorities.add(sGA);
+//        System.out.println("Simple granted authority la: "+authorities.get(0).getAuthority().toString());
+        return authorities;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

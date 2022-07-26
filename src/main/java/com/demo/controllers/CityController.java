@@ -20,6 +20,8 @@ import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping( value = "api/city")
 public class CityController {
@@ -29,15 +31,16 @@ public class CityController {
 	
 	@RequestMapping(value = "create" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
 	consumes = MimeTypeUtils.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
-	public ResponseEntity<Boolean> create(@RequestBody CityApi cityApi){
+	public ResponseEntity<CityApi> create(@RequestBody CityApi cityApi){
 		
 		try {
-			return new ResponseEntity<Boolean>(cityService.create(cityApi),HttpStatus.OK);
+			return new ResponseEntity<CityApi>(cityService.create(cityApi),HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+//	@RolesAllowed("HOST")
 	@RequestMapping(value = "findall" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
 			method = RequestMethod.GET)
 	public ResponseEntity<List<CityApi>> findall(){

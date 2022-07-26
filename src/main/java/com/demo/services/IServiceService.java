@@ -1,6 +1,7 @@
 package com.demo.services;
 
 import com.demo.entities_api.ServiceApi;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface IServiceService {
     public boolean delete(int serviceId);
     public List<ServiceApi> findallservicewithsort(String field);
     public List<ServiceApi> findallservicepaginate(int offset, int no);
+    public ServiceApi findServiceByAccommodationId(Integer id);
 }

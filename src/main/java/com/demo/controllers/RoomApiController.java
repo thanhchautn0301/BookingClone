@@ -8,19 +8,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+
 import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 @RestController
 @RequestMapping(value = {"api/room"})
-public class RoomApiController {
+public class RoomApiController implements ServletContextAware {
     @Autowired
     private IRoomService roomService;
+    
+    private ServletContext servletContext;
+    
     @RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<RoomApi>> findall() {
         try {
@@ -151,4 +161,12 @@ public class RoomApiController {
             return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
         }
     }
+  
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		// TODO Auto-generated method stub
+		this.servletContext = servletContext;
+	}
+
 }

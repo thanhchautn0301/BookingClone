@@ -26,12 +26,20 @@ public class CityService implements ICityService {
 
 	
 
-	public boolean create(CityApi cityApi) {
+	public CityApi create(CityApi cityApi) {
 		// TODO Auto-generated method stub
-		City city = new City();
-		city.setName(cityApi.getName());
-		city.setStatus(true);
-		return cityRepository.save(city) != null;
+		try {
+			City city = new City();
+			city.setName(cityApi.getName());
+			city.setImage(cityApi.getImage());
+			city.setStatus(true);
+			City newCity = cityRepository.save(city);
+			cityApi.setId(newCity.getId());
+			return cityApi;
+		}catch(Exception e){
+				e.printStackTrace();
+				return null;
+		}
 	}
 
 	@Override

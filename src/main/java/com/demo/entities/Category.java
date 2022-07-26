@@ -33,10 +33,19 @@ public class Category implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Category(String name, boolean status, Set<Accomodation> accomodations) {
+	public Category(String name, boolean status,String image, Set<Accomodation> accomodations) {
 		this.name = name;
 		this.status = status;
 		this.accomodations = accomodations;
+		this.image = image;
+	}
+	@Column(name = "IMAGE", length = 100)
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public Category(String name, boolean status, Set<Accomodation> accomodations, String image) {
 		this.name = name;

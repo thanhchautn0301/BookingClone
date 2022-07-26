@@ -59,11 +59,12 @@ public class CityApi {
 		this.status = status;
 	}
 	
-	public CityApi(int id, String name, boolean status) {
+	public CityApi(int id, String name, boolean status, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.status = status;
+		this.image = image;
 	}
 	
 	public CityApi(int id, String name) {

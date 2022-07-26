@@ -7,9 +7,12 @@ import com.demo.entities_api.StaffApi;
 import com.demo.repositories.RoleRepository;
 import com.demo.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StaffService implements IStaffService{
@@ -28,6 +31,11 @@ public class StaffService implements IStaffService{
     }
 
     @Override
+    public Optional<StaffApi> findStaffApiByEmail(String email) {
+        return staffRepository.findStaffApiByEmail(email);
+    }
+
+    @Override
     public StaffApi create(StaffApi staffApi) {
         try {
             // Tao moi 1 staff luu vao db
@@ -40,7 +48,9 @@ public class StaffService implements IStaffService{
             staff.setPhone(staffApi.getPhone());
             staff.setEmail(staffApi.getEmail());
             staff.setCivilIdentity(staffApi.getCivilIdentity());
-            staff.setPassword(staffApi.getPassword());
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            System.out.println(passwordEncoder.encode(staffApi.getPassword()));
+            staff.setPassword(passwordEncoder.encode(staffApi.getPassword()));
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
             staff.setStatus(true);
@@ -101,9 +111,14 @@ public class StaffService implements IStaffService{
             return false;
         }
     }
-    
+
     @Override
-	public StaffApi findStaffByEmail(String email) {
-		return staffRepository.findStaffByEmail(email);
-	}
+    public StaffApi findStaffByEmail(String email) {
+        return null;
+    }
+
+//    @Override
+//	public StaffApi findStaffByEmail(String email) {
+//		return staffRepository.findStaffApiByEmail(email);
+//	}
 }

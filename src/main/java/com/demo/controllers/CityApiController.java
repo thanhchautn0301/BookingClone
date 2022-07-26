@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping(value = {"api/city"})
 public class CityApiController {
 	@Autowired
 	private ICityService cityService;
-	
+
+//	@RolesAllowed("HOST")
 	@RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<CityApi>> findAll() {
         try {
@@ -56,13 +59,13 @@ public class CityApiController {
 	        }
 	    }
 	 
-	 @RequestMapping(value="create", method=RequestMethod.POST)
-	    public ResponseEntity<Boolean> create(@RequestBody CityApi cityApi) {
+	 @RequestMapping(value="create1", method=RequestMethod.POST)
+	    public ResponseEntity<CityApi> create(@RequestBody CityApi cityApi) {
 	        try {
-	            return new ResponseEntity<Boolean>(cityService.create(cityApi),HttpStatus.OK);
+	            return new ResponseEntity<CityApi>(cityService.create(cityApi),HttpStatus.OK);
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
-	            return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 	        }
 	    }
 	 
