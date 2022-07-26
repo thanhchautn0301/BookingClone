@@ -4,6 +4,7 @@ import com.demo.entities.Role;
 import com.demo.entities.Staff;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
+import com.demo.helper.Encrypt;
 import com.demo.repositories.RoleRepository;
 import com.demo.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,14 +112,23 @@ public class StaffService implements IStaffService{
             return false;
         }
     }
-
     @Override
-    public StaffApi findStaffByEmail(String email) {
-        return null;
+    public int activateAccount(int id) {
+        try {
+            return staffRepository.activateAccount(id);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
-//    @Override
-//	public StaffApi findStaffByEmail(String email) {
-//		return staffRepository.findStaffApiByEmail(email);
-//	}
+    @Override
+    public int resetPassword(int id, String password) {
+        try {
+            return staffRepository.resetPassword(id, Encrypt.BcryptPass(password));
+        } catch(Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

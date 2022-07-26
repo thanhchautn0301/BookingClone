@@ -13,6 +13,17 @@ public class AccomodationApi {
     private Integer staff_id;
     private String name;
     private boolean status;
+	private String image;
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -62,7 +73,7 @@ public class AccomodationApi {
 		this.status = status;
 	}
 	public AccomodationApi(Integer id, Integer category_id, String category_name, Integer city_id, String city_name,
-			Integer staff_id, String name, boolean status) {
+			Integer staff_id, String name, boolean status, String image, String description) {
 		super();
 		this.id = id;
 		this.category_id = category_id;
@@ -72,7 +83,29 @@ public class AccomodationApi {
 		this.staff_id = staff_id;
 		this.name = name;
 		this.status = status;
+		this.image = image;
+		this.description = description;
 	}
+
+	public AccomodationApi(Integer id,String category_name, String city_name, String name, boolean status, String image, String description) {
+		super();
+		this.id = id;
+		this.category_name = category_name;
+		this.city_name = city_name;
+		this.name = name;
+		this.status = status;
+		this.image = image;
+		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public AccomodationApi() {
 		
 	}
