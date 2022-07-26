@@ -48,24 +48,26 @@ public class ImageService implements IImageService, ServletContextAware {
     }
 
     @Override
-    public ImageApi create(ImageApi imageApi, MultipartFile multipartFile) {
+    public ImageApi create(ImageApi imageApi) {
         try {
+            System.out.println( "ten image:"+imageApi.getName());
         	Image image = new Image();
 
         	image.setName(imageApi.getName());
-        	
-            Accomodation  accomodation = accomodationRepository.findById(imageApi.getAccomodation_id()).get();
-            image.setAccomodation(accomodation);
-            Room room = roomRepository.findById(imageApi.getRoom_id()).get();
-            image.setRoom(room);
-        	image.setStatus(imageApi.isStatus());
+        	if(imageApi.getAccomodation_id() != 0) {
+        		 Accomodation  accomodation = accomodationRepository.findById(imageApi.getAccomodation_id()).get();
+                 image.setAccomodation(accomodation);
+        	}
+           
+        	if(imageApi.getRoom_id() != 0) {
+        		  Room room = roomRepository.findById(imageApi.getRoom_id()).get();
+                  image.setRoom(room);
+        	}
+
+            System.out.println( "ten image:"+image.getName());
+        	image.setStatus(true);
         	
         	Image newImage = imageRepository.save(image);
-        	
-        	if(newImage != null) {
-        		FileUpload.upload(servletContext, multipartFile);
-        	}
-        	
         	
         	imageApi.setId(newImage.getId());
             return imageApi;
@@ -116,6 +118,18 @@ public class ImageService implements IImageService, ServletContextAware {
     public List<ImageApi> findallimagepaginate(int offset, int no) {
         return imageRepository.findAllImagePagination(PageRequest.of(offset,no));
     }
+    
+	@Override
+	public String uploadImage(ServletContext servletContext, MultipartFile file) {
+		try {
+			String name =   FileUpload.upload(servletContext, file);
+
+			return name;
+		} catch (Exception e) {
+
+			return "";
+		}
+	}
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {

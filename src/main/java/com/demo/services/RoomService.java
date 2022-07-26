@@ -5,6 +5,7 @@ import com.demo.entities.Room;
 import com.demo.entities.RoomType;
 import com.demo.entities_api.AccomodationApi;
 import com.demo.entities_api.RoomApi;
+import com.demo.entities_api.RoomDetail;
 import com.demo.entities_api.RoomTypeApi;
 import com.demo.helper.FileUpload;
 import com.demo.repositories.AccomodationRepository;
@@ -129,9 +130,11 @@ public class RoomService implements IRoomService {
         return roomRepository.findRoomByAdminRequest(id, capacity,childrenQuantity, adultQuantity);
     }
 
-	@Override
-	public String uploadImage(ServletContext servletContext, MultipartFile file) {
-		FileUpload.upload(servletContext, file);
-		return null;
-	}
+    // loc_home_accomm_detail
+    @Override
+    public List<RoomDetail> findAllByAccommodationId(int accommodationId) {
+        return roomRepository.findRoomByAccommodationId(accommodationId);
+    }
+
+
 }

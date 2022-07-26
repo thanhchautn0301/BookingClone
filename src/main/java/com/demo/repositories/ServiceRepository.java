@@ -24,4 +24,7 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
 
     @Query("select new com.demo.entities_api.ServiceApi(id, accomodation.id, name, price, iconCanvas, status) from Service where status =true and id =:id")
     public ServiceApi findServiceById(@Param("id") int id);
+
+    @Query("select new com.demo.entities_api.ServiceApi(id, accomodation.id, name, price, iconCanvas, status) from Service where status =true and accomodation.id =:id")
+    public ServiceApi findServiceByAccommodationId(@Param("id") int id);
 }

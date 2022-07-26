@@ -93,4 +93,9 @@ public class ServiceService implements IServiceService {
     public List<ServiceApi> findallservicepaginate(int offset, int no) {
         return serviceRepository.findAllServicePagination(PageRequest.of(offset,no));
     }
+
+    @Override
+    public ServiceApi findServiceByAccommodationId(Integer id) {
+        return serviceRepository.findServiceByAccommodationId(id);
+    }
 }

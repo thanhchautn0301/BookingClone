@@ -161,25 +161,7 @@ public class RoomApiController implements ServletContextAware {
             return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
         }
     }
-    
-    @RequestMapping(value="uploadImage", method=RequestMethod.POST)
-    public ResponseEntity<Boolean> uploadImage(@RequestParam(name = "file", required = false) MultipartFile file) {
-		/*
-		 * try { byte[] bytes = file.getBytes(); Path path = Paths
-		 * .get(servletContext.getRealPath("/resources/images/" +
-		 * multipartFile.getOriginalFilename())); Files.write(path, bytes); return
-		 * multipartFile.getOriginalFilename(); } catch (Exception ex) {
-		 * ex.printStackTrace(); return new
-		 * ResponseEntity<RoomApi>(HttpStatus.BAD_REQUEST); }
-		 */
-    	  try {
-    		  roomService.uploadImage(servletContext,file);
-              return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-          } catch (Exception ex) {
-              ex.printStackTrace();
-              return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
-          }
-    }
+  
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {

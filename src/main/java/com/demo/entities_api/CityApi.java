@@ -5,7 +5,17 @@ public class CityApi {
 	private int id;
 	private String name;
 	private boolean status;
-	
+
+	private String image;
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -30,11 +40,12 @@ public class CityApi {
 		this.status = status;
 	}
 	
-	public CityApi(int id, String name, boolean status) {
+	public CityApi(int id, String name, boolean status, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.status = status;
+		this.image = image;
 	}
 	
 	public CityApi(int id, String name) {

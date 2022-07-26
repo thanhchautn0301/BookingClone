@@ -58,9 +58,9 @@ public class ImageApiController implements ServletContextAware{
     }
 
     @RequestMapping(value="create", method=RequestMethod.POST)
-    public ResponseEntity<ImageApi> create(@RequestBody ImageApi imageApi, MultipartFile file) {
+    public ResponseEntity<ImageApi> create(@RequestBody ImageApi imageApi) {
         try {
-            return new ResponseEntity<ImageApi>(imageService.create(imageApi, file), HttpStatus.OK);
+            return new ResponseEntity<ImageApi>(imageService.create(imageApi), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<ImageApi>(HttpStatus.BAD_REQUEST);
@@ -103,7 +103,6 @@ public class ImageApiController implements ServletContextAware{
     	try {
     		
     		String path = "/images/"+ name;
-    		System.out.println("ten hinh anh:"+path);
     		InputStream in = servletContext.getResourceAsStream(path);
     		 org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
     		    headers.setContentType(MediaType.IMAGE_PNG);
@@ -115,6 +114,28 @@ public class ImageApiController implements ServletContextAware{
 			return null;
 		}
     	
+    }
+    
+    
+    
+    @RequestMapping(value="uploadImage", method=RequestMethod.POST)
+    public ResponseEntity<String> uploadImage(@RequestParam(name = "file", required = false) MultipartFile file) {
+		/*
+		 * try { byte[] bytes = file.getBytes(); Path path = Paths
+		 * .get(servletContext.getRealPath("/resources/images/" +
+		 * multipartFile.getOriginalFilename())); Files.write(path, bytes); return
+		 * multipartFile.getOriginalFilename(); } catch (Exception ex) {
+		 * ex.printStackTrace(); return new
+		 * ResponseEntity<RoomApi>(HttpStatus.BAD_REQUEST); }
+		 */
+    	  try {
+    		 String name =   imageService.uploadImage(servletContext,file);
+              return new ResponseEntity<String>(name,HttpStatus.OK);
+          } catch (Exception ex) {
+
+              ex.printStackTrace();
+              return new ResponseEntity<String>("",HttpStatus.BAD_REQUEST);
+          }
     }
 
 	@Override
