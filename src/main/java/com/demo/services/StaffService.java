@@ -49,9 +49,7 @@ public class StaffService implements IStaffService{
             staff.setPhone(staffApi.getPhone());
             staff.setEmail(staffApi.getEmail());
             staff.setCivilIdentity(staffApi.getCivilIdentity());
-            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            System.out.println(passwordEncoder.encode(staffApi.getPassword()));
-            staff.setPassword(passwordEncoder.encode(staffApi.getPassword()));
+            staff.setPassword(Encrypt.BcryptPass(staffApi.getPassword()));
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
             staff.setStatus(true);
