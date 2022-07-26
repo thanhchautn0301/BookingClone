@@ -63,25 +63,58 @@ public class StaffApiController {
     @RequestMapping(value="login", method= RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
-            System.out.println(request.getEmail());
-            System.out.println(request.getPassword());
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
             StaffApi staffApi =(StaffApi) authentication.getPrincipal();
 
-            String accessToken = jwtTokenUtil.generateAccessToken(staffApi);
-
-            AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken, staffApi.getId());
-            System.out.println("Access token: "+accessToken);
-            System.out.println("Id: "+Integer.parseInt(String.valueOf(authResponse.getId())));
-
-            return ResponseEntity.ok(authResponse);
-
+            if(!staffApi.getStatus()) {
+                String activateToken = jwtTokenUtil.generateActivateToken(staffApi);
+                AuthResponse authResponse = new AuthResponse("inactivate", activateToken, staffApi.getId());
+                return ResponseEntity.ok(authResponse);
+            }
+            else {
+                String accessToken = jwtTokenUtil.generateAccessToken(staffApi);
+                AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken, staffApi.getId());
+                return ResponseEntity.ok(authResponse);
+            }
         } catch(HttpClientErrorException.BadRequest ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    @RequestMapping(value="forgotpw", method= RequestMethod.POST)
+    public ResponseEntity<?> forgotpw(@RequestParam("email") String email) {
+        try {
+            Optional<StaffApi> staffApi = staffService.findStaffApiByEmail(email);
+            if(staffApi.isPresent()) {
+                StaffApi staff = staffApi.get();
+                String resetPwToken = jwtTokenUtil.generateResetPwToken(staff);
+                AuthResponse authResponse = new AuthResponse("resetpw", resetPwToken, staff.getId());
+                return ResponseEntity.ok(authResponse);
+            }
+            else {
+                System.out.println("Invalid email");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch(HttpClientErrorException.BadRequest ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+
+    @RequestMapping(value="resetpw", method= RequestMethod.GET)
+    public ResponseEntity<?> resetpw(@RequestParam("id") int id,@RequestParam("password") String password) {
+        try {
+            int result = staffService.resetPassword(id, password);
+            return new ResponseEntity<Integer>(result,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Integer>(-1,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
     @RequestMapping(value="update", method=RequestMethod.PUT)
     public ResponseEntity<Boolean> update(@RequestBody StaffApi staffApi) {
@@ -120,6 +153,17 @@ public class StaffApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<Optional<StaffApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="activateaccount", method=RequestMethod.GET)
+    public ResponseEntity<Integer> activateaccount(@RequestParam("id") int id) {
+        try {
+            int result = staffService.activateAccount(id);
+            return new ResponseEntity<Integer>(result,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Integer>(-1,HttpStatus.BAD_REQUEST);
         }
     }
 }

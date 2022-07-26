@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -93,6 +92,20 @@ public class AccomodationApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<AccomodationApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findaccomodationbycityid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Object> findaccomodationbycityid(@PathVariable("id") int id) {
+        try {
+            List<AccomodationApi> accommodations = accomodationService.findallaccomodationbycityid(id);
+            return new ResponseEntity<Object>(new Object() {
+                public int accomodationQuantity = accommodations.size();
+                public List<AccomodationApi> accomodations = accommodations;
+            },HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
         }
     }
 }

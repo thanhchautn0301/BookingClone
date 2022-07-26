@@ -110,4 +110,9 @@ public class AccomodationService implements IAccomodationService {
     public List<AccomodationApi> findallaccomodationbyhost(int hostId) {
         return accomodationRepository.findAllAccomodationByHostId(hostId);
     }
+
+    @Override
+    public List<AccomodationApi> findallaccomodationbycityid(int cityId) {
+        return accomodationRepository.findAllAccomodationByCityId(cityId);
+    }
 }

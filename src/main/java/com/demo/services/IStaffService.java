@@ -12,5 +12,8 @@ public interface IStaffService {
     public StaffApi create(StaffApi staffApi);
     public boolean update(StaffApi staffApi);
     public boolean delete(int staffApi_id);
-    public StaffApi findStaffByEmail(String email);
+    // kich hoat tai khoan xac nhan qua email
+    public int activateAccount(int id);
+    // dat lai mat khau xac nhan qua email
+    public int resetPassword(int id, String password);
 }
