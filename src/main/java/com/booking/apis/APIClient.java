@@ -1,5 +1,6 @@
 package com.booking.apis;
 import com.booking.helpers.TokenReader;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class APIClient {
     private static Retrofit retrofit = null;
+
     public static Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

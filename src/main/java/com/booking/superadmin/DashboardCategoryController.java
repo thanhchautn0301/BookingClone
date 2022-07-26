@@ -1,5 +1,10 @@
 package com.booking.superadmin;
 
+import com.booking.entities.Image;
+import com.booking.services.IImageService;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -7,10 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.booking.entities.Category;
 import com.booking.services.ICategoryService;
+
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "superadmin/dashboard/category")
@@ -18,6 +27,8 @@ public class DashboardCategoryController {
 	
 	@Autowired
 	private ICategoryService categoryService;
+	@Autowired
+	private IImageService imageService;
 	
 	@RequestMapping(value = "",method = RequestMethod.GET)
 	public String category(ModelMap modelMap) {
@@ -26,8 +37,23 @@ public class DashboardCategoryController {
 	}
 	
 	@RequestMapping(value = "add",method = RequestMethod.POST)
-	public String add(@RequestParam("name") String name,RedirectAttributes redirectAttributes) {
-		Category category = categoryService.create(name);
+	public String add(@RequestParam("name") String name, @RequestParam(name = "photos", required = false) MultipartFile photos, RedirectAttributes redirectAttributes) throws IOException {
+		Category category = null;
+		if(photos != null){
+			File imageFile = new File(System.getProperty("java.io.tmpdir")+"/"+ photos.getOriginalFilename());
+			photos.transferTo(imageFile);
+
+			RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+
+			MultipartBody.Part imageBody = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile);
+			String nameImageString = "";
+			nameImageString = imageService.uploadFile(imageBody);
+
+			if(nameImageString != "") {
+				 category = categoryService.create(name,nameImageString);
+			}
+		}
+
 		if(category != null) {
 			redirectAttributes.addFlashAttribute("result","success");
 		}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.booking.entities.SearchAccommodation;
+import okhttp3.MultipartBody;
 import com.booking.helpers.TokenReader;
 import org.springframework.stereotype.Service;
 
@@ -94,4 +95,16 @@ public class AccommodationService implements IAccommodationService {
 			return false;
 		}
 	}
+
+	@Override
+	public String uploadFile(MultipartBody.Part file) {
+		try {
+			Response<String> response = accommodationAPI.uploadImage(file).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

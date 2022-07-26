@@ -3,6 +3,7 @@ package com.booking.services;
 import java.util.List;
 
 import com.booking.entities.Accommodation;
+import okhttp3.MultipartBody;
 import com.booking.entities.SearchAccommodation;
 
 public interface IAccommodationService {
@@ -12,4 +13,6 @@ public interface IAccommodationService {
 	public boolean update(Accommodation accommodation);
 	public boolean delete(int id);
 	public Accommodation create(Accommodation accommodation);
+
+	public String uploadFile(MultipartBody.Part file) ;
 }
