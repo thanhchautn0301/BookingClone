@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.booking.apis.APIClient;
 import com.booking.apis.CategoryAPI;
+import com.booking.entities.AccommodationOfCategory;
 import com.booking.entities.Category;
 
 import retrofit2.Response;
@@ -72,6 +73,18 @@ public class CategoryService implements ICategoryService {
 	public String uploadFile(MultipartBody.Part file) {
 		try {
 			Response<String> response = categoryAPI.uploadImage(file).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+
+	@Override
+	public List<AccommodationOfCategory> findAllAccommodationOfCategory() {
+		try {
+			Response<List<AccommodationOfCategory>> response = categoryAPI.findAllAccommodationOfCategory().execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();

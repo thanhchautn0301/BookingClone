@@ -25,7 +25,8 @@ public class DashboardStaffController {
 	private IStaffService staffService;
 	
 	@RequestMapping(value = "info",method = RequestMethod.GET)
-	public String staffInfo() {
+	public String staffInfo(ModelMap modelMap) {
+		modelMap.put("staffs", staffService.findAll());
 		return "superadmin/dashboard/staff-info";
 	}
 	

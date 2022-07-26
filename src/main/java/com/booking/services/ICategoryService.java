@@ -2,6 +2,7 @@ package com.booking.services;
 
 import java.util.List;
 
+import com.booking.entities.AccommodationOfCategory;
 import com.booking.entities.Category;
 import okhttp3.MultipartBody;
 
@@ -12,4 +13,5 @@ public interface ICategoryService {
 	public boolean delete(int id);
 
 	public String uploadFile(MultipartBody.Part file) ;
+	public List<AccommodationOfCategory> findAllAccommodationOfCategory();
 }

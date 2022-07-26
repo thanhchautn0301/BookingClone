@@ -4,6 +4,7 @@ package com.booking.apis;
 
 import java.util.List;
 
+import com.booking.entities.AccommodationOfCity;
 import com.booking.entities.City;
 
 import okhttp3.MultipartBody;
@@ -29,4 +30,7 @@ public interface CityAPI {
 	@Multipart
 	@POST("image/uploadImage")
 	Call<String> uploadImage(@Part MultipartBody.Part file);
+
+	@GET("city/findAllAccommodationOfCity")
+	public Call<List<AccommodationOfCity>> findAllAccommodationOfCity();
 }

@@ -4,6 +4,7 @@ package com.booking.apis;
 
 import java.util.List;
 
+import com.booking.entities.AccommodationOfCategory;
 import com.booking.entities.Category;
 
 import okhttp3.MultipartBody;
@@ -29,4 +30,7 @@ public interface CategoryAPI {
 	@Multipart
 	@POST("image/uploadImage")
 	Call<String> uploadImage(@Part MultipartBody.Part file);
+
+	@GET("category/findAllAccommodationOfCategory")
+	public Call<List<AccommodationOfCategory>> findAllAccommodationOfCategory();
 }

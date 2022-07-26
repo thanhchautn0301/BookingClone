@@ -5,6 +5,7 @@ import com.booking.services.IImageService;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import com.booking.helpers.TokenReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,10 +40,9 @@ public class DashboardAccommodationController {
 	
 	@RequestMapping(value = "info",method = RequestMethod.GET)
 	public String accommodationInfo(ModelMap modelMap) {
-		modelMap.put("accoms", accommodationService.findAllByHostId(1));
+		modelMap.put("accoms", accommodationService.findAllByHostId(6));
 		modelMap.put("categories", categoryService.findAll());
 		modelMap.put("cities",cityService.findAll());
-		System.out.println(accommodationService.findAllByHostId(1));
 		return "admin/dashboard/accommodation-info";
 	}
 	
@@ -124,7 +124,5 @@ public class DashboardAccommodationController {
 			redirectAttributes.addFlashAttribute("result", "success");
 		}
 		return "redirect:/admin/dashboard/accommodation/info";
-		
 	}
-	
 }
