@@ -22,7 +22,37 @@ public class City implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private boolean status;
+	private String image;
+	private boolean home;
 	private Set<Accomodation> accomodations = new HashSet<Accomodation>(0);
+
+
+	
+	public City(Integer id, String name, boolean status, String image, boolean home, Set<Accomodation> accomodations) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.status = status;
+		this.image = image;
+		this.home = home;
+		this.accomodations = accomodations;
+	}
+
+	public boolean isHome() {
+		return home;
+	}
+
+	public void setHome(boolean home) {
+		this.home = home;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public City() {
 	}
@@ -35,6 +65,13 @@ public class City implements java.io.Serializable {
 		this.name = name;
 		this.status = status;
 		this.accomodations = accomodations;
+	}
+
+	public City(String name, boolean status, Set<Accomodation> accomodations, String image) {
+		this.name = name;
+		this.status = status;
+		this.accomodations = accomodations;
+		this.image = image;
 	}
 
 	@Id

@@ -5,7 +5,36 @@ public class CityApi {
 	private int id;
 	private String name;
 	private boolean status;
+	private String image;
+	private boolean home;
 	
+	
+	
+	public CityApi(int id, String name, boolean status, String image, boolean home) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.status = status;
+		this.image = image;
+		this.home = home;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isHome() {
+		return home;
+	}
+
+	public void setHome(boolean home) {
+		this.home = home;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -96,4 +96,14 @@ public class CityApiController {
 	            return new ResponseEntity<CityApi>(HttpStatus.BAD_REQUEST);
 	        }
 	    }
+	 @RequestMapping(value="findHome", method=RequestMethod.GET)
+	    public ResponseEntity<List<CityApi>> findHome() {
+	        try {
+	            return new ResponseEntity<List<CityApi>>(cityService.findHomeCity(), HttpStatus.OK);
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	            return new ResponseEntity<List<CityApi>>(HttpStatus.BAD_REQUEST);
+	        }
+	    }
+	 
 }

@@ -6,16 +6,25 @@ public class AccommodationOfCityApi {
 	private String name;
 	private boolean status;
 	private long numberOfAccommodation;
+	private String image;
 
 	
-	public AccommodationOfCityApi(int id, String name, boolean status, long numberOfAccommodation) {
+	public AccommodationOfCityApi(int id, String name, boolean status, long numberOfAccommodation, String image) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
 		this.numberOfAccommodation = numberOfAccommodation;
+		this.image = image;
 	}
 	
 	public AccommodationOfCityApi() {
+	}
+
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public int getId() {
