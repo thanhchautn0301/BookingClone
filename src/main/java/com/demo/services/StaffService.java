@@ -4,6 +4,7 @@ import com.demo.entities.Role;
 import com.demo.entities.Staff;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
+import com.demo.helper.Encrypt;
 import com.demo.repositories.RoleRepository;
 import com.demo.repositories.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class StaffService implements IStaffService{
             staff.setPhone(staffApi.getPhone());
             staff.setEmail(staffApi.getEmail());
             staff.setCivilIdentity(staffApi.getCivilIdentity());
-            staff.setPassword(staffApi.getPassword());
+            staff.setPassword(Encrypt.BcryptPass(staffApi.getPassword()));
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
             staff.setStatus(true);
