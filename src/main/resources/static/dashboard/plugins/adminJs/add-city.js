@@ -69,12 +69,19 @@ $(function () {
         name: {
           required: true,
           minlength: 5
-        }
+        },
+        photos:{
+            required: true,
+            accept: "image/jpeg,image/jpg, image/pjpeg, image/png"}
     }
     ,messages:{
       name: {
         required: 'Vui lòng nhập tên thành phố',
         minlength: 'Tên thành phố phải có ít nhất 5 chữ cái'
+      },
+      photos:{
+          required: 'Vui lòng thêm ít nhất 1 hình cho chỗ nghỉ',
+          accept: 'Vui lòng thêm đúng định dạng ảnh jpg,jpeg,png'
       }
     },
     errorElement: 'span',

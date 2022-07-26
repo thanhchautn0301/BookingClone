@@ -345,7 +345,7 @@ isELIgnored="false"%>
         </div>
         <div class="row">
           <div class="col-12">
-            <form method="post" action="${pageContext.request.contextPath }/superadmin/dashboard/city/add" class="card collapsed-card" id="addForm">
+            <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath }/superadmin/dashboard/city/add" class="card collapsed-card" id="addForm">
               <div class="card-header">
                 <h3 class="card-title">Thêm thành phố mới</h3>
                 <div class="card-tools">
@@ -358,6 +358,15 @@ isELIgnored="false"%>
                   <div class="form-group">
                     <label>Tên thành phố</label>
                     <input type="text" placeholder="Nhập tên thành phố" autocomplete="off" class="form-control" name="name" id="">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Thêm ảnh</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="photos" class="custom-file-input" id="" accept=".png, .jpg, .jpeg" >
+                        <label class="custom-file-label" for="exampleInputFile">Upload image</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- /.card-body -->

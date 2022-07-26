@@ -6,13 +6,9 @@ import java.util.List;
 
 import com.booking.entities.Category;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 public interface CategoryAPI {
 	@POST("category/create")
@@ -29,4 +25,8 @@ public interface CategoryAPI {
 	
 	@GET("category/findcategoryById/{id}")
 	public Call<Category> findcategoryById(@Path("id") int id);
+
+	@Multipart
+	@POST("image/uploadImage")
+	Call<String> uploadImage(@Part MultipartBody.Part file);
 }

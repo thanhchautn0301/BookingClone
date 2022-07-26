@@ -6,17 +6,13 @@ import java.util.List;
 
 import com.booking.entities.City;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 public interface CityAPI {
 	@POST("city/create")
-	public Call<Boolean> create(@Body City city);
+	public Call<City> create(@Body City city);
 	
 	@PUT("city/update")
 	public Call<Boolean> update(@Body City city);
@@ -29,4 +25,8 @@ public interface CityAPI {
 	
 	@GET("city/findCityById/{id}")
 	public Call<City> findCityById(@Path("id") int id);
+
+	@Multipart
+	@POST("image/uploadImage")
+	Call<String> uploadImage(@Part MultipartBody.Part file);
 }

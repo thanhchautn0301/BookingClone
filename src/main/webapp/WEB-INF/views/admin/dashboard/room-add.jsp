@@ -305,7 +305,7 @@
         <div class="row">
           <div class="col-12">
             <div class="card card-primary">
-              <form method="post" action="${pageContext.request.contextPath}/admin/dashboard/room/add" id="roomAddForm">
+              <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/dashboard/room/add" id="roomAddForm">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="">Tên phòng</label>
