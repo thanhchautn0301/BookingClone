@@ -6,18 +6,19 @@ public class AccommodationOfCategory {
 	private String name;
 	private boolean status;
 	private long numberOfAccommodation;
+	private String image;
 
 	
-	public AccommodationOfCategory(int id, String name, boolean status, long numberOfAccommodation) {
+
+	public AccommodationOfCategory() {
+	}
+	public AccommodationOfCategory(int id, String name, boolean status, long numberOfAccommodation, String image) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
 		this.numberOfAccommodation = numberOfAccommodation;
+		this.image = image;
 	}
-	
-	public AccommodationOfCategory() {
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -41,6 +42,12 @@ public class AccommodationOfCategory {
 	}
 	public void setNumberOfAccommodation(long numberOfAccommodation) {
 		this.numberOfAccommodation = numberOfAccommodation;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

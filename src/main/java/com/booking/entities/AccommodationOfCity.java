@@ -6,18 +6,18 @@ public class AccommodationOfCity {
 	private String name;
 	private boolean status;
 	private long numberOfAccommodation;
+	private String image;
 
 	
-	public AccommodationOfCity(int id, String name, boolean status, long numberOfAccommodation) {
+	public AccommodationOfCity() {
+	}
+	public AccommodationOfCity(int id, String name, boolean status, long numberOfAccommodation, String image) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
 		this.numberOfAccommodation = numberOfAccommodation;
+		this.image = image;
 	}
-	
-	public AccommodationOfCity() {
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -41,6 +41,12 @@ public class AccommodationOfCity {
 	}
 	public void setNumberOfAccommodation(long numberOfAccommodation) {
 		this.numberOfAccommodation = numberOfAccommodation;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	
