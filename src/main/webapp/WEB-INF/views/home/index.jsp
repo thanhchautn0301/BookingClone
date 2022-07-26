@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -367,116 +368,17 @@
           <p class="text-secondary">Các điểm đến phổ biến này có nhiều điều chờ đón bạn</p>
             <div class="splide__track">
               <ul class="splide__list">
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/dalat.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Đà Lạt</p>
-                      <p class="text-secondary fs-14">5,605 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/hotram.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Hồ Tràm</p>
-                      <p class="text-secondary fs-14">2,144 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/nhatrang.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nha Trang</p>
-                      <p class="text-secondary fs-14">321 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/hcm.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">TP Hồ Chí Minh</p>
-                      <p class="text-secondary fs-14">432 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/muine.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Mũi Né</p>
-                      <p class="text-secondary fs-14">269 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/vungtay.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Vũng Tàu</p>
-                      <p class="text-secondary fs-14">123 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/phuquoc.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Phú Quốc</p>
-                      <p class="text-secondary fs-14">456 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/phan_thiet.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Phan Thiết</p>
-                      <p class="text-secondary fs-14">789 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/tuong_phat_ba_quan_am_nui_ba_den.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Núi Bà Đen</p>
-                      <p class="text-secondary fs-14">14 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/sapa.jpg" class="img-carousel" alt="sapaPhoto">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Sa Pa</p>
-                      <p class="text-secondary fs-14">21 chỗ nghỉ</p>
-                    </div>
-                  </a>
-                
-                
-                </li>
+                <c:forEach var="item" items="${accommodationOfCity}">
+                  <li class="splide__slide">
+                    <a href="" class="text-decoration-none">
+                      <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/dalat.jpg" class="img-carousel" alt="">
+                      <div>
+                        <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
+                        <p class="text-secondary fs-14">${item.numberOfAccommodation} chỗ nghỉ</p>
+                      </div>
+                    </a> 
+                  </li>
+                </c:forEach>                
               </ul>
             </div>
           </div>
@@ -488,106 +390,17 @@
           <h4 class="h4 fw-bold mb-3">Tìm theo loại chỗ nghỉ</h4>
             <div class="splide__track">
               <ul class="splide__list">
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/bietthu.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Biệt Thự</p>
-                      <p class="text-secondary fs-14">1505 biệt thự</p>
-                    </div>
-                  </a>
-                </li>
-                
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/canho.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Căn hộ</p>
-                      <p class="text-secondary fs-14">144 căn hộ</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/nhanghithonque.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nhà nghỉ thôn quê</p>
-                      <p class="text-secondary fs-14">32 nhà nghỉ thôn quê</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/khachsan.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Khách sạn</p>
-                      <p class="text-secondary fs-14">132 khách sạn</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/khachsantupv.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Khách sạn tự phục vụ</p>
-                      <p class="text-secondary fs-14">269 khách sạn tự phục vụ</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/nhago.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nhà gỗ</p>
-                      <p class="text-secondary fs-14">123 nhà gỗ</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/nhanghinongthon.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nhà nghỉ nông thôn</p>
-                      <p class="text-secondary fs-14">456 nhà nghỉ nông thôn</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/nhanho.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nhà nhỏ</p>
-                      <p class="text-secondary fs-14">789 nhà nhỏ</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/nhathuyen.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Nhà thuyền</p>
-                      <p class="text-secondary fs-14">14 nhà thuyền</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/resort.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Resort</p>
-                      <p class="text-secondary fs-14">211 resort</p>
-                    </div>
-                  </a>
-                </li>
-                <li class="splide__slide">
-                  <a href="" class="text-decoration-none">
-                    <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/trang-tri-leu-trai-6.jpg" class="img-carousel" alt="">
-                    <div>
-                      <p class="fw-bold text-black mb-0 mt-1">Lều trại</p>
-                      <p class="text-secondary fs-14">169 lều trại</p>
-                    </div>
-                  </a>
-                </li>
+                <c:forEach var="item" items="${accommodationOfCategory}">
+                  <li class="splide__slide">
+                    <a href="" class="text-decoration-none">
+                      <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/bietthu.jpg" class="img-carousel" alt="">
+                      <div>
+                        <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
+                        <p class="text-secondary fs-14">${item.numberOfAccommodation} ${item.name}</p>
+                      </div>
+                    </a>
+                  </li> 
+                </c:forEach>                               
               </ul>
             </div>
           </div>

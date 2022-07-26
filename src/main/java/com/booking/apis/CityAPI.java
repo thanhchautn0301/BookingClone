@@ -4,6 +4,7 @@ package com.booking.apis;
 
 import java.util.List;
 
+import com.booking.entities.AccommodationOfCity;
 import com.booking.entities.City;
 
 import retrofit2.Call;
@@ -16,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface CityAPI {
 	@POST("city/create")
-	public Call<City> create(@Body City city);
+	public Call<Boolean> create(@Body City city);
 	
 	@PUT("city/update")
 	public Call<Boolean> update(@Body City city);
@@ -29,4 +30,7 @@ public interface CityAPI {
 	
 	@GET("city/findCityById/{id}")
 	public Call<City> findCityById(@Path("id") int id);
+
+	@GET("city/findAllAccommodationOfCity")
+	public Call<List<AccommodationOfCity>> findAllAccommodationOfCity();
 }

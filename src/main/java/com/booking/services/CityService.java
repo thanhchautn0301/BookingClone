@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.booking.apis.APIClient;
 import com.booking.apis.CityAPI;
+import com.booking.entities.AccommodationOfCity;
 import com.booking.entities.City;
 
 import retrofit2.Response;
@@ -24,15 +25,15 @@ public class CityService implements ICityService {
 
 
 	@Override
-	public City create(String name) {
+	public boolean create(String name) {
 		City city = new City();
 		city.setName(name);
 		try {
-			Response<City> response = cityAPI.create(city).execute();
+			Response<Boolean> response = cityAPI.create(city).execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
 
@@ -73,6 +74,19 @@ public class CityService implements ICityService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+
+
+	@Override
+	public List<AccommodationOfCity> findAllAccommodationOfCity() {
+		try {
+			Response<List<AccommodationOfCity>> response = cityAPI.findAllAccommodationOfCity().execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
