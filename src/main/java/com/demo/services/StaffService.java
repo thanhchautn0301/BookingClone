@@ -59,6 +59,7 @@ public class StaffService implements IStaffService{
 
             // Gan role cho staff
             staff.setRole(role);
+
             // Thuc hien luu vao db
             // Tao 1 bien staff hung lai ket qua obj tra ve tu repo va gan cho staffapi vua tao moi
             Staff newStaff = staffRepository.save(staff);
