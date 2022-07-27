@@ -50,19 +50,21 @@ public class StaffService implements IStaffService{
             staff.setEmail(staffApi.getEmail());
             staff.setCivilIdentity(staffApi.getCivilIdentity());
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            System.out.println(passwordEncoder.encode(staffApi.getPassword()));
-            staff.setPassword(passwordEncoder.encode(staffApi.getPassword()));
+            String hashedPw = passwordEncoder.encode(staffApi.getPassword());
+            System.out.println(hashedPw);
+            staff.setPassword(hashedPw);
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
             staff.setStatus(true);
 
             // Gan role cho staff
             staff.setRole(role);
-
             // Thuc hien luu vao db
             // Tao 1 bien staff hung lai ket qua obj tra ve tu repo va gan cho staffapi vua tao moi
             Staff newStaff = staffRepository.save(staff);
             staffApi.setId(newStaff.getId());
+            // IMPORTANT !!!
+            staffApi.setRole_name(role.getName());
             return staffApi;
         } catch(Exception ex) {
             ex.printStackTrace();

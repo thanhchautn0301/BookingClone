@@ -93,13 +93,13 @@ public class Category implements java.io.Serializable {
 		this.accomodations = accomodations;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
+//	public String getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(String image) {
+//		this.image = image;
+//	}
 
 
 }
