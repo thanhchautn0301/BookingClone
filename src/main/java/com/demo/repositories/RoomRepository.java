@@ -53,7 +53,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
 
     @Query("select new com.demo.entities_api.RoomDetail(R.id,R.accomodation.id,R.accomodation.name,R.accomodation.staff.id,R.name,R.description,RT.id,RT.name,RT.capacity, RT.quantityAdult,RT.quantityChildren, RT.description) " +
-            "from Room R join RoomType RT on R.roomType.id = RT.id" +
-            "where R.status = true and R.accomodation.id =:id")
+            "from Room R join RoomType RT on R.roomType.id = RT.id " +
+            "where R.status = true and R.accomodation.id = :id ")
     public List<RoomDetail> findRoomByAccommodationId(@Param("id") int accommodationId);
 }

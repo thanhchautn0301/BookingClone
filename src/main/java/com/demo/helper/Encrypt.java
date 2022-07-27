@@ -5,11 +5,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public  class Encrypt {
 	
 	
 	public static String BcryptPass(String str) {
-			return BCrypt.hashpw(str, BCrypt.gensalt(12)); 
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			return passwordEncoder.encode(str);
 	}
 }
