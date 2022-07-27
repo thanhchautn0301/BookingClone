@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==
     " crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css" />
-    <title>Booking Details</title>
+    <title>User Setting</title>
 </head>
-<body style="height: 100vh;">
+<body>
     
 
     <header class="bg-primary">
@@ -64,14 +64,14 @@
                         <li class="nav-item position-relative">
                             <button class="btn btn-primary btn-icon-nav shadow-none" data-bs-toggle="collapse" href="#user-features" role="button" aria-expanded="false">
                               <div class="d-flex align-items-center">
-                                <img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-23.jpg" alt="" class="rounded-circle me-2 border-user-filter user-icon-size-l">
-                                <span class="fw-bold fs-14">Tài khoản của bạn</span>
+                                <img src="${pageContext.request.contextPath}/resources/assets/img/user-no-img.png" alt="" class="rounded-circle me-2 border-user-filter user-icon-size-l">
+                                <span class="fw-bold fs-14">Your account</span>
                               </div>
                             </button>
-                            <ul class="bg-white user-features list-style-none shadow-fade bd-r-2 ps-0 collapse" id="user-features">
-                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-regular fa-user p-2"></i>Quản lý tài khoản</a></li>
-                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-briefcase p-2"></i>Đặt chỗ</a></li>
-                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-arrow-right-from-bracket p-2"></i>Đăng xuất</a></li>
+                            <ul class="bg-white user-features list-style-none dropdown-menu-cs bd-r-2 ps-0 collapse" id="user-features">
+                                <li class="p-3"><a href="user-manage.html" class="text-decoration-none text-dark"><i class="fa-regular fa-user p-2 me-2"></i>Account management</a></li>
+                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-briefcase p-2 me-2"></i>Trip</a></li>
+                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-arrow-right-from-bracket p-2 me-2"></i>Log out</a></li>
                             </ul>
                           </li>
                       </ul>
@@ -109,205 +109,63 @@
         </div>
     </header>
 
-    <div class="content container">
-        <div class="row">
+    <div class="content h-100 container vh-100">
+        <div class="row py-4">
             <div class="col-12">
-                <div class="d-flex py-4">
-                    <div class="d-flex align-items-center flex-fill">
-                        <i class="fa-solid fa-circle-check text-blue-btn fs-4 me-1"></i>
-                        <span class="text-secondary fw-bold fs-14 me-2">Bạn chọn</span>   
-                        <div class="bg-light-grey flex-fill" style="height: .5px;"></div>
-                    </div>
-                    <div class="d-flex align-items-center flex-fill">
-                        <span class="rounded-circle bg-blue3 text-white icon-size text-center mx-1">2</span>
-                        <span class="text-dark fw-bold fs-14 me-2">Chi tiết đặt phòng</span>  
-                        <div class="bg-light-grey flex-fill" style="height: .5px;"></div> 
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="rounded-circle bg-dark text-white icon-size text-center mx-1">3</span>
-                        <span class="text-secondary fw-bold fs-14 me-2">Hoàn tất đặt phòng</span>   
-                    </div>
-                </div>
+                <h2 class="fw-bold py-2 mb-0">Account Settings</h2>
+                <p class="text-secondary">Manage your Booking.com experience</p>
             </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 col-lg-4">
-            <div class="row">
-              <div class="col-12">
-                <div class="border bd-r-2 p-3">
-                  <h6 class="fw-bold">Chi tiết đặt phòng của bạn</h6 class="fw-bold">
-                  <div class="row">
-                    <div class="col-6">
-                      <h6 class="fs-14">Nhận phòng</h6>
-                      <div>
-                        <p class="mb-0 fw-bold fs-14">T6 Ngày 29 Tháng 7</p>
-                        <p class="mb-0 fw-bold fs-14">Năm 2022</p>
-                        <p class="mb-0 text-secondary fs-14">14:00 - 19:00</p>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <h6 class="fs-14">Trả phòng</h6>
-                      <div class="has-separate">
-                        <p class="mb-0 fw-bold fs-14">T2 Ngày 1 Tháng 8</p>
-                        <p class="mb-0 fw-bold fs-14">Năm 2022</p>
-                        <p class="mb-0 text-secondary fs-14">07:00 - 12:00</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <h6 class="fs-14 py-2 mb-0 mt-3">Tổng thời gian đặt phòng:</h6>
-                    <p class="fs-14 fw-bold mb-0">3 đêm</p>
-                    <hr class="hr-color">
-                  </div>
-                  <div>
-                    <h6 class="fs-14 fw-bold pb-2 mb-0">Tổng thời gian đặt phòng:</h6>
-                    <p class="fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</p>
-                    <a href="" class="btn btn-action2 text-blue text-blue-hover-none fw-500 border-0 px-1 fs-14">Đổi lựa chọn của bạn</a>
-                  </div>
-                </div>  
-              </div>
+            <div class="col-6">
+                <div class="border bd-r-2 px-3 py-4">
+                    <a href="${pageContext.request.contextPath }/customer/profile" class="text-decoration-none text-dark d-flex user-setting-option">
+                        <span class="rounded-circle user-setting-icon bg-user-light-grey p-3 d-flex align-items-center"><i class="fa-solid fa-gears"></i></span>
+                        <div class="mx-2">
+                            <h5 class="fw-bold mb-1">Personal Information</h5>
+                            <p class="mb-0 fs-14">Update your information and learn how it is used</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-12 gy-3">
-                <div class="border bd-r-2 p-3">
-                  <h6 class="fw-bold">Mã giảm giá</h6>
-                  <form action="" class="needs-validation" novalidate>
-                    <div class="d-flex flex-column">
-                      <label for="" class="form-label">Nhập mã giảm giá:</label>
-                      <select class="voucherSelect" name="voucher" required>
-                        <option value="ma1">Mã 1</option>
-                        <option value="ma2">Mã 2</option>
-                        <option value="ma3">Mã 3</option>
-                      </select>
-                      <div class="invalid-feedback">
-                        * Vui lòng chọn 1 mã giảm giá !
-                      </div>
-                      <button class="btn btn-primary text-white mt-3" type="submit">Chọn mã giảm giá</button>
-                    </div>
-                  </form>
+            <div class="col-6">
+                <div class="border bd-r-2 px-3 py-4">
+                    <a href="" class="text-decoration-none text-dark d-flex user-setting-option">
+                        <span class="rounded-circle user-setting-icon bg-user-light-grey p-3 d-flex align-items-center"><i class="fa-solid fa-suitcase"></i></span>
+                        <div class="mx-2">
+                            <h5 class="fw-bold mb-1">Booking History</h5>
+                            <p class="mb-0 fs-14">View your booking history</p>
+                        </div>
+                    </a>
                 </div>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-12 bd-r-2">
-                <div class="border br-b-2">
-                  <h6 class="fw-bold px-3 mt-3">Tóm tắt giá</h6>
-                  <div class="row mb-3 px-3">
-                    <div class="col-lg-8 col-sm-12 fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</div>
-                    <div class="col-lg-4 col-sm-12 fs-14 text-lg-end text-sm-start">VND 1.166.667</div>
-                  </div>
-                  <div class="row justify-content-between py-3 m-0 bg-blue2">
-                    <div class="col-lg-7 col-sm-12">
-                      <h6 class="fw-bold mb-0">Giá</h6>
-                      <p class="fs-12">(cho 3 đêm & tất cả các khách)</p>
-                    </div>
-                    <div class="col-lg-5 col-sm-12">
-                      <h6 class="fw-bold text-lg-end text-sm-start">VND <span id="totalPrice">1.166.667</span></h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-lg-8">
-            <div class="row">
-              <div class="col-12">
-                <div class="border bd-r-2 p-3 d-flex">
-                  <img src="${pageContext.request.contextPath}/resources/assets/img/daoanh.jpg" class="rounded img-hotel me-3" alt="">
-                  <div>
-                    <p class="mb-0 text-secondary fs-14 fw-500">Khách sạn</p>
-                    <a href="" class="d-block text-blue fw-bold fs-20 pb-2 mt-0">GOLD CITY Hotel</a>
-                    <p class="mb-0 fs-14">
-                      PG02-03 ( khu TTTM Vincom), Số 444-Đường 30/04, KP1, P3, TP Tây Ninh, Tây Ninh, Việt Nam, Tây Ninh, Việt Nam
-                    </p>
-                    <div class="d-flex align-items-center">
-                      <span class="bg-primary p-1 text-center bd-r-4 rate-icon-size fs-12 text-white fw-bold br-l-b-0">9.1</span>
-                      <div class="p-2">
-                        <span class="fw-bold mb-0">Tốt</span>
-                        <span class="text-secondary mb-0 fs-12">. 31 đánh giá</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 gy-3">
-                <div class="border bd-r-2 bg-book-room p-3">
-                  <h5 class="py-2 fw-bold">Thông tin của bạn</h5>
-                  <p class="mb-0 booking-alert d-flex align-items-center fw-500 fs-14 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-size me-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg> Đây là thông tin cá nhân của bạn, nếu muốn thay đổi , vui lòng bấm vào <a href="" class="ms-1 text-blue text-blue-hover-none">đây</a>
-                  </p>
-                  <div class="row">
-                    <div class="col-sm-12 col-lg-6 mb-2">
-                      <label for="" class="form-label fw-500 fs-14">Email:</label>
-                      <input type="text" name="" id="" class="form-control" value="abc@gmail.com" disabled readonly>
-                    </div>
-                    <div class="col-sm-12 col-lg-6 mb-2">
-                      <label for="" class="form-label fw-500 fs-14">Họ Tên:</label>
-                      <input type="text" name="" id="" class="form-control" value="chaudeptrai" disabled readonly>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6 mb-2">
-                      <label for="" class="form-label fw-500 fs-14">Civil identity</label>
-                      <input type="text" name="" id="" class="form-control" value="chaudeptrai" disabled readonly>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 gy-3">
-                <div class="border p-3 bd-r-2 bg-book-room">
-                  <h5 class="py-2 fw-bold">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</h5>
-                  <span class="fw-500 fs-14">Số người tối đa:</span>
-                  <span><i class="fa-regular fa-user"></i> x 3</span>
-                </div>
-              </div>
-            </div>
-            <form method="get" action="">
-              <div class="row">
-                <div class="col-12 gy-3">
-                  <div class="border p-3 bd-r-2 bg-payment">
-                    <h5 class="fw-bold mb-3">Chọn phương thức thanh toán</h5>
-                    
-                      <div class="d-flex flex-column">
-                        <label for="" class="form-label fw-500 fs-14">Phương thức thanh toán</label>
-                        <select class="paymentSelect" name="payment">
-                          <option value="card">Credit</option>
-                          <option value="master-card">Master Card</option>
-                          <option value="paypal">Paypal</option>
-                        </select>
-                        <!-- -->
-                        <input type="hidden" name="email" value="abc@gmail.com">
-                        <input type="hidden" name="id" value="123">
-                      </div>
-                </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="mt-3 d-flex justify-content-end">
-                    <button class="btn btn-primary2 text-white fw-500 d-flex align-items-center" type="submit">
-                      Đặt phòng
-                      <span class="ms-2"><i class="fa-solid fa-angle-right fs-12"></i></span></button>
-                  </div>
-                  </div>
-              </div>
-            </form>
-          </div>
         </div>
     </div>
-    
+
     <footer class="bg-footer-grey mt-5">
       <div class="container">
-        <div class="row py-4">
-          <div class="col-12">
-            <span class="fs-12">Bản quyền © 1996–2022 TLTC.com. Bảo lưu mọi quyền</span>
+        <div class="row">
+            <div class="col-sm-12">
+               <div>
+                <p class="fs-12 text-center py-3">Copyright © 1996–2022 Booking.com™. All rights reserved.</div>
+              </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-center mt-2">
+                <p class="fs-12">
+                    Booking.com is part of Booking Holdings Inc., the world leader in online travel and related services.</p>
+              </div>
+              <div class="text-center">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/bookinglogo.png" alt="" class="m-3">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/pricelinelogo.png" alt="" class="m-3">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/kaykaklogo.png" alt="" class="m-3">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/agodalogo.png" alt="" class="m-3">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/rentalcarslogo.png" alt="" class="m-3">
+                <img src="${pageContext.request.contextPath}/resources/assets/img/opentablelogo.png" alt="" class="m-3">
+              </div>
+            </div>
+          </div>
       </div>
     </footer>
 
@@ -320,36 +178,6 @@
         $(document).click(function(e){
             $('#user-features').removeClass('show');
         })
-        $(document).ready(function() {
-           $('.paymentSelect').select2({
-            theme: "classic"
-           });
-           $('.voucherSelect').select2({
-
-           });
-           $('.voucherSelect').val(null).trigger('change');
-        });
-
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-          .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-              if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
-
-              form.classList.add('was-validated')
-            }, false)
-          })
-      })()  
     </script>
 </body>
 </html>

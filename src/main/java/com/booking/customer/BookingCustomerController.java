@@ -1,4 +1,4 @@
-package com.booking.user;
+package com.booking.customer;
 
 
 import org.springframework.stereotype.Controller;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value = "booking")
-public class BookingController {
+@RequestMapping(value = "customer/booking")
+public class BookingCustomerController {
 	@RequestMapping(value = {"form"}, method = RequestMethod.GET)
 	public String index() {
 		return "booking/booking-room";
