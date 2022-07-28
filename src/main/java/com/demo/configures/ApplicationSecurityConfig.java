@@ -54,15 +54,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // allow request ( chia role )
-        http.authorizeRequests().anyRequest().permitAll();
-               // .antMatchers("/api/staff/login").permitAll()
-             //   .antMatchers("/api/staff/forgotpw").permitAll()
-            //    .antMatchers("/api/staff/findstaffbyid").permitAll()
-             //   .antMatchers("/api/staff/findstaffapibyemail").permitAll()
-              //  .antMatchers("/api/image/getimage/{name}").permitAll()
-//                .antMatchers("/api/staff").hasRole("ADMIN")
-//                .antMatchers("/api/booking").hasRole("HOST")
-              //  .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/api/staff/login").permitAll()
+                .antMatchers("/api/staff/create").permitAll()
+                .antMatchers("/api/staff/findstaffbyid").permitAll()
+                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+                .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
+                .antMatchers("/api/image/getimage/{name}").permitAll()
+                .antMatchers("/api/category/*").permitAll()
+                .antMatchers("/api/city/*").permitAll()
+                .anyRequest().authenticated();
 
         // handling error
         http.exceptionHandling().authenticationEntryPoint(
