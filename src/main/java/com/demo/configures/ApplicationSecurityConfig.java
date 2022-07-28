@@ -63,7 +63,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/image/getimage/{name}").permitAll()
                 .antMatchers("/api/category/*").permitAll()
                 .antMatchers("/api/city/*").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
 
         // handling error
         http.exceptionHandling().authenticationEntryPoint(
