@@ -59,6 +59,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/staff/create").permitAll()
                 .antMatchers("/api/staff/findstaffbyid").permitAll()
                 .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+                .antMatchers("/api/staff/forgotpw").permitAll()
                 .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
                 .antMatchers("/api/image/getimage/{name}").permitAll()
                 .antMatchers("/api/category/*").permitAll()
