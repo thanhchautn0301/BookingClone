@@ -100,33 +100,7 @@
     <div class="content vh-100 container">
         <div class="row">
             <div class="col-12">
-                <div class="login-form-db mt-5">
-                        <h3 class="fw-bold text-center pt-3 pb-2 mb-3 text-dark-grey">Login</h3>
-                        <div class="d-flex py-3 login-form-animate">
-                            <div class="login-bg" style="background-image: url('https://cdn-icons-png.flaticon.com/512/6486/6486286.png');"></div>
-                            <div class="flex-fill px-4 login-form-wrapper">
-                                <form method="post" action="${pageContext.request.contextPath}/account/host/login" id="loginForm">
-                                    <label for="" class="form-label fw-500">Email</label>
-                                    <div class="input-group mb-2">
-                                        <input type="email" name="email" autocomplete="off" class="form-control shadow-none border-end-0" placeholder="Enter your email..." required>
-                                        <span class="input-group-text bg-white"><i class="fa-solid fa-at"></i></span>
-                                    </div>
-                                    <label for="" class="form-label fw-500">Password</label>
-                                    <div class="mb-2 input-group">
-                                        <input type="password" name="password" class="form-control shadow-none border-end-0" placeholder="Enter your password..." required>
-                                        <span class="input-group-text bg-white"><i class="fa-solid fa-key"></i></span>
-                                    </div>
-                                    <div class="pt-3">
-                                        <button class="btn btn-primary2 text-white fw-500 px-4 d-flex align-items-center ms-auto">
-                                            Sign up 
-                                            <span class="ms-2"><i class="fa-solid fa-arrow-right fs-12"></i></span>
-                                        </button>
-                                    </div> 
-                                </form>
-                            </div>
-                        </div>
-                        <p class="text-end p-3">Don't have an account ? <a type="button" data-bs-toggle="modal" data-bs-target="#registerModal" class="text-blue" id="create-account-link">Create new account</a></p>
-                </div>
+                <p>We have sent you an email to activate your account !</p>
             </div>
         </div>
     </div>
@@ -140,76 +114,5 @@
         </div>
       </div>
     </footer>
-    <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" style="min-width: 700px !important;">
-    <form method="post" action="${pageContext.request.contextPath }/account/host/register" class="modal-content" id="create-account-form">
-      <div class="modal-header">
-        <h4 class="modal-title fw-bold text-center flex-fill" id="registerModal">Create an account</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Email&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="email" name="email" class="form-control shadow-none" placeholder="Enter your email..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Name&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="name" class="form-control shadow-none" placeholder="Enter your name..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Date of birth&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="dob" id="dob" autocomplete="off" class="form-control shadow-none" placeholder="Your birthday..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Phone&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="phone" autocomplete="off" class="form-control shadow-none" placeholder="Enter your phone..." data-inputmask='"mask": "(+84) 9999-9999"' data-mask required>
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Password&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="password" name="password" class="form-control shadow-none" placeholder="Enter your password..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Civil Identity</label>
-              <div class="input-group">
-                <input type="number" name="civilIdentity" autocomplete="off" class="form-control ignore-validate shadow-none hidden-arrow" placeholder="Enter your civil identity...">
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Address</label>
-              <div class="input-group">
-                <input type="text" name="address" autocomplete="off" class="form-control ignore-validate shadow-none" placeholder="Enter your address...">
-              </div>
-            </div>
-        </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary2 text-white">Sign in<span class="ms-2"><i class="fa-solid fa-arrow-right fs-12"></i></span></button>
-      </div>
-    </form>
-  </div>
-</div>
-
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.6.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/additional-methods.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/toolTip.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/inputmask/jquery.inputmask.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/custom/login-dashboard-validate.js"></script>
 </body>
 </html>
