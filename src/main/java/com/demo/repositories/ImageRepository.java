@@ -24,4 +24,7 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
 
     @Query("select new com.demo.entities_api.ImageApi(id, accomodation.id, room.id, name, status) from Image where status =true and id =:id")
     public ImageApi findImageById(@Param("id") int id);
+
+    @Query("select name from Image where status =true  and id =:id")
+    public List<String> findImageByAccommodationId(@Param("id") int accommodationId);
 }

@@ -1,12 +1,17 @@
 package com.demo.controllers;
 
+import com.demo.entities_api.AccommodationDetail;
 import com.demo.entities_api.AccomodationApi;
-import com.demo.services.IAccomodationService;
+import com.demo.entities_api.RoomDetail;
+import com.demo.entities_api.ServiceApi;
+import com.demo.repositories.*;
+import com.demo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,6 +19,21 @@ import java.util.List;
 public class AccomodationApiController {
     @Autowired
     private IAccomodationService accomodationService;
+
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private RoomService roomService;
+
+    @Autowired
+    private RoomTypeService roomTypeService;
+
+    @Autowired
+    private ServiceService serviceService;
+
+    @Autowired
+    private ImageService imageService;
     @RequestMapping(value="findall", method=RequestMethod.GET)
     public ResponseEntity<List<AccomodationApi>> findall() {
         try {
@@ -107,6 +127,46 @@ public class AccomodationApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findaccommodationdetail/{id}", method=RequestMethod.GET)
+    public ResponseEntity<AccommodationDetail> findaccomodationdetail(@PathVariable("id") int id) {
+        try {
+            AccommodationDetail accommodationDetail = new AccommodationDetail();
+            if((Integer)id != null) {
+                List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
+
+
+                List<ServiceApi> services = new ArrayList<ServiceApi>();
+
+                List<String> images = new ArrayList<String>();
+
+                AccomodationApi accomodationApi = new AccomodationApi();
+
+
+
+                roomDetails = roomService.findAllByAccommodationId(id);
+
+                services = serviceService.findServiceByAccommodationId(id);
+
+                images =  imageService.findImageByAccommodationId(id);
+
+                accomodationApi = accomodationService.getAccommodationById(id);
+
+                accommodationDetail.setServices(services);
+                accommodationDetail.setImages(images);
+                accommodationDetail.setRooms(roomDetails);
+                accommodationDetail.setAccommodation(accomodationApi);
+
+            }
+
+
+
+            return new ResponseEntity<AccommodationDetail>(accommodationDetail,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<AccommodationDetail>(HttpStatus.BAD_REQUEST);
         }
     }
 }

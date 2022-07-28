@@ -131,7 +131,12 @@ public class ImageService implements IImageService, ServletContextAware {
 		}
 	}
 
-	@Override
+    @Override
+    public List<String> findImageByAccommodationId(int accommodationId) {
+        return imageRepository.findImageByAccommodationId(accommodationId);
+    }
+
+    @Override
 	public void setServletContext(ServletContext servletContext) {
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;

@@ -25,11 +25,11 @@ public class AccomodationService implements IAccomodationService {
     @Autowired
     private CityRepository cityRepository;
 
-    @Autowired
-    private RoomRepository roomRepository;
 
-    @Autowired
-    private RoomTypeRepository roomTypeRepository;
+
+
+
+
 
 
 
@@ -49,6 +49,7 @@ public class AccomodationService implements IAccomodationService {
         	Accomodation accomodation = new Accomodation();
 
         	accomodation.setName(accomodationApi.getName());
+            accomodation.setDescription(accomodationApi.getDescription());
         	
         	Category category = categoryRepository.findById(accomodationApi.getCategory_id()).get();
         	accomodation.setCategory(category);
@@ -116,31 +117,25 @@ public class AccomodationService implements IAccomodationService {
         return accomodationRepository.findAllAccomodationByHostId(hostId);
     }
 
-    @Override
+   @Override
     public List<AccomodationApi> findallaccomodationbycityid(int cityId) {
         return accomodationRepository.findAllAccomodationByCityId(cityId);
     }
-
     @Override
-    public AccommodationDetail getAccommodationDetail(Integer accommodationId) {
-        if(accommodationId != null) {
-            List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
-
-
-            List<ServiceApi> services = new ArrayList<ServiceApi>();
-
-            List<String> images = new ArrayList<String>();
-
-            AccomodationApi accommodation = new AccomodationApi();
-
-            roomDetails = roomRepository.findRoomByAccommodationId(accommodationId);
-
-
-
-
-        }
-
-
-        return null;
+    public AccomodationApi getAccommodationById(Integer id){
+        Accomodation accomodation = accomodationRepository.getById(id);
+        AccomodationApi accomodationApi = new AccomodationApi();
+        accomodationApi.setId(accomodation.getId());
+        accomodationApi.setCategory_id(accomodation.getCategory().getId());
+        accomodationApi.setCategory_name(accomodation.getCategory().getName());
+        accomodationApi.setCity_id(accomodation.getCity().getId());
+        accomodationApi.setCity_name(accomodation.getCity().getName());
+        accomodationApi.setStaff_id(accomodation.getStaff().getId());
+        accomodationApi.setName(accomodation.getName());
+        accomodationApi.setStatus(true);
+        accomodationApi.setImage(null);
+        accomodationApi.setDescription(accomodation.getDescription());
+       return accomodationApi;
     }
+
 }
