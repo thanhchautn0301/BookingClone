@@ -13,13 +13,31 @@
   $('#roomAddForm').validate({
     rules:{
         accomodationType: {
-        required: true
-      }
+        	required: true
+      },
+      	service:{
+			required: true,
+			minlength: 5
+	  },
+	  	price:{
+			min:0,
+			required: true,
+			number: true
+		}
     }
     ,messages:{
         accomodationType: {
         required: 'Vui lòng thêm ít nhất 1 dịch vụ'
-      }
+      },
+      	service:{
+			required: 'Please enter service name',
+			minlenth: 'Minimum length of name must be greater than 4'
+	  },
+	  	price:{
+			min: 'Your service price cannot be less than 0',
+			required: 'Please enter your service price',
+			number: 'Service price cannot contain characters'
+		}
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
