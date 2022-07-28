@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/flatpickr.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==
     " crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css" />
-    <title>Login</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/loginSuccess.css">
 </head>
-<body class="dashboard-login-body">
-    
+<body>
+
     <header class="bg-primary">
         <div class="container">
           <div class="row bg-primary">
@@ -97,119 +97,73 @@
         </div>
     </header>
 
-    <div class="content vh-100 container">
-        <div class="row">
-            <div class="col-12">
-                <div class="login-form-db mt-5">
-                        <h3 class="fw-bold text-center pt-3 pb-2 mb-3 text-dark-grey">Login</h3>
-                        <div class="d-flex py-3 login-form-animate">
-                            <div class="login-bg" style="background-image: url('https://cdn-icons-png.flaticon.com/512/6486/6486286.png');"></div>
-                            <div class="flex-fill px-4 login-form-wrapper">
-                                <form method="post" action="${pageContext.request.contextPath}/account/host/login" id="loginForm">
-                                    <label for="" class="form-label fw-500">Email</label>
-                                    <div class="input-group mb-2">
-                                        <input type="email" name="email" autocomplete="off" class="form-control shadow-none border-end-0" placeholder="Enter your email..." required>
-                                        <span class="input-group-text bg-white"><i class="fa-solid fa-at"></i></span>
-                                    </div>
-                                    <label for="" class="form-label fw-500">Password</label>
-                                    <div class="mb-2 input-group">
-                                        <input type="password" name="password" class="form-control shadow-none border-end-0" placeholder="Enter your password..." required>
-                                        <span class="input-group-text bg-white"><i class="fa-solid fa-key"></i></span>
-                                    </div>
-                                    <div class="pt-3">
-                                        <button class="btn btn-primary2 text-white fw-500 px-4 d-flex align-items-center ms-auto">
-                                            Sign up 
-                                            <span class="ms-2"><i class="fa-solid fa-arrow-right fs-12"></i></span>
-                                        </button>
-                                    </div> 
-                                </form>
-                            </div>
+    <div class="login-wrapper">
+        <div class="container py-5 login-form overflow-hidden">
+            <div class="login-fill-password">
+                <h4 class="fw-bold">Tạo mật khẩu</h4>
+                <p class="fs-14 text-dark">Dùng ít nhất 8 ký tự, trong đó có chữ hoa, chữ thường và số.</p>
+                <form method="post" action="${pageContext.request.contextPath }/account/resetpw" class="mb-3" id="reset-password-form" autocomplete="off">
+                    <div class="mb-3">
+                        <label for="user-password-input" class="form-label fs-14 mb-1 fw-500">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control shadow-none bd-r-2
+                             border-end-0
+                             br-r-0"
+                            id="user-password-input" aria-describedby="passwordInput">
+                            <span class="input-group-text bg-white border-start-0" id="show-hide-password" type="button">
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </span>
                         </div>
-                        <p class="text-end p-3">Don't have an account ? <a type="button" data-bs-toggle="modal" data-bs-target="#registerModal" class="text-blue" id="create-account-link">Create new account</a></p>
+                        <div class="invalid-feedback invalid-password-feedback"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user-password-input-cf" class="form-label fs-14 mb-1 fw-500">Confirm new password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control shadow-none bd-r-2 border-end-0
+                            br-r-0"
+                            id="user-password-input-cf" aria-describedby="passwordInputConfirm">
+                            <span class="input-group-text bg-white border-start-0" id="show-hide-cf-password" type="button">
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback invalid-password-cf-feedback"></div>
+                    </div>
+                     <button type="submit" class="btn btn-primary2 text-white bd-r-2 fw-500 w-100 py-2 mt-3" >Reset password</button>
+                </form>
+                <div class="border border-start-0 border-end-0 py-3">
+                    <p class="fs-12 mb-0 text-center">
+                        Qua việc đăng nhập hoặc tạo tài khoản, bạn đồng ý với các 
+                        <span class="text-blue">Điều khoản và Điều kiện</span> cũng như <span class="text-blue">Chính sách An toàn và Bảo mật</span> của chúng tôi
+                    </p>
                 </div>
-            </div>
+            </div>      
         </div>
     </div>
-    
-    <footer class="bg-footer-grey">
-      <div class="container">
-        <div class="row py-4">
-          <div class="col-12">
-            <span class="fs-12">Bản quyền © 1996–2022 TLTC.com. Bảo lưu mọi quyền</span>
+
+    <div class="success-popup d-none" id="success-popup-msg">
+      <div class="success-popup-wrapper h-100 d-flex align-items-center justify-content-center">
+        <label for="" class="success-popup-overlay"></label>
+        <div class="success-popup-content bd-r-4 bg-white text-center shadow-fade-cmt p-4">
+          <div class="rounded-circle d-inline-block p-3 border border-success">
+            <i class="fa-solid fa-check text-success fs-1"></i>
+          </div>
+          <div class="mt-3">
+            <h3>Reset password success !</h3>
+            <p class="my-3 text-dark">Please sign in with your new password.</p>
+          </div>
+          <div>
+            <a href="index.html" class="btn-primary2 text-white p-3 text-decoration-none fw-500 bd-r-4 d-inline-block">Continue</a>
           </div>
         </div>
       </div>
-    </footer>
-    <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" style="min-width: 700px !important;">
-    <form method="post" action="${pageContext.request.contextPath }/account/host/register" class="modal-content" id="create-account-form">
-      <div class="modal-header">
-        <h4 class="modal-title fw-bold text-center flex-fill" id="registerModal">Create an account</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Email&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="email" name="email" class="form-control shadow-none" placeholder="Enter your email..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Name&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="name" class="form-control shadow-none" placeholder="Enter your name..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Date of birth&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="dob" id="dob" autocomplete="off" class="form-control shadow-none" placeholder="Your birthday..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-sm-12 col-lg-6">
-              <label for="" class="form-label fw-500">Phone&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="text" name="phone" autocomplete="off" class="form-control shadow-none" placeholder="Enter your phone..." data-inputmask='"mask": "(+84) 9999-9999"' data-mask required>
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Password&nbsp;(<span class="text-danger">*</span>)</label>
-              <div class="input-group">
-                <input type="password" name="password" class="form-control shadow-none" placeholder="Enter your password..." required>
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Civil Identity</label>
-              <div class="input-group">
-                <input type="number" name="civilIdentity" autocomplete="off" class="form-control ignore-validate shadow-none hidden-arrow" placeholder="Enter your civil identity...">
-              </div>
-            </div>
-            <div class="mb-2 col-12">
-              <label for="" class="form-label fw-500">Address</label>
-              <div class="input-group">
-                <input type="text" name="address" autocomplete="off" class="form-control ignore-validate shadow-none" placeholder="Enter your address...">
-              </div>
-            </div>
-        </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary2 text-white">Sign in<span class="ms-2"><i class="fa-solid fa-arrow-right fs-12"></i></span></button>
-      </div>
-    </form>
-  </div>
-</div>
+    </div>
 
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.6.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/additional-methods.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/toolTip.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/inputmask/jquery.inputmask.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/custom/login-dashboard-validate.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/custom/bsValidation.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/custom/validatePw.js"></script>
 </body>
 </html>
