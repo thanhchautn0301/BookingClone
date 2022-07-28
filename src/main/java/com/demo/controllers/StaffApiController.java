@@ -1,14 +1,13 @@
 package com.demo.controllers;
 
 import com.demo.entities.Staff;
-import com.demo.entities_api.AuthRequest;
-import com.demo.entities_api.AuthResponse;
-import com.demo.entities_api.RoleApi;
-import com.demo.entities_api.StaffApi;
+import com.demo.entities_api.*;
 import com.demo.jwt.JwtTokenFilter;
 import com.demo.jwt.JwtTokenUtil;
 import com.demo.repositories.RoleRepository;
+import com.demo.services.IMailService;
 import com.demo.services.IStaffService;
+import com.demo.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +35,8 @@ public class StaffApiController {
     JwtTokenUtil jwtTokenUtil;
 
     @Autowired private RoleRepository roleRepository;
+
+    @Autowired IMailService mailService;
 
     @Autowired
     private IStaffService staffService;
@@ -71,6 +72,14 @@ public class StaffApiController {
             if(!staffApi.getStatus()) {
                 String activateToken = jwtTokenUtil.generateActivateToken(staffApi);
                 AuthResponse authResponse = new AuthResponse("inactivate", activateToken, staffApi.getId());
+                // Thuc hien gui mail verify email o day
+                try {
+                    String isSuccess = mailService.sendSimpleMail(staffApi.getEmail(),"Activate your account","Please click the link to activate your account: http://localhost:9597/account/verify?token="+authResponse.getAccessToken()+"&id="+authResponse.getId());
+                    System.out.println(isSuccess);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return ResponseEntity.ok(authResponse);
             }
             else {
@@ -91,6 +100,14 @@ public class StaffApiController {
                 StaffApi staff = staffApi.get();
                 String resetPwToken = jwtTokenUtil.generateResetPwToken(staff);
                 AuthResponse authResponse = new AuthResponse("resetpw", resetPwToken, staff.getId());
+
+                // Thuc hien gui mail confirm va cho phep reset password
+                try {
+                    String isSuccess = mailService.sendSimpleMail(staff.getEmail(),"Reset your password","Please click the link to reset your password: http://localhost:9597/account/requestresetpw?token="+authResponse.getAccessToken()+"&id="+authResponse.getId());
+                    System.out.println(isSuccess);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return ResponseEntity.ok(authResponse);
             }
             else {
@@ -106,6 +123,7 @@ public class StaffApiController {
     @RequestMapping(value="resetpw", method= RequestMethod.GET)
     public ResponseEntity<?> resetpw(@RequestParam("id") int id,@RequestParam("password") String password) {
         try {
+            System.out.println("Bat dau reset pw");
             int result = staffService.resetPassword(id, password);
             return new ResponseEntity<Integer>(result,HttpStatus.OK);
         } catch (Exception ex) {
