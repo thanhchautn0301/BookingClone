@@ -15,8 +15,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Select2 -->
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
   <!-- iCheck -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -25,6 +26,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -326,6 +329,10 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="">Mô tả</label>
+                    <textarea class="form-control" name="description" id="summernote" cols="30" rows="15"></textarea>
+                  </div>
+                  <div class="form-group">
                     <label for="">Thêm ảnh</label>
                     <div class="input-group">
                       <div class="custom-file">
@@ -376,7 +383,7 @@
 <!-- jquery-validation -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery-validation/additional-methods.min.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/dist/js/adminlte.js"></script>

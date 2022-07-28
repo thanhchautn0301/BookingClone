@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -304,32 +305,30 @@
         <div class="row">
           <div class="col-12">
             <div class="card card-primary">
-              <form id="roomAddForm">
+              <form id="roomAddForm"  action="${pageContext.request.contextPath}/admin/dashboard/room/service" method="post" >
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Chọn chỗ nghỉ</label>
-                    <select class="form-control select2" name="room-type" style="width: 100%;">
-                      <option value="accomodation1">Accomodation 1</option>
-                      <option value="accomodation2">Accomodation 2</option>
-                      <option value="accomodation3">Accomodation 3</option>
-                      <option value="accomodation4">Accomodation 4</option>
+                    <label>Accommodation</label>
+                    <select class="form-control select2" name="accommodation" style="width: 100%;">
+                      <c:forEach var="acc" items="${accommos }">
+                        <option value="${acc.id }">${acc.name }</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Chọn dịch vụ</label>
-                    <div class="select2-maroon">
-                        <select class="form-control select2" multiple="multiple" name="accomodationType" style="width: 100%;">
-                            <option value="service1">Service 1</option>
-                            <option value="service2">Service 2</option>
-                            <option value="service3">Service 3</option>
-                            <option value="service4">Service 4</option>
-                        </select>
-                    </div>
+                    <label for="">Service Name</label>
+                    <input type="text" name="service" class="form-control" id=""
+                           placeholder="Type Service Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="number" name="price" class="form-control" id=""
+                           placeholder="Type Price">
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Thêm dịch vụ</button>
+                  <button type="submit" class="btn btn-primary">Add Service</button>
                 </div>
               </form>
             </div>
