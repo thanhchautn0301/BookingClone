@@ -75,7 +75,6 @@ public class StaffApiController {
                 // Thuc hien gui mail verify email o day
                 try {
                     String isSuccess = mailService.sendSimpleMail(staffApi.getEmail(),"Activate your account","Please click the link to activate your account: http://localhost:9597/account/verify?token="+authResponse.getAccessToken()+"&id="+authResponse.getId());
-                    System.out.println(isSuccess);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -88,6 +87,7 @@ public class StaffApiController {
                 return ResponseEntity.ok(authResponse);
             }
         } catch(HttpClientErrorException.BadRequest ex) {
+            System.out.println("Loi: "+ HttpStatus.UNAUTHORIZED);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

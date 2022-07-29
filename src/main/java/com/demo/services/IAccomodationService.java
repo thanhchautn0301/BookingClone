@@ -15,6 +15,7 @@ public interface IAccomodationService {
     public List<AccomodationApi> findallaccomodationpaginate(int offset, int no);
     public List<AccomodationApi> findallaccomodationbyhost(int hostId);
     public List<AccomodationApi> findallaccomodationbycityid(int cityId);
+    public List<AccomodationApi> findallaccomodationbycityname(String cityName);
     // loc_home_accomm_detail
     public AccommodationDetail getAccommodationDetail(Integer accommodationId);
 }
