@@ -56,6 +56,7 @@ public class MailService implements IMailService{
 			mimeMessageHelper.setTo(toAddress);
 			mimeMessageHelper.setSubject(subject);
 			mimeMessageHelper.setText(content, true);
+			mimeMessageHelper.setText(subject, true);
 			mimeMessageHelper.setSentDate(new Date());
 			javaMailSender.send(mimeMessage);
 			return "Mail send successfully !";
