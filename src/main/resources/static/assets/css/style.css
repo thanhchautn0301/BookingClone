@@ -997,3 +997,22 @@ input.ignore-validate{
     margin-left: 0;
 }
 
+.customer-sign-in.has-login{
+    display: none !important;
+}
+
+.customer-sign-in.not-login{
+    display: block !important;
+}
+
+.customer-check.not-login{
+    display: none !important;
+}
+
+.customer-check.has-login{
+    display: block !important;
+}
+
+.customer-check {
+    display: none;
+}

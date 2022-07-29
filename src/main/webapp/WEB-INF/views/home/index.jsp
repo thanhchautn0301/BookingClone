@@ -73,17 +73,29 @@
                         </svg>
                       </button>
                     </li>
-
-                    <li class="nav-item me-2">
+                    <li class="nav-item position-relative customer-check ${msg}">
+                      <button class="btn btn-primary btn-icon-nav shadow-none" data-bs-toggle="collapse" href="#user-features" role="button" aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                          <img src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif" alt="" class="rounded-circle me-2 border-user-filter user-icon-size-l">
+                          <span class="fw-bold fs-14">Your account</span>
+                        </div>
+                      </button>
+                      <ul class="bg-white user-features list-style-none dropdown-menu-cs bd-r-2 ps-0 collapse" id="user-features">
+                        <li class="p-3"><a href="" class="text-decoration-none d-block text-dark"><i class="fa-regular fa-user p-2 me-2"></i>Account management</a></li>
+                        <li class="p-3"><a href="index.html" class="text-decoration-none d-block text-dark"><i class="fa-solid fa-briefcase p-2 me-2"></i>Trip</a></li>
+                        <li class="p-3"><a href="${pageContext.request.contextPath}/account/customer/logout" class="text-decoration-none d-block text-dark"><i class="fa-solid fa-arrow-right-from-bracket p-2 me-2"></i>Log out</a></li>
+                      </ul>
+                    </li>
+                    <li class="nav-item me-2 customer-sign-in ${msg}">
                       <a href="login.html" class="btn btn-sm btn-primary fw-500 btn-sm text-white border">
                         Đăng chỗ nghỉ của quí vị
                       </a>
                     </li>
-                    <li class="nav-item me-2">
-                      <a href="login.html" class="btn btn-sm bg-white text-blue fw-500">Đăng ký</a>
+                    <li class="nav-item me-2 customer-sign-in ${msg}">
+                      <a href="${pageContext.request.contextPath}/account/customer/login" class="btn btn-sm bg-white text-blue fw-500">Sign up</a>
                     </li>
-                    <li class="nav-item">
-                      <a href="login.html" class="btn btn-sm bg-white text-blue fw-500">Đăng nhập</a>
+                    <li class="nav-item customer-sign-in ${msg}">
+                      <a href="${pageContext.request.contextPath}/account/customer/login" class="btn btn-sm bg-white text-blue fw-500">Sign in</a>
                     </li>
                   </ul>
                   <!-- Mobile navbar -->
@@ -721,6 +733,12 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/inputFilterDate.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/customFilter.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/carouselSplide.js"></script>
+  <script>
+    $(document).click(function(e){
+      $('#user-features').removeClass('show');
+    });
+  </script>
+
 
 </body>
 </html>

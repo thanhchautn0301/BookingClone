@@ -56,7 +56,7 @@ public class AccountController {
 				// Huy token
 				TokenReader.assignToken(null);
 				TokenReader.assignUserId(0);
-				return "redirect:/account/host/login";
+				return "redirect:/account/customer/login";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,9 +66,8 @@ public class AccountController {
 
 	// done
 	@RequestMapping(value= {"forgotpw"}, method= RequestMethod.GET)
-	public String forgotpw(@RequestParam("email") String email) {
+	public String forgotpw(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
 		try {
-			System.out.println("You are here forgotpw");
 			AuthResponse authResponse = staffService.forgotPw(email);
 			if (authResponse != null) {
 				if(authResponse.getEmail().trim().equalsIgnoreCase("resetpw")) {
@@ -76,10 +75,14 @@ public class AccountController {
 				}
 				return "redirect:/home/index";
 			}
+			else {
+				redirectAttributes.addFlashAttribute("msg","This email has not registered before!");
+				return "redirect:/account/resetAccountPassword";
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("msg","This email has not registered before!");
+			return "redirect:/account/resetAccountPassword";
 		}
-		return "test/resetpw";
 	}
 
 	//done
@@ -108,9 +111,9 @@ public class AccountController {
 	}
 
 	// done
-	@RequestMapping(value = "host/login", method = RequestMethod.GET)
-	public String loginHost() {
-		return "account/host-login";
+	@RequestMapping(value = "customer/login", method = RequestMethod.GET)
+	public String loginCustomer() {
+		return "account/customer-login";
 	}
 
 	//done
@@ -121,10 +124,11 @@ public class AccountController {
 
 	// done
 	@RequestMapping(value = "host/login", method = RequestMethod.POST)
-	public String loginHost(@RequestParam("email") String email,@RequestParam("password") String password) {
+	public String loginHost(@RequestParam("email") String email,@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
 		try {
 			AuthRequest auth = new AuthRequest(email,password);
 			AuthResponse authResponse = staffService.login(auth);
+			System.out.println("Loi o day !!");
 			if (authResponse != null) {
 				// If sign in with unactivate account
 				if(authResponse.getEmail().trim().equalsIgnoreCase("inactivate")) {
@@ -134,15 +138,21 @@ public class AccountController {
 				TokenReader.assignToken(authResponse.getAccessToken());
 				TokenReader.assignUserId(authResponse.getId());
 				return "redirect:/home/index";
-
 			}
 			else {
-
+				redirectAttributes.addFlashAttribute("msg","Wrong email or password ");
+				return "redirect:/account/customer/login";
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			return "redirect:/account/customer/login";
 		}
-		return "test/login";
+	}
+
+	// done
+	@RequestMapping(value= {"resetAccountPassword"}, method= RequestMethod.GET)
+	public String resetAccountPassword()
+	{
+		return "account/reset-account";
 	}
 
 	// done
@@ -156,7 +166,7 @@ public class AccountController {
 				// Huy token
 				TokenReader.assignToken(null);
 				TokenReader.assignUserId(0);
-				return "redirect:/account/host/login";
+				return "redirect:/account/customer/login";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,6 +185,16 @@ public class AccountController {
 		else {
 			redirectAttributes.addFlashAttribute("result","success");
 		}
-		return "redirect:/account/host/login";
+		return "redirect:/account/customer/login";
+	}
+
+	// done
+	@RequestMapping(value = "customer/logout",method = RequestMethod.GET)
+	public String logout(Staff staff) {
+		if(TokenReader.token !=null) {
+			System.out.println("Da logout !!");
+			TokenReader.assignToken(null);
+		}
+		return "redirect:/home/index";
 	}
 }

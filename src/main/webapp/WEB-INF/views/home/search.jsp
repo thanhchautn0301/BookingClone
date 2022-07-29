@@ -23,7 +23,7 @@
                     <nav class="navbar navbar-expand-md bg-primary">
                       <div class="container-fluid px-0">
                         <div class="navbar-brand">
-                          <a href="index.html" class="text-decoration-none">
+                          <a href="${pageContext.request.contextPath}/home" class="text-decoration-none">
                             <svg class="bg-primary" height="24" width="144" viewBox="0 0 180 30" role="presentation"
                               aria-hidden="true" focusable="false">
                               <path fill="#fff"
@@ -520,7 +520,7 @@
                  </aside>
               </div>
               <div class="col-sm-8 col-md-9">
-                <h4 class="h4 fw-bold">${city}: ${result} accomodations found.</h4>
+                <h4 class="h4 fw-bold">${city}: ${result} found.</h4>
                 <div class="row">
                   <div class="col-sm-12"><hr style="color: #ccc;"></div>
                 </div>
@@ -555,7 +555,7 @@
                     <div class="col-sm-12 mb-3">
                     <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
                       <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="localhost:9596/api/image/getimage/${acc.image}" class="img-article bd-r-4" alt="">
+                        <img src="http://localhost:9596/api/image/getimage/${acc.image}" class="img-article bd-r-4" alt="">
                         <i class="fa-regular fa-heart position-absolute end-0 top-0 
                         text-white p-c fs-20 m-2 text-shadow-icon"
                         data-bs-toggle="tooltip" data-bs-placement="top"
