@@ -20,6 +20,8 @@ public interface AccommodationAPI {
 
 	@GET("accomodation/findaccomodationbycityid/{id}")
 	Call<SearchAccommodation> findByCityId(@Path("id") int id);
+	@GET("accomodation/findaccomodationbycityname")
+	Call<SearchAccommodation> findByCityName(@Query("name") String name);
 
 	@GET("accomodation/findaccomodationbyhostid/{id}")
 	Call<List<Accommodation>> findByHostId(@Path("id") int id);

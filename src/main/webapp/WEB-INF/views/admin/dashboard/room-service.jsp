@@ -318,12 +318,12 @@
                   <div class="form-group">
                     <label for="">Service Name</label>
                     <input type="text" name="service" class="form-control" id=""
-                           placeholder="Type Service Name">
+                           placeholder="Type Service Name" required>
                   </div>
                   <div class="form-group">
                     <label for="">Price</label>
                     <input type="number" name="price" class="form-control" id=""
-                           placeholder="Type Price">
+                    placeholder="Type Price" required>
                   </div>
                 </div>
                 <!-- /.card-body -->

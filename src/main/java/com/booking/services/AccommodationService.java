@@ -61,6 +61,18 @@ public class AccommodationService implements IAccommodationService {
 	}
 
 	@Override
+	public SearchAccommodation findAllByCityName(String name) {
+		Response<SearchAccommodation> response;
+		try {
+			response = accommodationAPI.findByCityName(name).execute();
+			return response.body();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
 	public boolean update(Accommodation accommodation) {
 		
 		try {
