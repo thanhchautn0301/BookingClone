@@ -46,7 +46,7 @@ public class City implements java.io.Serializable {
 		this.home = home;
 	}
 
-
+	
 
 	public City() {
 	}

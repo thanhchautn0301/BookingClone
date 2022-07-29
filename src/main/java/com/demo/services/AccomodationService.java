@@ -137,5 +137,27 @@ public class AccomodationService implements IAccomodationService {
         accomodationApi.setDescription(accomodation.getDescription());
        return accomodationApi;
     }
+    public List<AccomodationApi> findallaccomodationbycityname(String cityName) {
+        return accomodationRepository.findAllAccomodationByCityName(cityName);
+    }
+
+    @Override
+    public AccommodationDetail getAccommodationDetail(Integer accommodationId) {
+        if(accommodationId != null) {
+            List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
+
+
+            List<ServiceApi> services = new ArrayList<ServiceApi>();
+
+            List<String> images = new ArrayList<String>();
+
+            AccomodationApi accommodation = new AccomodationApi();
+
+            roomDetails = roomRepository.findRoomByAccommodationId(accommodationId);
+
+
+
+
+        }
 
 }

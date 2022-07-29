@@ -49,10 +49,13 @@ public class StaffService implements IStaffService{
             staff.setPhone(staffApi.getPhone());
             staff.setEmail(staffApi.getEmail());
             staff.setCivilIdentity(staffApi.getCivilIdentity());
-            staff.setPassword(Encrypt.BcryptPass(staffApi.getPassword()));
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPw = passwordEncoder.encode(staffApi.getPassword());
+            System.out.println(hashedPw);
+            staff.setPassword(hashedPw);
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
-            staff.setStatus(true);
+            staff.setStatus(false);
 
             // Gan role cho staff
             staff.setRole(role);
@@ -61,6 +64,8 @@ public class StaffService implements IStaffService{
             // Tao 1 bien staff hung lai ket qua obj tra ve tu repo va gan cho staffapi vua tao moi
             Staff newStaff = staffRepository.save(staff);
             staffApi.setId(newStaff.getId());
+            // IMPORTANT !!!
+            staffApi.setRole_name(role.getName());
             return staffApi;
         } catch(Exception ex) {
             ex.printStackTrace();
