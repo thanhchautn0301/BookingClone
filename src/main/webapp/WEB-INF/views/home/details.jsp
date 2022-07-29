@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -347,7 +348,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                   <span class="bg-secondary bd-r-2 fs-12 text-white p-1 me-2">Khách sạn</span>
-                  <span class="fw-bold h4 text-black mb-0">Khách sạn NG Gia Tuấn</span>
+                  <span class="fw-bold h4 text-black mb-0">${accommodation.name}</span>
                 </div>
                 <div class="d-flex align-items-center">
                   <i class="fa-regular fa-heart fs-20 text-blue me-3"></i>
@@ -358,8 +359,7 @@
               </div>
               <div class="mt-1">
                 <i class="fa-solid fa-location-dot text-blue fs-20"></i>
-                <span>36E Nhiêu Tâm, Phường 5, quận 5 , Thành Phố Hồ Chí
-                  Minh</span>
+                <span> ${ accommodationDetail.accommodation.city_name } </span>
               </div>
             </div>
           </div>
@@ -372,38 +372,41 @@
                     <div class="col-sm-4 pe-1">
                       <div class="row h-100">
                         <div class="col-sm-12 mb-2">
-                          <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="shadow-fade h-17 w-100 bd-r-2" alt="" />
+                          <img src="http://localhost:9596/api/image/getimage/${images[0]}" class="shadow-fade h-17 w-100 bd-r-2" alt="" />
                         </div>
                         <div class="col-sm-12">
-                          <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="shadow-fade h-17 w-100 bd-r-2" alt="" />
+                          <img src="http://localhost:9596/api/image/getimage/${images[1]}" class="shadow-fade h-17 w-100 bd-r-2" alt="" />
                         </div>
                       </div>
                     </div>
                     <div class="col-sm-8 ps-1">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="shadow-fade h-35 w-100 bd-r-2" alt="" />
+                      <img src="http://localhost:9596/api/image/getimage/${images[2]}" class="shadow-fade h-35 w-100 bd-r-2" alt="" />
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="row">
-                    <div class="col pe-1">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="h-11 w-100 bd-r-2" alt="" />
-                    </div>
-                    <div class="col gx-2">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="h-11 w-100 bd-r-2" alt="" />
-                    </div>
-                    <div class="col gx-2">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="h-11 w-100 bd-r-2" alt="" />
-                    </div>
-                    <div class="col gx-2">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="h-11 w-100 bd-r-2" alt="" />
-                    </div>
-                    <div class="col ps-1 hotel-collapse-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/testimg.jpg" class="h-11 w-100 bd-r-2" alt="" />
-                      <span
-                        class="number-collapse-img fw-bold text-white fs-20 d-flex justify-content-center align-items-center text-sm-center">+35
-                        ảnh</span>
-                    </div>
+                    <c:if test="${images.size() >= '8'}">
+                      <c:forEach var="image" begin = "3" items="${images}" end="7" varStatus="loop" >
+                        <c:choose>
+                          <c:when test="${loop.index == 7}">
+                            <div class="col ps-1 hotel-collapse-img">
+                              <img src="http://localhost:9596/api/image/getimage/${image}" class="h-11 w-100 bd-r-2" alt="" />
+                              <span
+                                      class="number-collapse-img fw-bold text-white fs-20 d-flex justify-content-center align-items-center text-sm-center">+ ${images.size() - '7'}
+                               ảnh</span>
+                            </div>
+                          </c:when>
+                          <c:otherwise>
+                            <div class="col pe-1">
+                              <img src="http://localhost:9596/api/image/getimage/${image}" class="h-11 w-100 bd-r-2" alt="" />
+                            </div>
+                          </c:otherwise>
+                        </c:choose>
+                      </c:forEach>
+                    </c:if>
+
+
                   </div>
                 </div>
               </div>
@@ -413,109 +416,25 @@
       </div>
       <!-- Features-info -->
       <div class="row my-4">
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M8 40v76a4 4 0 0 0 4 4h104a4 4 0 0 0 4-4V40zm96 56H24V72h80zm0-32H24v-8h80zm12-56H12a4 4 0 0 0-4 4v20h112V12a4 4 0 0 0-4-4zM92 26a6 6 0 1 1 6-6 6 6 0 0 1-6 6zm16 0a6 6 0 1 1 6-6 6 6 0 0 1-6 6z">
-              </path>
-            </svg>
-            <p class="mb-0">Bếp</p>
+        <c:forEach var="service" items="${services}">
+          <div class="col">
+            <div class="text-center">
+              <svg viewBox="0 0 128 128" width="2em" height="2em">
+                <path
+                        d="M8 40v76a4 4 0 0 0 4 4h104a4 4 0 0 0 4-4V40zm96 56H24V72h80zm0-32H24v-8h80zm12-56H12a4 4 0 0 0-4 4v20h112V12a4 4 0 0 0-4-4zM92 26a6 6 0 1 1 6-6 6 6 0 0 1-6 6zm16 0a6 6 0 1 1 6-6 6 6 0 0 1-6 6z">
+                </path>
+              </svg>
+              <p class="mb-0">${service.name}</p>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M24 88h8v16h-8zm0-16h8V56h-8zm32 32h8V88h-8zm0-32h8V56h-8zm0-32h8V24h-8zm64 16v60a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V44a4 4 0 0 1 4-4h28V12a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v58.3l5.2-5.1a4 4 0 0 1 5.6 0l5.2 5.1V56a4 4 0 0 1 .3-1.5l8-20a4 4 0 0 1 7.4 0l8 20a4 4 0 0 1 .3 1.5zM16 112h24V48H16zm32 0h24V16H48v96zm32 0h16V81.7l-8-8-8 8zm32-55.2l-4-10-4 10V112h8z">
-              </path>
-            </svg>
-            <p class="mb-0">Nhìn ra thành phố</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M96 8H32a8 8 0 0 0-8 8v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8V16a8 8 0 0 0-8-8zm-44 8a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm-20 4a4 4 0 1 1 4 4 4 4 0 0 1-4-4zm32 80a28 28 0 1 1 28-28 28 28 0 0 1-28 28z">
-              </path>
-              <path
-                d="M73 69.9a1.1 1.1 0 0 0-2 0 8 8 0 0 1-14 0 1.1 1.1 0 0 0-2 0 8 8 0 0 1-13 1.4 1.1 1.1 0 0 0-2 .8 23.7 23.7 0 0 0 .5 4.6A24 24 0 0 0 88 72a1.1 1.1 0 0 0-2-.7 8 8 0 0 1-13-1.4z">
-              </path>
-            </svg>
-            <p class="mb-0">Máy giặt</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <circle cx="64" cy="100" r="12"></circle>
-              <path
-                d="M118.3 32.7A94.9 94.9 0 0 0 64 16 94.9 94.9 0 0 0 9.7 32.7a4 4 0 1 0 4.6 6.6A87 87 0 0 1 64 24a87 87 0 0 1 49.7 15.3 4 4 0 1 0 4.6-6.6zM87.7 68.4a54.9 54.9 0 0 0-47.4 0 4 4 0 0 0 3.4 7.2 47 47 0 0 1 40.6 0 4 4 0 0 0 3.4-7.2z">
-              </path>
-              <path d="M104 50.5a81.2 81.2 0 0 0-80 0 4 4 0 0 0 4 7 73.2 73.2 0 0 1 72 0 4 4 0 0 0 4-7z"></path>
-            </svg>
-            <p class="mb-0">Wi-Fi miễn phí</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M84 116a4 4 0 0 1-4 4H48a4 4 0 0 1 0-8h12V52a4 4 0 0 1 8 0v60h12a4 4 0 0 1 4 4zm-36-16a4 4 0 0 0-4-4H22.9l-7.1-21.3a4 4 0 1 0-7.6 2.6l7.5 22.4-7.3 14.5a4 4 0 1 0 7.2 3.6l6.9-13.8H32v12a4 4 0 0 0 8 0v-12h4a4 4 0 0 0 4-4zm64.3-.3l7.5-22.4a4 4 0 0 0-7.6-2.6l-7 21.3H84a4 4 0 0 0 0 8h4v12a4 4 0 0 0 8 0v-12h9.5l7 13.8a4 4 0 0 0 7-3.6zM12.3 40h103.4c3.7 0 5.7-4.1 3.2-6.7C109.8 24 90.4 8 64 8S18.2 24 9.1 33.3C6.6 36 8.6 40 12.3 40z">
-              </path>
-            </svg>
-            <p class="mb-0">Sân hiên</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M84 116a4 4 0 0 1-4 4H48a4 4 0 0 1 0-8h12V52a4 4 0 0 1 8 0v60h12a4 4 0 0 1 4 4zm-36-16a4 4 0 0 0-4-4H22.9l-7.1-21.3a4 4 0 1 0-7.6 2.6l7.5 22.4-7.3 14.5a4 4 0 1 0 7.2 3.6l6.9-13.8H32v12a4 4 0 0 0 8 0v-12h4a4 4 0 0 0 4-4zm64.3-.3l7.5-22.4a4 4 0 0 0-7.6-2.6l-7 21.3H84a4 4 0 0 0 0 8h4v12a4 4 0 0 0 8 0v-12h9.5l7 13.8a4 4 0 0 0 7-3.6zM12.3 40h103.4c3.7 0 5.7-4.1 3.2-6.7C109.8 24 90.4 8 64 8S18.2 24 9.1 33.3C6.6 36 8.6 40 12.3 40z">
-              </path>
-            </svg>
-            <p class="mb-0">Ban công</p>
-          </div>
-        </div>
-        <div class="col">
-          <div class="text-center">
-            <svg viewBox="0 0 128 128" width="2em" height="2em">
-              <path
-                d="M89.6 44.6L94 28.3a4 4 0 0 1 4.9-2.9 4 4 0 0 1 2.8 5l-2.3 8.5 7.7-4.4a4 4 0 0 1 5.5 1.4 4 4 0 0 1-1.5 5.5l-7.7 4.4 8.6 2.4a4 4 0 0 1 2.8 4.9 4 4 0 0 1-4.9 2.8l-16.3-4.4-15.5 9a4 4 0 0 1-5.5-1.5 4 4 0 0 1 1.5-5.5zM53.9 74.5a4 4 0 0 0 1.4-5.5 4 4 0 0 0-5.4-1.5l-15.6 9L18 72.2a4 4 0 0 0-5 2.8 4 4 0 0 0 2.9 5l8.4 2.2-7.5 4.3a4 4 0 0 0-1.4 5.5 4 4 0 0 0 5.4 1.5l7.8-4.5-2.4 8.8a4 4 0 0 0 2.9 4.9 4 4 0 0 0 4.9-2.9l4.4-16.4zM60 32.2V50a4 4 0 0 0 4 4 4 4 0 0 0 4-4V32l11.9-11.9a4 4 0 0 0 0-5.6 4 4 0 0 0-5.7 0L68 20.7V12a4 4 0 0 0-4-4 4 4 0 0 0-4 4v8.9l-6.4-6.4a4 4 0 0 0-5.6 0 4 4 0 0 0 0 5.7zM114.8 75a4 4 0 0 0-4.9-2.8l-16.3 4.3-15.5-9a4 4 0 0 0-5.5 1.5 4 4 0 0 0 1.5 5.5l15.5 8.9 4.3 16.4a4 4 0 0 0 4.9 2.8 4 4 0 0 0 2.8-4.9L99.3 89l7.7 4.5a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.5-5.4l-7.6-4.4 8.6-2.3a4 4 0 0 0 2.8-4.9zM68 95.8V78a4 4 0 0 0-4-4 4 4 0 0 0-4 4v18l-11.9 11.9a4 4 0 0 0 0 5.6 4 4 0 0 0 5.7 0l6.2-6.2v8.7a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-8.9l6.4 6.4a4 4 0 0 0 5.6 0 4 4 0 0 0 0-5.7zM13.2 53a4 4 0 0 0 4.8 2.8l16.3-4.3 15.5 9a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.4-5.5l-15.5-8.9-4.3-16.4a4 4 0 0 0-5-2.8 4 4 0 0 0-2.8 4.9l2.3 8.7-7.7-4.5a4 4 0 0 0-5.4 1.5 4 4 0 0 0 1.4 5.5l7.6 4.3-8.5 2.3a4 4 0 0 0-2.9 4.9z">
-              </path>
-            </svg>
-            <p class="mb-0">Điều hòa không khí</p>
-          </div>
-        </div>
+        </c:forEach>
+
       </div>
       <!-- Hotel-description -->
       <div class="row mt-3">
         <div class="col-sm-6 col-lg-9">
-          <div class="pe-5">
-            <p class="fs-14">
-              Chỗ nghỉ này cách bãi biển 7 phút đi bộ. Nằm ở thành phố Vũng
-              Tàu, cách Bãi Sau 550 m và Bãi Dứa 1,2 km, Vung Tau Melody
-              Apartment cung cấp chỗ nghỉ với WiFi miễn phí và khu vực ghế
-              ngồi.
-            </p>
-            <p class="fs-14">
-              Tất cả chỗ nghỉ tại đây được trang bị máy điều hòa, TV màn hình
-              phẳng, phòng khách với ghế sofa, bếp đầy đủ tiện nghi đi kèm khu
-              vực ăn uống và phòng tắm riêng với vòi xịt/chậu rửa vệ sinh, áo
-              choàng tắm cùng dép đi trong phòng. Các căn còn được trang bị lò
-              vi sóng, tủ lạnh, bếp nấu ăn và ấm đun nước.
-            </p>
-            <p class="fs-14">Căn hộ có sân hiên.</p>
-            <p class="fs-14">
-              Vung Tau Melody Apartment nằm trong bán kính 1,4 km từ Bãi Trước
-              và 1,7 km từ Tượng Chúa Kitô Vua. Sân bay gần nhất là sân bay
-              quốc tế Tân Sơn Nhất, cách chỗ nghỉ 108 km.
-            </p>
-            <p class="fs-14">
-              Các cặp đôi đặc biệt thích địa điểm này — họ cho điểm
-              <span class="fw-bold"> 9,0 </span>cho kỳ nghỉ dành cho 2 người.
-            </p>
+          <div class="pe-5 fs-14">
+              ${accommodation.description}
           </div>
         </div>
         <div class="col-sm-6 col-lg-3">
@@ -743,309 +662,50 @@
               </tr>
             </thead>
             <tbody class="border-top-0">
-              <tr>
-                <td class="w-25">
-                  <div class="">
-                    <a href="" class="text-blue h5 fw-bold">Phòng tiêu chuẩn cỡ Queen</a>
-                    <p class="mt-3">
-                      <span class="fs-14">1 giường đôi lớn </span>
-                      <i class="fa-solid fa-bed fs-4"></i>
-                    </p>
-                    <p class="mb-0">
-                      <svg class="bk-icon -streamline-room_size" height="1em" 
-                      width="1em" viewBox="0 0 24 24" role="presentation"
-                      aria-hidden="true" focusable="false">
-                      <path d="M3.75 23.25V7.5a.75.75 0 0 0-1.5 0v15.75a.75.75 0 0 0
-                        1.5 0zM.22 21.53l2.25 2.25a.75.75 0 0 0 1.06 0l2.25-2.25a.75.75
-                        0 1 0-1.06-1.06l-2.25 2.25h1.06l-2.25-2.25a.75.75 0 0 0-1.06
-                          1.06zM5.78 9.22L3.53 6.97a.75.75 0 0 0-1.06 0L.22 9.22a.75.75
-                          0 1 0 1.06 1.06l2.25-2.25H2.47l2.25 2.25a.75.75 0 1 0
-                            1.06-1.06zM7.5 3.75h15.75a.75.75 0 0 0 0-1.5H7.5a.75.75 0 
-                            0 0 0 1.5zM9.22.22L6.97 2.47a.75.75 0 0 0 0 1.06l2.25
-                            2.25a.75.75 0 1 0 1.06-1.06L8.03 2.47v1.06l2.25-2.25A.75.75
-                              0 1 0 9.22.22zm12.31 5.56l2.25-2.25a.75.75 0 0 0 0-1.06L21.53.22a.75.75 
-                              0 1 0-1.06 1.06l2.25 2.25V2.47l-2.25 2.25a.75.75 0 0 0 1.06 1.06zM10.5 
-                              13.05v7.2a2.25 2.25 0 0 0 2.25 2.25h6A2.25 2.25
-                              0 0 0 21 20.25v-7.2a.75.75 0 0 0-1.5 0v7.2a.75.75 0 0 1-.75.75h-6a.75.75
-                                0 0 1-.75-.75v-7.2a.75.75 0 0 0-1.5 0zm13.252 2.143l-6.497-5.85a2.25 2.25 
-                                0 0 0-3.01 0l-6.497 5.85a.75.75 0 0 0 1.004 1.114l6.497-5.85a.75.75 0 0 1 
-                                1.002 0l6.497 5.85a.75.75 0 0 0 1.004-1.114z"></path></svg>
-                      <span class="fs-12">25 m²</span> 
-                    </p>
-                    <p class="mb-0">
-                      <svg viewBox="0 0 128 128" width="1em" height="1em">
-                        <path
-                          d="M89.6 44.6L94 28.3a4 4 0 0 1 4.9-2.9 4 4 0 0 1 2.8 5l-2.3 8.5 7.7-4.4a4 4 0 0 1 5.5 1.4 4 4 0 0 1-1.5 5.5l-7.7 4.4 8.6 2.4a4 4 0 0 1 2.8 4.9 4 4 0 0 1-4.9 2.8l-16.3-4.4-15.5 9a4 4 0 0 1-5.5-1.5 4 4 0 0 1 1.5-5.5zM53.9 74.5a4 4 0 0 0 1.4-5.5 4 4 0 0 0-5.4-1.5l-15.6 9L18 72.2a4 4 0 0 0-5 2.8 4 4 0 0 0 2.9 5l8.4 2.2-7.5 4.3a4 4 0 0 0-1.4 5.5 4 4 0 0 0 5.4 1.5l7.8-4.5-2.4 8.8a4 4 0 0 0 2.9 4.9 4 4 0 0 0 4.9-2.9l4.4-16.4zM60 32.2V50a4 4 0 0 0 4 4 4 4 0 0 0 4-4V32l11.9-11.9a4 4 0 0 0 0-5.6 4 4 0 0 0-5.7 0L68 20.7V12a4 4 0 0 0-4-4 4 4 0 0 0-4 4v8.9l-6.4-6.4a4 4 0 0 0-5.6 0 4 4 0 0 0 0 5.7zM114.8 75a4 4 0 0 0-4.9-2.8l-16.3 4.3-15.5-9a4 4 0 0 0-5.5 1.5 4 4 0 0 0 1.5 5.5l15.5 8.9 4.3 16.4a4 4 0 0 0 4.9 2.8 4 4 0 0 0 2.8-4.9L99.3 89l7.7 4.5a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.5-5.4l-7.6-4.4 8.6-2.3a4 4 0 0 0 2.8-4.9zM68 95.8V78a4 4 0 0 0-4-4 4 4 0 0 0-4 4v18l-11.9 11.9a4 4 0 0 0 0 5.6 4 4 0 0 0 5.7 0l6.2-6.2v8.7a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-8.9l6.4 6.4a4 4 0 0 0 5.6 0 4 4 0 0 0 0-5.7zM13.2 53a4 4 0 0 0 4.8 2.8l16.3-4.3 15.5 9a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.4-5.5l-15.5-8.9-4.3-16.4a4 4 0 0 0-5-2.8 4 4 0 0 0-2.8 4.9l2.3 8.7-7.7-4.5a4 4 0 0 0-5.4 1.5 4 4 0 0 0 1.4 5.5l7.6 4.3-8.5 2.3a4 4 0 0 0-2.9 4.9z">
-                        </path>
-                      </svg>
-                      <span class="fs-12">Điều hòa không khí</span> 
-                    </p>
-                    <p class="mb-0">
-                      <i class="fa-solid fa-tv fs-12"></i>
-                      <span class="fs-12">Tivi màn hình phẳng</span> 
-                    </p>
-                    <hr class="text-grey my-2">
+            <c:forEach var="room" items="${rooms}">
+            <tr>
+              <td class="w-25">
+                <div class="">
+                  <a href="" class="text-blue h5 fw-bold">${room.nameRoom}</a>
+                  <div class="d-flex flex-wrap my-3">
+                    <c:forEach var="service" items="${services}">
+                      <span class="fs-12 mb-0 me-3"> <i class="fa-solid fa-check text-success"></i> ${service.name} </span>
+                    </c:forEach>
                   </div>
-                  <div class="d-flex flex-wrap">
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy giặt
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Khăn tắm
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Lò sưởi
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Sàn lát gỗ
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy sấy tóc 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Giường xếp 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Ấm đun nước điện
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
+                </div>
+              </td>
+              <td class="b-l-hotel">
+                <div>
+                  <div class="mb-2">
+                    <i class="fa-solid fa-user"></i>&nbsp; <span class="mx-2">x</span>${room.capacity}
                   </div>
-                </td>
-                <td class="b-l-hotel">
-                  <i class="fa-solid fa-user-group"></i>  
-                </td>
-                <td class="b-l-hotel">
-                  <p class="text-decoration-line-through text-danger fs-12 mb-1">VND 567.000</p> 
-                  <p class="fw-bold mb-1">VND 328.860</p> 
-                  <p class="fs-12 text-secondary">Đã bao gồm thuế và phí</p>
-                </td>
-                <td class="b-l-hotel">
-                  <ul class="ps-3">
-                    <li class="fs-14 fw-bold">Không hoàn tiền</li>
-                  </ul>
-                </td>
-                <td class="b-l-hotel bg-book-room">
-                  <div class="h-100 d-flex justify-content-center text-center align-items-center">
-                    <a href="" class="text-blue">Đặt chỗ ngay</a>
+                  <div class="mb-2">
+                    <i class="fa-solid fa-person"></i>&nbsp; <span class="mx-2">x</span>${room.quantityAdult}
                   </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="w-25">
-                  <div class="">
-                    <a href="" class="text-blue h5 fw-bold">Phòng tiêu chuẩn cỡ Queen</a>
-                    <p class="mt-3">
-                      <span class="fs-14">1 giường đôi lớn </span>
-                      <i class="fa-solid fa-bed fs-4"></i>
-                    </p>
-                    <p class="mb-0">
-                      <svg class="bk-icon -streamline-room_size" height="1em" 
-                      width="1em" viewBox="0 0 24 24" role="presentation"
-                      aria-hidden="true" focusable="false">
-                      <path d="M3.75 23.25V7.5a.75.75 0 0 0-1.5 0v15.75a.75.75 0 0 0
-                        1.5 0zM.22 21.53l2.25 2.25a.75.75 0 0 0 1.06 0l2.25-2.25a.75.75
-                        0 1 0-1.06-1.06l-2.25 2.25h1.06l-2.25-2.25a.75.75 0 0 0-1.06
-                          1.06zM5.78 9.22L3.53 6.97a.75.75 0 0 0-1.06 0L.22 9.22a.75.75
-                          0 1 0 1.06 1.06l2.25-2.25H2.47l2.25 2.25a.75.75 0 1 0
-                            1.06-1.06zM7.5 3.75h15.75a.75.75 0 0 0 0-1.5H7.5a.75.75 0 
-                            0 0 0 1.5zM9.22.22L6.97 2.47a.75.75 0 0 0 0 1.06l2.25
-                            2.25a.75.75 0 1 0 1.06-1.06L8.03 2.47v1.06l2.25-2.25A.75.75
-                              0 1 0 9.22.22zm12.31 5.56l2.25-2.25a.75.75 0 0 0 0-1.06L21.53.22a.75.75 
-                              0 1 0-1.06 1.06l2.25 2.25V2.47l-2.25 2.25a.75.75 0 0 0 1.06 1.06zM10.5 
-                              13.05v7.2a2.25 2.25 0 0 0 2.25 2.25h6A2.25 2.25
-                              0 0 0 21 20.25v-7.2a.75.75 0 0 0-1.5 0v7.2a.75.75 0 0 1-.75.75h-6a.75.75
-                                0 0 1-.75-.75v-7.2a.75.75 0 0 0-1.5 0zm13.252 2.143l-6.497-5.85a2.25 2.25 
-                                0 0 0-3.01 0l-6.497 5.85a.75.75 0 0 0 1.004 1.114l6.497-5.85a.75.75 0 0 1 
-                                1.002 0l6.497 5.85a.75.75 0 0 0 1.004-1.114z"></path></svg>
-                      <span class="fs-12">25 m²</span> 
-                    </p>
-                    <p class="mb-0">
-                      <svg viewBox="0 0 128 128" width="1em" height="1em">
-                        <path
-                          d="M89.6 44.6L94 28.3a4 4 0 0 1 4.9-2.9 4 4 0 0 1 2.8 5l-2.3 8.5 7.7-4.4a4 4 0 0 1 5.5 1.4 4 4 0 0 1-1.5 5.5l-7.7 4.4 8.6 2.4a4 4 0 0 1 2.8 4.9 4 4 0 0 1-4.9 2.8l-16.3-4.4-15.5 9a4 4 0 0 1-5.5-1.5 4 4 0 0 1 1.5-5.5zM53.9 74.5a4 4 0 0 0 1.4-5.5 4 4 0 0 0-5.4-1.5l-15.6 9L18 72.2a4 4 0 0 0-5 2.8 4 4 0 0 0 2.9 5l8.4 2.2-7.5 4.3a4 4 0 0 0-1.4 5.5 4 4 0 0 0 5.4 1.5l7.8-4.5-2.4 8.8a4 4 0 0 0 2.9 4.9 4 4 0 0 0 4.9-2.9l4.4-16.4zM60 32.2V50a4 4 0 0 0 4 4 4 4 0 0 0 4-4V32l11.9-11.9a4 4 0 0 0 0-5.6 4 4 0 0 0-5.7 0L68 20.7V12a4 4 0 0 0-4-4 4 4 0 0 0-4 4v8.9l-6.4-6.4a4 4 0 0 0-5.6 0 4 4 0 0 0 0 5.7zM114.8 75a4 4 0 0 0-4.9-2.8l-16.3 4.3-15.5-9a4 4 0 0 0-5.5 1.5 4 4 0 0 0 1.5 5.5l15.5 8.9 4.3 16.4a4 4 0 0 0 4.9 2.8 4 4 0 0 0 2.8-4.9L99.3 89l7.7 4.5a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.5-5.4l-7.6-4.4 8.6-2.3a4 4 0 0 0 2.8-4.9zM68 95.8V78a4 4 0 0 0-4-4 4 4 0 0 0-4 4v18l-11.9 11.9a4 4 0 0 0 0 5.6 4 4 0 0 0 5.7 0l6.2-6.2v8.7a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-8.9l6.4 6.4a4 4 0 0 0 5.6 0 4 4 0 0 0 0-5.7zM13.2 53a4 4 0 0 0 4.8 2.8l16.3-4.3 15.5 9a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.4-5.5l-15.5-8.9-4.3-16.4a4 4 0 0 0-5-2.8 4 4 0 0 0-2.8 4.9l2.3 8.7-7.7-4.5a4 4 0 0 0-5.4 1.5 4 4 0 0 0 1.4 5.5l7.6 4.3-8.5 2.3a4 4 0 0 0-2.9 4.9z">
-                        </path>
-                      </svg>
-                      <span class="fs-12">Điều hòa không khí</span> 
-                    </p>
-                    <p class="mb-0">
-                      <i class="fa-solid fa-tv fs-12"></i>
-                      <span class="fs-12">Tivi màn hình phẳng</span> 
-                    </p>
-                    <hr class="text-grey my-2">
+                  <div class="mb-2">
+                    <i class="fa-solid fa-child fs-12"></i>&nbsp; <span class="mx-2">x</span>${room.quantityChildren}
                   </div>
-                  <div class="d-flex flex-wrap">
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy giặt
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Khăn tắm
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Lò sưởi
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Sàn lát gỗ
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy sấy tóc 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Giường xếp 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Ấm đun nước điện
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
-                  </div>
-                </td>
-                <td class="b-l-hotel">
-                  <i class="fa-solid fa-user-group"></i>  
-                </td>
-                <td class="b-l-hotel">
-                  <p class="text-decoration-line-through text-danger fs-12 mb-1">VND 567.000</p> 
-                  <p class="fw-bold mb-1">VND 328.860</p> 
-                  <p class="fs-12 text-secondary">Đã bao gồm thuế và phí</p>
-                </td>
-                <td class="b-l-hotel">
-                  <ul class="ps-3">
-                    <li class="fs-14 fw-bold">Không hoàn tiền</li>
-                  </ul>
-                </td>
-                <td class="b-l-hotel bg-book-room">
-                  <div class="h-100 d-flex justify-content-center text-center align-items-center">
-                    <a href="" class="text-blue">Đặt chỗ ngay</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="w-25">
-                  <div class="">
-                    <a href="" class="text-blue h5 fw-bold">Phòng tiêu chuẩn cỡ Queen</a>
-                    <p class="mt-3">
-                      <span class="fs-14">1 giường đôi lớn </span>
-                      <i class="fa-solid fa-bed fs-4"></i>
-                    </p>
-                    <p class="mb-0">
-                      <svg class="bk-icon -streamline-room_size" height="1em" 
-                      width="1em" viewBox="0 0 24 24" role="presentation"
-                      aria-hidden="true" focusable="false">
-                      <path d="M3.75 23.25V7.5a.75.75 0 0 0-1.5 0v15.75a.75.75 0 0 0
-                        1.5 0zM.22 21.53l2.25 2.25a.75.75 0 0 0 1.06 0l2.25-2.25a.75.75
-                        0 1 0-1.06-1.06l-2.25 2.25h1.06l-2.25-2.25a.75.75 0 0 0-1.06
-                          1.06zM5.78 9.22L3.53 6.97a.75.75 0 0 0-1.06 0L.22 9.22a.75.75
-                          0 1 0 1.06 1.06l2.25-2.25H2.47l2.25 2.25a.75.75 0 1 0
-                            1.06-1.06zM7.5 3.75h15.75a.75.75 0 0 0 0-1.5H7.5a.75.75 0 
-                            0 0 0 1.5zM9.22.22L6.97 2.47a.75.75 0 0 0 0 1.06l2.25
-                            2.25a.75.75 0 1 0 1.06-1.06L8.03 2.47v1.06l2.25-2.25A.75.75
-                              0 1 0 9.22.22zm12.31 5.56l2.25-2.25a.75.75 0 0 0 0-1.06L21.53.22a.75.75 
-                              0 1 0-1.06 1.06l2.25 2.25V2.47l-2.25 2.25a.75.75 0 0 0 1.06 1.06zM10.5 
-                              13.05v7.2a2.25 2.25 0 0 0 2.25 2.25h6A2.25 2.25
-                              0 0 0 21 20.25v-7.2a.75.75 0 0 0-1.5 0v7.2a.75.75 0 0 1-.75.75h-6a.75.75
-                                0 0 1-.75-.75v-7.2a.75.75 0 0 0-1.5 0zm13.252 2.143l-6.497-5.85a2.25 2.25 
-                                0 0 0-3.01 0l-6.497 5.85a.75.75 0 0 0 1.004 1.114l6.497-5.85a.75.75 0 0 1 
-                                1.002 0l6.497 5.85a.75.75 0 0 0 1.004-1.114z"></path></svg>
-                      <span class="fs-12">25 m²</span> 
-                    </p>
-                    <p class="mb-0">
-                      <svg viewBox="0 0 128 128" width="1em" height="1em">
-                        <path
-                          d="M89.6 44.6L94 28.3a4 4 0 0 1 4.9-2.9 4 4 0 0 1 2.8 5l-2.3 8.5 7.7-4.4a4 4 0 0 1 5.5 1.4 4 4 0 0 1-1.5 5.5l-7.7 4.4 8.6 2.4a4 4 0 0 1 2.8 4.9 4 4 0 0 1-4.9 2.8l-16.3-4.4-15.5 9a4 4 0 0 1-5.5-1.5 4 4 0 0 1 1.5-5.5zM53.9 74.5a4 4 0 0 0 1.4-5.5 4 4 0 0 0-5.4-1.5l-15.6 9L18 72.2a4 4 0 0 0-5 2.8 4 4 0 0 0 2.9 5l8.4 2.2-7.5 4.3a4 4 0 0 0-1.4 5.5 4 4 0 0 0 5.4 1.5l7.8-4.5-2.4 8.8a4 4 0 0 0 2.9 4.9 4 4 0 0 0 4.9-2.9l4.4-16.4zM60 32.2V50a4 4 0 0 0 4 4 4 4 0 0 0 4-4V32l11.9-11.9a4 4 0 0 0 0-5.6 4 4 0 0 0-5.7 0L68 20.7V12a4 4 0 0 0-4-4 4 4 0 0 0-4 4v8.9l-6.4-6.4a4 4 0 0 0-5.6 0 4 4 0 0 0 0 5.7zM114.8 75a4 4 0 0 0-4.9-2.8l-16.3 4.3-15.5-9a4 4 0 0 0-5.5 1.5 4 4 0 0 0 1.5 5.5l15.5 8.9 4.3 16.4a4 4 0 0 0 4.9 2.8 4 4 0 0 0 2.8-4.9L99.3 89l7.7 4.5a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.5-5.4l-7.6-4.4 8.6-2.3a4 4 0 0 0 2.8-4.9zM68 95.8V78a4 4 0 0 0-4-4 4 4 0 0 0-4 4v18l-11.9 11.9a4 4 0 0 0 0 5.6 4 4 0 0 0 5.7 0l6.2-6.2v8.7a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-8.9l6.4 6.4a4 4 0 0 0 5.6 0 4 4 0 0 0 0-5.7zM13.2 53a4 4 0 0 0 4.8 2.8l16.3-4.3 15.5 9a4 4 0 0 0 5.5-1.5 4 4 0 0 0-1.4-5.5l-15.5-8.9-4.3-16.4a4 4 0 0 0-5-2.8 4 4 0 0 0-2.8 4.9l2.3 8.7-7.7-4.5a4 4 0 0 0-5.4 1.5 4 4 0 0 0 1.4 5.5l7.6 4.3-8.5 2.3a4 4 0 0 0-2.9 4.9z">
-                        </path>
-                      </svg>
-                      <span class="fs-12">Điều hòa không khí</span> 
-                    </p>
-                    <p class="mb-0">
-                      <i class="fa-solid fa-tv fs-12"></i>
-                      <span class="fs-12">Tivi màn hình phẳng</span> 
-                    </p>
-                    <hr class="text-grey my-2">
-                  </div>
-                  <div class="d-flex flex-wrap">
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy giặt
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Khăn tắm
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Lò sưởi
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Sàn lát gỗ
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Máy sấy tóc 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Giường xếp 
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Ấm đun nước điện
-                    </span>
-                    <span class="fs-12 mb-0 me-3">
-                      <i class="fa-solid fa-check text-success"></i>
-                      Nhà vệ sinh
-                    </span>
-                  </div>
-                </td>
-                <td class="b-l-hotel">
-                  <i class="fa-solid fa-user-group"></i>  
-                </td>
-                <td class="b-l-hotel">
-                  <p class="text-decoration-line-through text-danger fs-12 mb-1">VND 567.000</p> 
-                  <p class="fw-bold mb-1">VND 328.860</p> 
-                  <p class="fs-12 text-secondary">Đã bao gồm thuế và phí</p>
-                </td>
-                <td class="b-l-hotel">
-                  <ul class="ps-3">
-                    <li class="fs-14 fw-bold">Không hoàn tiền</li>
-                  </ul>
-                </td>
-                <td class="b-l-hotel bg-book-room">
-                  <div class="h-100 d-flex justify-content-center text-center align-items-center">
-                    <a href="" class="text-blue">Đặt chỗ ngay</a>
-                  </div>
-                </td>
-              </tr>
+                </div>
+              </td>
+              <td class="b-l-hotel">
+                <p class="fw-bold mb-1">VND ${room.price}</p>
+                <p class="fs-12 text-secondary">Đã bao gồm thuế và phí</p>
+              </td>
+              <td class="b-l-hotel">
+                <ul class="ps-3">
+                  <li class="fs-14 fw-bold">Không hoàn tiền</li>
+                </ul>
+              </td>
+              <td class="b-l-hotel bg-book-room">
+                <form action="${pageContext.request.contextPath}/customer/booking/form" method="get" class="h-100 d-flex justify-content-center text-center align-items-center">
+                  <input type="hidden" name="checkOut" value="03-07-2022">
+                  <input type="hidden" name="checkIn" value="08-07-2022">
+                  <input type="hidden" name="id" value="${room.id}">
+                  <button class="text-blue bg-white border-0 text-decoration-underline" type="submit">Đặt chỗ ngay</button>
+                </form>
+              </td>
+            </tr>
+            </c:forEach>
             </tbody>
           </table>
         </div>
@@ -1401,61 +1061,15 @@
               <div class="col-sm-12 col-sm-h-50 col-lg-h-50 h-100 col-lg-9">
                 <!-- Show Image -->
                 <div class="row h-100 modal-img-scroll pb-1">
+                  <c:forEach var="image" items="${images}"  >
                   <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
                     <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
                       aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/-RosiesAreRosieDay-rose-blackpink-42630481-750-844.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                  </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/823347377556e4b2eb3a852b5c02369a.png" class="img-hover h-17 w-100 bd-r-4" alt="" />
+                      <img src="http://localhost:9596/api/image/getimage/${image}" class="img-hover h-17 w-100 bd-r-4" alt="" />
                     </div>
                   </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/8df8483d-334b-4794-9522-8345673a4fb6.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/a39c9930-ccc7-11ec-9c78-050901070303-compressed.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/blackpinks_rose_style_0.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/cb09b6c6b679db47c81299ee06ffa16d.png" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/photo-1643307548224-16433075491651886651524.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rose-blackpink-pha-moi-ky-luc-voi-san-pham-am-nhac-solo-dau-tay.jpeg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6 flex-grow-0 col-lg-3 gx-2 gy-1">
-                    <div class="overflow-hidden img-thumbnail h-100" data-bs-toggle="collapse" data-bs-target="#zoom-in-img"
-                      aria-expanded="false" role="button" aria-controls="zoom-in-img">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rosie2.jpg" class="img-hover h-17 w-100 bd-r-4" alt="" />
-                    </div>
-                  </div>
-                  
+
+                  </c:forEach>
                 </div>
                 <!-- Zoom Image -->
                 <div class="row h-100 py-2 zoom-img d-none" id="zoom-in-img">
@@ -1463,68 +1077,22 @@
                     <section class="splide h-75 w-75 flex-fill" id="slider-show">
                       <div class="splide__track h-100">
                         <ul class="splide__list">
+                          <c:forEach var="image" items="${images}"  >
                           <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/-RosiesAreRosieDay-rose-blackpink-42630481-750-844.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
+                            <img src="http://localhost:9596/api/image/getimage/${image}" class="bd-r-4 w-100 h-100 mb-3" alt="" />
                           </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/823347377556e4b2eb3a852b5c02369a.png" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/8df8483d-334b-4794-9522-8345673a4fb6.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/a39c9930-ccc7-11ec-9c78-050901070303-compressed.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/blackpinks_rose_style_0.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/cb09b6c6b679db47c81299ee06ffa16d.png" class="bd-r-4 w-100 h-100 mb-3"
-                              alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/photo-1643307548224-16433075491651886651524.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rose-blackpink-pha-moi-ky-luc-voi-san-pham-am-nhac-solo-dau-tay.jpeg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
-                          <li class="splide__slide w-100 h-100" data-src="rosie2.jpg">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rosie2.jpg" class="bd-r-4 w-100 h-100 mb-3" alt="" />
-                          </li>
+                          </c:forEach>
                         </ul>
                       </div> 
                     </section>
                     <section class="splide splide2 w-75 h-25 p-sm-2 p-lg-4" id="slider-thumbnail">
                       <div class="splide__track h-100 mx-4">
                         <ul class="splide__list">
+                          <c:forEach var="image" items="${images}"  >
                           <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/-RosiesAreRosieDay-rose-blackpink-42630481-750-844.jpg" class="w-100 h-100 bd-r-2" alt="" />
+                            <img src="http://localhost:9596/api/image/getimage/${image}" class="w-100 h-100 bd-r-2" alt="" />
                           </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/823347377556e4b2eb3a852b5c02369a.png" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/8df8483d-334b-4794-9522-8345673a4fb6.jpg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/a39c9930-ccc7-11ec-9c78-050901070303-compressed.jpg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/blackpinks_rose_style_0.jpg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/cb09b6c6b679db47c81299ee06ffa16d.png" class="w-100 h-100 bd-r-2"
-                              alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/photo-1643307548224-16433075491651886651524.jpg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rose-blackpink-pha-moi-ky-luc-voi-san-pham-am-nhac-solo-dau-tay.jpeg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
-                          <li class="splide__slide h-100 op-0-5">
-                            <img src="${pageContext.request.contextPath}/resources/assets/img/rosie/rosie2.jpg" class="w-100 h-100 bd-r-2" alt="" />
-                          </li>
+                          </c:forEach>
                         </ul>
                       </div>
                     </section>

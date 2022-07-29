@@ -3,6 +3,7 @@ package com.booking.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.booking.entities.AccommodationDetail;
 import com.booking.entities.SearchAccommodation;
 import okhttp3.MultipartBody;
 import com.booking.helpers.TokenReader;
@@ -100,6 +101,17 @@ public class AccommodationService implements IAccommodationService {
 	public String uploadFile(MultipartBody.Part file) {
 		try {
 			Response<String> response = accommodationAPI.uploadImage(file).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public AccommodationDetail findaccommodationdetail(int id) {
+		try {
+			Response<AccommodationDetail> response = accommodationAPI.findaccommodationdetail(id).execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();

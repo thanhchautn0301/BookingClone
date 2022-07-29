@@ -175,11 +175,11 @@
             <div class="input-group mb-3 border-filter rounded-start">
               <span class="input-group-text rounded-0 border-0 bg-white p-3">
                 <i class="fa-solid fa-bed"></i>
-              </span>
+              </span>     <input type="text" class="form-control rounded-0 fw-500 border-0 shadow-none ps-0 p-3 input-drop-select"
+                                 id="input-province" name="keyword" placeholder="Bạn muốn đi đâu?" aria-label="filterProvince"
+                                 aria-describedby="filter-hotel" autocomplete="off" required>
 
-              <input type="text" class="form-control rounded-0 fw-500 border-0 shadow-none ps-0 p-3 input-drop-select"
-                id="input-province" name="keyword" placeholder="Bạn muốn đi đâu?" aria-label="filterProvince"
-                aria-describedby="filter-hotel" autocomplete="off" required>
+
               <span class="input-group-text rounded-0 border-0 bg-white p-3 d-none" id="filter-hotel">
                 <i class="fa-solid fa-xmark"></i>
               </span>
