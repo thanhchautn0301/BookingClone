@@ -52,7 +52,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     public List<RoomApi> findRoomByGuestRequest(@Param("id") int id, @Param("from") Date from, @Param("to") Date to, @Param("total") int total, @Param("childrenQuantity") int childrenQuantity, @Param("adultQuantity") int adultQuantity);
 
 
-    @Query("select new com.demo.entities_api.RoomDetail(R.id,R.accomodation.id,R.accomodation.name,R.accomodation.staff.id,R.name,R.description,RT.id,RT.name,RT.capacity, RT.quantityAdult,RT.quantityChildren, RT.description) " +
+    @Query("select new com.demo.entities_api.RoomDetail(R.id,R.accomodation.id,R.accomodation.name,R.accomodation.staff.id,R.name,R.description,RT.id,RT.name,RT.capacity, RT.quantityAdult,RT.quantityChildren, RT.description,R.price) " +
             "from Room R join RoomType RT on R.roomType.id = RT.id " +
             "where R.status = true and R.accomodation.id =:id")
     public List<RoomDetail> findRoomByAccommodationId(@Param("id") int accommodationId);

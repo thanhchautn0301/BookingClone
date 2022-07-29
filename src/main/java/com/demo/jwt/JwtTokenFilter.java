@@ -36,8 +36,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         // check validate access token
         if(!jwtUtil.validateAccessToken(accessToken)) {
-            filterChain.doFilter(request,response);
-            return;
+           filterChain.doFilter(request,response);
+           return;
         }
         // check authentication context
         setAuthenticationContext(accessToken,request);
