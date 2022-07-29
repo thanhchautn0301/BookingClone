@@ -53,10 +53,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = {"search"}, method = RequestMethod.GET)
-	public String searchbycityname(HttpServletRequest request, @RequestParam("name") String name, ModelMap modelMap) {
+	public String searchbycityname(HttpServletRequest request, @RequestParam("cityName") String cityName, ModelMap modelMap) {
 		// Success
-		SearchAccommodation searchAccommodation = accommodationService.findAllByCityName(name);
-		String city = name.toUpperCase();
+		SearchAccommodation searchAccommodation = accommodationService.findAllByCityName(cityName);
+		String city = cityName.toUpperCase();
 		if(searchAccommodation !=null && searchAccommodation.getAccommodationQuantity() >0) {
 			int result = searchAccommodation.getAccommodationQuantity();
 

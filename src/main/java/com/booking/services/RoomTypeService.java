@@ -31,4 +31,43 @@ public class RoomTypeService implements IRoomTypeService {
 		}
 	}
 
+	@Override
+	public RoomType create(RoomType roomType) {
+		Response<RoomType> response;
+		try {
+			roomType.setStatus(true);
+			response = roomTypeAPI.create(roomType).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public boolean update(RoomType roomType) {
+		Response<Boolean> response;
+		try {
+			roomType.setStatus(true);
+			response = roomTypeAPI.update(roomType).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(int id) {
+		Response<Boolean> response;
+		try {
+			response = roomTypeAPI.delete(id).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }
