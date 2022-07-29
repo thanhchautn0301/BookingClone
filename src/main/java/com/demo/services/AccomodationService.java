@@ -142,6 +142,11 @@ public class AccomodationService implements IAccomodationService {
     }
 
     @Override
+    public List<AccomodationApi> findallaccomodationbycityname(String cityName) {
+        return accomodationRepository.findAllAccomodationByCityName(cityName);
+    }
+
+    @Override
     public AccommodationDetail getAccommodationDetail(Integer accommodationId) {
         if(accommodationId != null) {
             List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();

@@ -130,6 +130,8 @@ public class AccomodationApiController {
         }
     }
 
+  
+
     @RequestMapping(value="findaccomodationbycityname", method=RequestMethod.GET)
     public ResponseEntity<Object> findaccomodationbycityname(@RequestParam("name") String name) {
         try {
