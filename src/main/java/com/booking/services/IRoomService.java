@@ -14,5 +14,5 @@ public interface IRoomService {
 	public List<Room> findAllByHostId(int hostId);
 	public boolean update(Room room);
 	public boolean delete(int id);
-	
+	public Room findRoomById(int id);
 }

@@ -30,9 +30,12 @@ public interface RoomAPI {
 	@DELETE("room/delete/{id}")
 	Call<Boolean> delete(@Path("id") int id);
 	
-	
 	@Multipart
     @POST("room/uploadImage")
     Call<Boolean> uploadImage(@Part MultipartBody.Part file);
+	
+	@GET("room/findroombyid/{id}")
+	Call<Room> findRoomById(@Path("id") int id);
+
 	
 }

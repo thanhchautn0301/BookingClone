@@ -72,4 +72,16 @@ public class RoomService implements IRoomService{
 		}
 	}
 
+	@Override
+	public Room findRoomById(int id) {
+		Response<Room> response;
+		try {
+			response = roomAPI.findRoomById(id).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
