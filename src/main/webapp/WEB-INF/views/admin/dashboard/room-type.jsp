@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -322,30 +323,34 @@
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Tên kiểu phòng</th>
-                    <th>Sức chứa</th>
-                    <th>Số lượng người lớn</th>
-                    <th>Số lượng trẻ em</th>
-                    <th>Mô tả</th>
+                    <th>Name</th>
+                    <th>Capacity</th>
+                    <th>Quantity Adults</th>
+                    <th>Quantity Children</th>
+                    <th>Description</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td><a href="" data-toggle="modal" data-target="#modal-info">Phòng 2 người</a></td>
-                      <td>4</td>
-                      <td>1</td>
-                      <td>3</td>
-                      <td>XXXX</td>
-                      <input type="hidden" name="id" value="001">
-                    </tr> 
-                            
+                  <c:forEach var="roomType" items="${roomTypes }">
+	                  <tr>
+	                      <td></td>
+	                      <td><a href="" data-toggle="modal" data-target="#modal-info">${roomType.name }</a></td>
+	                      <td>${roomType.capacity }</td>
+	                      <td>${roomType.quantityAdult }</td>
+	                      <td>${roomType.quantityChildren }</td>
+	                      <td>${roomType.description }</td>
+	                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/room/type/delete/${roomType.id}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fas fa-times"></i></a></td>
+	                      <input type="hidden" name="id" value="${roomType.id }">
+	                    </tr>   
+                  </c:forEach>
+                         
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
-            <form id="roomAddForm" class="card collapsed-card">
+            <form method="post" action="${pageContext.request.contextPath }/admin/dashboard/room/type/add" id="roomAddForm" class="card collapsed-card">
               <div class="card-header">
                 <h3 class="card-title">Thêm kiểu phòng mới</h3>
                 <div class="card-tools">
@@ -357,13 +362,13 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="">Tên kiểu phòng</label>
-                  <input type="text" name="nameRoomType" autocomplete="off" placeholder="Nhập tên kiểu phòng" id="" class="form-control">
+                  <input type="text" name="name" autocomplete="off" placeholder="Nhập tên kiểu phòng" id="" class="form-control">
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Số lượng người lớn</label>
-                      <select name="QUANTITY_ADULT" class="form-control">
+                      <select name="quantityAdult" class="form-control">
                         <option value="1" selected>1 đứa</option>
                         <option value="2">2 đứa</option>
                         <option value="3">3 đứa</option>
@@ -380,7 +385,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Số lượng trẻ em</label>
-                      <select name="QUANTITY_CHILDREN" class="form-control">
+                      <select name="quantityChildren" class="form-control">
                         <option value="1" selected>1 bé</option>
                         <option value="2">2 bé</option>
                         <option value="3">3 bé</option>
@@ -396,8 +401,8 @@
                 </div>
                 <div class="form-group">
                   <label for="" class="mr-2">Tổng sức chứa</label>
-                  <input type="text" class="pl-2" value="2" name="capity" disabled>
-                  <input type="hidden" name="capity" value="2">
+                  <input type="text" class="pl-2" value="2" name="capacity" disabled>
+                  <input type="hidden" name="capacity" value="2">
                 </div>
               </div>
               <!-- /.card-body -->
@@ -422,7 +427,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-info">
   <div class="modal-dialog h-100 my-0 py-3">
-    <form action="" id="editForm" class="modal-content">
+    <form action="${pageContext.request.contextPath }/admin/dashboard/room/type/edit" method="post" id="editForm" class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Thông tin thành phố</h4>
         <button
@@ -446,8 +451,8 @@
           <div class="col-sm-4">
             <div class="form-group">
               <label class="mr-2">Sức chứa</label>
-              <input type="text" name="capity" class="form-control" id="capity" disabled>
-              <input type="hidden" name="capity">
+              <input type="text" name="capacity" class="form-control" id="capacity" disabled>
+              <input type="hidden" name="capacity">
             </div>
           </div>
         </div>
@@ -455,7 +460,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label>Số lượng người lớn</label>
-              <select name="QUANTITY_ADULT" class="form-control">
+              <select name="quantityAdult" class="form-control">
                 <option value="1">1 đứa</option>
                 <option value="2">2 đứa</option>
                 <option value="3">3 đứa</option>
@@ -472,7 +477,7 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label>Số lượng trẻ em</label>
-              <select name="QUANTITY_CHILDREN" class="form-control">
+              <select name="quantityChildren" class="form-control">
                 <option value="1">1 bé</option>
                 <option value="2">2 bé</option>
                 <option value="3">3 bé</option>

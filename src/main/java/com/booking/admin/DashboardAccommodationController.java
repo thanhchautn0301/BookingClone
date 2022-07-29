@@ -109,7 +109,7 @@ public class DashboardAccommodationController {
 		else {
 			redirectAttributes.addFlashAttribute("result", "success");
 		}
-		return "admin/dashboard/accommodation-add";
+		return "redirect:/admin/dashboard/accommodation/add";
 	}
 	
 	@RequestMapping(value = "delete/{id}",method = RequestMethod.GET)

@@ -28,10 +28,26 @@ $(function () {
       pageLength: 7,
       "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false
     }).buttons().container().appendTo('#roomTypeTable_wrapper .col-md-6:eq(0)');
-    var rowLength = $('#infoTable tbody').find('tr').length;
-    for(let i = 0 ; i < rowLength;i++){
-      $('#infoTable tbody tr:eq('+i+') td:eq(0)').html(i+1);
-    }
+    var t = $('#infoTable').DataTable({
+		retrieve: true,
+      	paging: false,
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            },
+        ],
+        order: [[1, 'asc']],
+    });
+ 
+    t.on('order.dt search.dt', function () {
+        let i = 1;
+ 
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
   });
   $('.select2').select2()
 
@@ -45,18 +61,18 @@ $(function () {
   $('[data-mask]').inputmask()
 
 
-  $('select[name="QUANTITY_ADULT"]').on('change',function(){
-    let adultQuantity = $('select[name="QUANTITY_ADULT"] option:selected').val();
-    let childQuantity = $('select[name="QUANTITY_CHILDREN"] option:selected').val();
+  $('select[name="quantityAdult"]').on('change',function(){
+    let adultQuantity = $('select[name="quantityAdult"] option:selected').val();
+    let childQuantity = $('select[name="quantityChildren"] option:selected').val();
     let result = (+adultQuantity)+(+childQuantity);
-    $('input[name="capity"]').val(result);
+    $('input[name="capacity"]').val(result);
   })
 
-  $('select[name="QUANTITY_CHILDREN"]').on('change',function(){
-    let adultQuantity = $('select[name="QUANTITY_ADULT"] option:selected').val();
-    let childQuantity = $('select[name="QUANTITY_CHILDREN"] option:selected').val();
+  $('select[name="quantityChildren"]').on('change',function(){
+    let adultQuantity = $('select[name="quantityAdult"] option:selected').val();
+    let childQuantity = $('select[name="quantityChildren"] option:selected').val();
     let result = (+adultQuantity)+(+childQuantity);
-    $('input[name="capity"]').val(result);
+    $('input[name="capacity"]').val(result);
   })
   
 
@@ -70,12 +86,12 @@ $(function () {
 
   $('#roomAddForm').validate({
     rules:{
-      nameRoomType: {
+      name: {
         required: true
       }
     }
     ,messages:{
-      nameRoomType: {
+      name: {
         required: 'Vui lòng nhập tên kiểu phòng'
       }
     },
@@ -99,29 +115,29 @@ $(function () {
   
     var id = currentRow.find("input[type='hidden'][name='id']").val(); 
     var name = currentRow.find("td:eq(1)").text(); 
-    var capity = currentRow.find("td:eq(2)").text(); 
+    var capacity = currentRow.find("td:eq(2)").text(); 
     var adults = currentRow.find("td:eq(3)").text(); 
     var childs = currentRow.find("td:eq(4)").text(); 
     var desc = currentRow.find("td:eq(5)").text(); 
   
     $('#modal-info #editForm input[name="name"]').val(name.trim());
     $('#modal-info #editForm input[name="id"]').val(id);
-    $('#modal-info #editForm input[name="capity"]').val(capity);
-    $('#modal-info #editForm select[name="QUANTITY_ADULT"]').val(adults);
-    $('#modal-info #editForm select[name="QUANTITY_CHILDREN"]').val(childs);
+    $('#modal-info #editForm input[name="capacity"]').val(capacity);
+    $('#modal-info #editForm select[name="quantityAdult"]').val(adults);
+    $('#modal-info #editForm select[name="quantityChildren"]').val(childs);
     $('#modal-info #editForm textarea[name="description"]').val(desc);
 
-    $('#modal-info #editForm select[name="QUANTITY_ADULT"]').on('change',function(){
-      let adultQuantity = $('#modal-info #editForm select[name="QUANTITY_ADULT"] option:selected').val();
-      let childQuantity = $('#modal-info #editForm select[name="QUANTITY_CHILDREN"] option:selected').val();
+    $('#modal-info #editForm select[name="quantityAdult"]').on('change',function(){
+      let adultQuantity = $('#modal-info #editForm select[name="quantityAdult"] option:selected').val();
+      let childQuantity = $('#modal-info #editForm select[name="quantityChildren"] option:selected').val();
       let result = (+adultQuantity)+(+childQuantity);
-      $('#modal-info #editForm input[name="capity"]').val(result);
+      $('#modal-info #editForm input[name="capacity"]').val(result);
     })
   
-    $('#modal-info #editForm select[name="QUANTITY_CHILDREN"]').on('change',function(){
-      let adultQuantity = $('#modal-info #editForm select[name="QUANTITY_ADULT"] option:selected').val();
-      let childQuantity = $('#modal-info #editForm select[name="QUANTITY_CHILDREN"] option:selected').val();
+    $('#modal-info #editForm select[name="quantityChildren"]').on('change',function(){
+      let adultQuantity = $('#modal-info #editForm select[name="quantityAdult"] option:selected').val();
+      let childQuantity = $('#modal-info #editForm select[name="quantityChildren"] option:selected').val();
       let result = (+adultQuantity)+(+childQuantity);
-      $('#modal-info #editForm input[name="capity"]').val(result);
+      $('#modal-info #editForm input[name="capacity"]').val(result);
     })
   }) 
