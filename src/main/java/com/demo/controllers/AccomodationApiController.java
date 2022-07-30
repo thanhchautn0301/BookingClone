@@ -106,7 +106,22 @@ public class AccomodationApiController {
             },HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findaccomodationbycityname", method=RequestMethod.GET)
+    public ResponseEntity<Object> findaccomodationbycityname(@RequestParam("name") String name) {
+        try {
+            System.out.println("You are here !!!");
+            List<AccomodationApi> accommodations = accomodationService.findallaccomodationbycityname(name);
+            return new ResponseEntity<Object>(new Object() {
+                public int accomodationQuantity = accommodations.size();
+                public List<AccomodationApi> accomodations = accommodations;
+            },HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Object>(null,HttpStatus.BAD_REQUEST);
         }
     }
 }

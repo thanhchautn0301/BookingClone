@@ -1,6 +1,7 @@
 package com.demo.configures;
 
 import com.demo.jwt.JwtTokenFilter;
+import com.demo.repositories.CustomerRepository;
 import com.demo.repositories.StaffRepository;
 import com.demo.services.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private StaffRepository staffRepository;
+
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
     @Bean
@@ -59,7 +61,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/staff/create").permitAll()
                 .antMatchers("/api/staff/findstaffbyid").permitAll()
                 .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+                .antMatchers("/api/staff/forgotpw").permitAll()
                 .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
+                .antMatchers("/api/accomodation/*").permitAll()
                 .antMatchers("/api/image/getimage/{name}").permitAll()
                 .antMatchers("/api/category/*").permitAll()
                 .antMatchers("/api/city/*").permitAll()
