@@ -36,6 +36,9 @@ public interface RoomAPI {
 	
 	@GET("room/findroombyid/{id}")
 	Call<Room> findRoomById(@Path("id") int id);
+	
+	@GET("room/findprice/{id}")
+	Call<Double> findPriceByRoomId(@Path("id") int id);
 
 	
 }

@@ -279,7 +279,7 @@
                 </div>
               </div>
             </div>
-            <form method="get" action="">
+            <form method="post" action="${pageContext.request.contextPath }/customer/booking/startBooking">
               <div class="row">
                 <div class="col-12 gy-3">
                   <div class="border p-3 bd-r-2 bg-payment">
@@ -287,14 +287,14 @@
                     
                       <div class="d-flex flex-column">
                         <label for="" class="form-label fw-500 fs-14">Phương thức thanh toán</label>
-                        <select class="paymentSelect" name="payment">
+                        <select class="paymentSelect">
                           <option value="card">Credit</option>
                           <option value="master-card">Master Card</option>
                           <option value="paypal">Paypal</option>
                         </select>
                         <!-- -->
-                        <input type="hidden" name="email" value="abc@gmail.com">
-                        <input type="hidden" name="id" value="123">
+                        <input type="hidden" value="abc@gmail.com">
+                        <input type="hidden"  value="123">
                       </div>
                 </div>
                 </div>

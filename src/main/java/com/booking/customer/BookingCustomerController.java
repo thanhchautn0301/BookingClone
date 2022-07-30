@@ -6,12 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.booking.entities.Booking;
 import com.booking.entities.BookingDetail;
 import com.booking.entities.BookingForm;
+import com.booking.entities.Invoice;
 import com.booking.entities.Room;
 import com.booking.helpers.BookingDateHelper;
+import com.booking.services.IBookingFlow;
 import com.booking.services.ICustomerService;
 import com.booking.services.IRoomService;
 
@@ -32,6 +35,9 @@ public class BookingCustomerController {
 	@Autowired
 	private ICustomerService customerService;
 	
+	@Autowired
+	private IBookingFlow bookingFlow;
+	
 	private int customerId = 1;
 	
 	@RequestMapping(value = {"form"}, method = RequestMethod.GET)
@@ -41,7 +47,7 @@ public class BookingCustomerController {
 		
 		//		id_Booking,id_customer,booking_date,payment,status
 		Booking booking = new Booking(1,customerId,bookingDate,"Cash",true);
-		
+
 		
 		Date dateCheckIn = new Date();
 		try {
@@ -73,18 +79,16 @@ public class BookingCustomerController {
 		return "booking/booking-success";
 	}
 	
-//	@RequestMapping(value = {"mainFLowBooking"}, method = RequestMethod.GET)
-//	public String mainFLowBooking(//Nhan gia tri param tu form) {
-	// Tao 3 doi tuong Booking, BookingDetail va Invoice
-	
-	// Gan gia tri cua cac param tuong ung vao 3 doi tuong
-	
-	
-	// Goi service bookingFlow
-	// bookingFLow.mainBookingFlow(booking,bookingDetail,invoice);
-	
-//		return "booking/booking-success";
-//	}
+	@RequestMapping(value = {"startBooking"}, method = RequestMethod.POST)
+	public String mainFLowBooking(HttpSession session) {
+		BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
+		System.out.println("Booking detail checkin : " + bookingForm.getBookingDetail().getCheckin());
+		System.out.println("Booking detail checkout : " + bookingForm.getBookingDetail().getCheckout());
+		Invoice invoice = new Invoice();
+
+		bookingFlow.mainFlowBooking(bookingForm.getBooking(), bookingForm.getBookingDetail(), invoice);
+		return "booking/booking-success";
+	}
 	
 
 }

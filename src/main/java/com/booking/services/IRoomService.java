@@ -15,4 +15,5 @@ public interface IRoomService {
 	public boolean update(Room room);
 	public boolean delete(int id);
 	public Room findRoomById(int id);
+	public double findPriceByRoomId(int id);
 }

@@ -24,13 +24,13 @@ public class BookingDateHelper {
 	}
 	
 	
-	public static String countDay(Date checkIn,Date checkOut) {
+	public static long countDay(Date checkIn,Date checkOut) {
 		long dateBeforeInMs = checkIn.getTime();
 		long dateAfterInMs = checkOut.getTime();
 
 		long timeDiff = Math.abs(dateAfterInMs - dateBeforeInMs);
 
 		long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-	     return daysDiff+"";
+	     return daysDiff;
 	}
 }	
