@@ -1,6 +1,8 @@
 package com.booking.customer;
 
 
+import com.booking.entities.*;
+import com.booking.services.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,11 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.booking.entities.Booking;
-import com.booking.entities.BookingDetail;
-import com.booking.entities.BookingForm;
-import com.booking.entities.Invoice;
-import com.booking.entities.Room;
 import com.booking.helpers.BookingDateHelper;
 import com.booking.services.IBookingFlow;
 import com.booking.services.ICustomerService;
@@ -31,6 +28,9 @@ public class BookingCustomerController {
 	
 	@Autowired
 	private IRoomService roomService;
+
+	@Autowired
+	private IVoucherService voucherService;
 	
 	@Autowired
 	private ICustomerService customerService;
@@ -63,7 +63,7 @@ public class BookingCustomerController {
 		}
 //	 	id_bookingDetail,id_booking,id_room,quantityAdults,quantityChildren,
 			// date_CheckIn,date_CheckOut,status
-		BookingDetail bookingDetail = new  BookingDetail(1,1,1,3,2,dateCheckIn,dateCheckOut,true);
+		BookingDetail bookingDetail = new  BookingDetail(1,1,2,3,2,dateCheckIn,dateCheckOut,true);
 		BookingForm bookingForm = new BookingForm(booking,bookingDetail);
 		session.setAttribute("booking", bookingForm);
 		Room room = roomService.findRoomById(bookingDetail.getId());
@@ -80,15 +80,19 @@ public class BookingCustomerController {
 	}
 	
 	@RequestMapping(value = {"startBooking"}, method = RequestMethod.POST)
-	public String mainFLowBooking(HttpSession session) {
+	public String mainFLowBooking(HttpSession session,String voucherName) {
 		BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
 		System.out.println("Booking detail checkin : " + bookingForm.getBookingDetail().getCheckin());
 		System.out.println("Booking detail checkout : " + bookingForm.getBookingDetail().getCheckout());
+		// Lay tu input voucher tu form booking
+		// Day la set cung
+		// if else kiem tra xem voucher name co rong hay khong
+		voucherName = "abc";
+		Voucher voucher = voucherService.findVoucherByName(voucherName);
 		Invoice invoice = new Invoice();
-
+		invoice.setVoucher_id(voucher.getId());
 		bookingFlow.mainFlowBooking(bookingForm.getBooking(), bookingForm.getBookingDetail(), invoice);
 		return "booking/booking-success";
 	}
-	
-
+	// Chau^ Chau^' viet ajax controller kiem tra check
 }
