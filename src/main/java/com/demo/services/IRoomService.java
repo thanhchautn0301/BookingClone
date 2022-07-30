@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface IRoomService {
@@ -25,4 +26,6 @@ public interface IRoomService {
     public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity);
     // loc_home_accomm_detail
     public List<RoomDetail> findAllByAccommodationId(int accommodationId);
+    public List<RoomApi> findRoomByCityDateRequest(String nameCity,Date from,Date to,int capacity,int childrenQuantity,int adultQuantity);
+
 }

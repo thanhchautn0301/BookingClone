@@ -95,7 +95,7 @@ public class ServiceService implements IServiceService {
     }
 
     @Override
-    public ServiceApi findServiceByAccommodationId(Integer id) {
+    public List<ServiceApi> findServiceByAccommodationId(Integer id) {
         return serviceRepository.findServiceByAccommodationId(id);
     }
 }

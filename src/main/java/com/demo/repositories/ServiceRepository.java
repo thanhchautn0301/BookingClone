@@ -26,5 +26,5 @@ public interface ServiceRepository extends JpaRepository<Service, Integer> {
     public ServiceApi findServiceById(@Param("id") int id);
 
     @Query("select new com.demo.entities_api.ServiceApi(id, accomodation.id, name, price, iconCanvas, status) from Service where status =true and accomodation.id =:id")
-    public ServiceApi findServiceByAccommodationId(@Param("id") int id);
+    public List<ServiceApi> findServiceByAccommodationId(@Param("id") int id);
 }
