@@ -25,4 +25,5 @@ public interface IRoomService {
     public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity);
     // loc_home_accomm_detail
     public List<RoomDetail> findAllByAccommodationId(int accommodationId);
+    public double findPriceByRoomId(int id);
 }

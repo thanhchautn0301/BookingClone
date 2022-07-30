@@ -136,5 +136,10 @@ public class RoomService implements IRoomService {
         return roomRepository.findRoomByAccommodationId(accommodationId);
     }
 
+	@Override
+	public double findPriceByRoomId(int id) {
+		return roomRepository.findPriceByRoomId(id);
+	}
+
 
 }

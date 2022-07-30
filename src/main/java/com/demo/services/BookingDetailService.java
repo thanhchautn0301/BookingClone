@@ -39,7 +39,7 @@ public class BookingDetailService implements IBookingDetailService {
     }
 
     @Override
-    public boolean create(BookingDetailApi bookingDetailApi) {
+    public BookingDetailApi create(BookingDetailApi bookingDetailApi) {
         try {
             // Tao moi 1 role de luu xuong csdl
             BookingDetail bookingDetail = new BookingDetail();
@@ -55,11 +55,12 @@ public class BookingDetailService implements IBookingDetailService {
 
             Room room = roomRepository.findById(bookingDetailApi.getRoomId()).get();
             bookingDetail.setRoom(room);
-
-            return bookingDetailRepository.save(bookingDetail)!=null;
+            BookingDetail newBookingDetail = bookingDetailRepository.save(bookingDetail);
+            bookingDetailApi.setId(newBookingDetail.getId());
+            return bookingDetailApi;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

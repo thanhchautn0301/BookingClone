@@ -55,14 +55,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // allow request ( chia role )
         http.authorizeRequests()
-                .antMatchers("/api/staff/login").permitAll()
-                .antMatchers("/api/staff/create").permitAll()
-                .antMatchers("/api/staff/findstaffbyid").permitAll()
-                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
-                .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
-                .antMatchers("/api/image/getimage/{name}").permitAll()
-                .antMatchers("/api/category/*").permitAll()
-                .antMatchers("/api/city/*").permitAll()
+//                .antMatchers("/api/staff/login").permitAll()
+//                .antMatchers("/api/staff/create").permitAll()
+//                .antMatchers("/api/staff/findstaffbyid").permitAll()
+//                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+//                .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
+//                .antMatchers("/api/image/getimage/{name}").permitAll()
+//                .antMatchers("/api/category/*").permitAll()
+//                .antMatchers("/api/city/*").permitAll()
                 .anyRequest().permitAll();
 
         // handling error

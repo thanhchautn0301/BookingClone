@@ -56,4 +56,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "from Room R join RoomType RT on R.roomType.id = RT.id " +
             "where R.status = true and R.accomodation.id = :id ")
     public List<RoomDetail> findRoomByAccommodationId(@Param("id") int accommodationId);
+    
+    
+    @Query("select R.price  from Room R where status =true and R.id = :id")
+    public double findPriceByRoomId(@Param("id") int id);
 }
