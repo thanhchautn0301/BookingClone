@@ -41,4 +41,6 @@ public interface AccommodationAPI {
 
 	@GET("accomodation/findaccommodationdetail/{id}")
 	Call<AccommodationDetail> findaccommodationdetail(@Path("id") int id);
+
+
 }

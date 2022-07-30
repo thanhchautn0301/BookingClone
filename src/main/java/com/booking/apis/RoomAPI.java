@@ -2,6 +2,7 @@ package com.booking.apis;
 
 import java.util.List;
 
+import com.booking.entities.RoomDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.entities.Room;
@@ -29,7 +30,9 @@ public interface RoomAPI {
 	
 	@DELETE("room/delete/{id}")
 	Call<Boolean> delete(@Path("id") int id);
-	
+
+	@GET("room/findroombycitydate?name={name}&daterange={daterange}&capacity={capacity}&childrenquantity={childrenquantity}&adultquantity={adultquantity}")
+	Call<List<RoomDetail>> findRoomByCityDate(@Part("name") String name, @Part("daterange") String dateRange, @Part("capacity") int capacity, @Part("childrenquantity") int childrenquantity, @Part("adultquantity") int adultquantity );
 	
 	@Multipart
     @POST("room/uploadImage")

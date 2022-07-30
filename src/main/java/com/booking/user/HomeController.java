@@ -121,4 +121,6 @@ public class HomeController {
 
 		return "home/details";
 	}
+
+
 }
