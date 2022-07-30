@@ -1,4 +1,14 @@
+<%@page import="com.booking.entities.Room"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.booking.helpers.BookingDateHelper"%>
+<%@page import="com.booking.entities.BookingForm"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<% BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
+   Date checkIn = bookingForm.getBookingDetail().getCheckin();
+   Date checkOut = bookingForm.getBookingDetail().getCheckout();
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,9 +79,9 @@
                               </div>
                             </button>
                             <ul class="bg-white user-features list-style-none shadow-fade bd-r-2 ps-0 collapse" id="user-features">
-                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-regular fa-user p-2"></i>Quản lý tài khoản</a></li>
+                                <li class="p-3"><a href="${pageContext.request.contextPath }/customer/features" class="text-decoration-none text-dark"><i class="fa-regular fa-user p-2"></i>Quản lý tài khoản</a></li>
                                 <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-briefcase p-2"></i>Đặt chỗ</a></li>
-                                <li class="p-3"><a href="index.html" class="text-decoration-none text-dark"><i class="fa-solid fa-arrow-right-from-bracket p-2"></i>Đăng xuất</a></li>
+                                <li class="p-3"><a href="${pageContext.request.contextPath }/account/logout" class="text-decoration-none text-dark"><i class="fa-solid fa-arrow-right-from-bracket p-2"></i>Đăng xuất</a></li>
                             </ul>
                           </li>
                       </ul>
@@ -138,29 +148,27 @@
                   <h6 class="fw-bold">Chi tiết đặt phòng của bạn</h6 class="fw-bold">
                   <div class="row">
                     <div class="col-6">
-                      <h6 class="fs-14">Nhận phòng</h6>
+                      <h6 class="fs-14">Check in</h6>
                       <div>
-                        <p class="mb-0 fw-bold fs-14">T6 Ngày 29 Tháng 7</p>
-                        <p class="mb-0 fw-bold fs-14">Năm 2022</p>
-                        <p class="mb-0 text-secondary fs-14">14:00 - 19:00</p>
+                        <p class="mb-0 fw-bold fs-14"><%= BookingDateHelper.getDateWithoutYear(checkIn) %></p>
+                        <p class="mb-0 fw-bold fs-14"><%= BookingDateHelper.getYear(checkIn)%></p>
                       </div>
                     </div>
                     <div class="col-6">
-                      <h6 class="fs-14">Trả phòng</h6>
+                      <h6 class="fs-14">Check out</h6>
                       <div class="has-separate">
-                        <p class="mb-0 fw-bold fs-14">T2 Ngày 1 Tháng 8</p>
-                        <p class="mb-0 fw-bold fs-14">Năm 2022</p>
-                        <p class="mb-0 text-secondary fs-14">07:00 - 12:00</p>
+                        <p class="mb-0 fw-bold fs-14"><%= BookingDateHelper.getDateWithoutYear(checkOut) %></p>
+                        <p class="mb-0 fw-bold fs-14"><%= BookingDateHelper.getYear(checkOut)%></p>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <h6 class="fs-14 py-2 mb-0 mt-3">Tổng thời gian đặt phòng:</h6>
-                    <p class="fs-14 fw-bold mb-0">3 đêm</p>
+                    <h6 class="fs-14 py-2 mb-0 mt-3">Total length of stay:</h6>
+                    <p class="fs-14 fw-bold mb-0"><%= BookingDateHelper.countDay(checkIn, checkOut) %>&nbsp;days</p>
                     <hr class="hr-color">
                   </div>
                   <div>
-                    <h6 class="fs-14 fw-bold pb-2 mb-0">Tổng thời gian đặt phòng:</h6>
+                    <h6 class="fs-14 fw-bold pb-2 mb-0">You have selected:</h6>
                     <p class="fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</p>
                     <a href="" class="btn btn-action2 text-blue text-blue-hover-none fw-500 border-0 px-1 fs-14">Đổi lựa chọn của bạn</a>
                   </div>
@@ -193,8 +201,9 @@
                 <div class="border br-b-2">
                   <h6 class="fw-bold px-3 mt-3">Tóm tắt giá</h6>
                   <div class="row mb-3 px-3">
-                    <div class="col-lg-8 col-sm-12 fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</div>
-                    <div class="col-lg-4 col-sm-12 fs-14 text-lg-end text-sm-start">VND 1.166.667</div>
+                    <div class="col-lg-8 col-sm-12 fs-14">${room.name} (${room.roomType_name })</div>
+                    <div class="col-lg-4 col-sm-12 fs-14 text-lg-end text-sm-start">
+                    VND ${roomPrice }</div>
                   </div>
                   <div class="row justify-content-between py-3 m-0 bg-blue2">
                     <div class="col-lg-7 col-sm-12">
@@ -202,7 +211,7 @@
                       <p class="fs-12">(cho 3 đêm & tất cả các khách)</p>
                     </div>
                     <div class="col-lg-5 col-sm-12">
-                      <h6 class="fw-bold text-lg-end text-sm-start">VND <span id="totalPrice">1.166.667</span></h6>
+                      <h6 class="fw-bold text-lg-end text-sm-start">VND <span id="totalPrice">${roomPrice }</span></h6>
                     </div>
                   </div>
                 </div>
@@ -238,21 +247,24 @@
                   <p class="mb-0 booking-alert d-flex align-items-center fw-500 fs-14 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-size me-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg> Đây là thông tin cá nhân của bạn, nếu muốn thay đổi , vui lòng bấm vào <a href="" class="ms-1 text-blue text-blue-hover-none">đây</a>
+                    </svg> Đây là thông tin cá nhân của bạn, nếu muốn thay đổi , vui lòng bấm vào <a href="${pageContext.request.contextPath}/customer/profile" class="ms-1 text-blue text-blue-hover-none">đây</a>
                   </p>
                   <div class="row">
                     <div class="col-sm-12 col-lg-6 mb-2">
                       <label for="" class="form-label fw-500 fs-14">Email:</label>
-                      <input type="text" name="" id="" class="form-control" value="abc@gmail.com" disabled readonly>
+                      <input type="text" name="" id="" class="form-control" value="${customer.email }" disabled readonly>
                     </div>
                     <div class="col-sm-12 col-lg-6 mb-2">
-                      <label for="" class="form-label fw-500 fs-14">Họ Tên:</label>
-                      <input type="text" name="" id="" class="form-control" value="chaudeptrai" disabled readonly>
+                      <label for="" class="form-label fw-500 fs-14">Name:</label>
+                      <input type="text" name="" id="" class="form-control" value="${customer.name }" disabled readonly>
                     </div>
-
                     <div class="col-sm-12 col-lg-6 mb-2">
-                      <label for="" class="form-label fw-500 fs-14">Civil identity</label>
-                      <input type="text" name="" id="" class="form-control" value="chaudeptrai" disabled readonly>
+                      <label for="" class="form-label fw-500 fs-14">Civil identity:</label>
+                      <input type="text" name="" id="" class="form-control" value="${customer.civilIdentity }" disabled readonly>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 mb-2">
+                      <label for="" class="form-label fw-500 fs-14">Phone number:</label>
+                      <input type="text" name="" id="" class="form-control" value="${customer.phone }" disabled readonly>
                     </div>
                   </div>
                 </div>
@@ -261,13 +273,13 @@
             <div class="row">
               <div class="col-12 gy-3">
                 <div class="border p-3 bd-r-2 bg-book-room">
-                  <h5 class="py-2 fw-bold">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</h5>
+                  <h5 class="py-2 fw-bold">${room.name } (${sessionScope.booking.bookingDetail.quantityAdult} adults + ${sessionScope.booking.bookingDetail.quantityChildren} children)</h5>
                   <span class="fw-500 fs-14">Số người tối đa:</span>
                   <span><i class="fa-regular fa-user"></i> x 3</span>
                 </div>
               </div>
             </div>
-            <form method="get" action="">
+            <form method="post" action="${pageContext.request.contextPath }/customer/booking/startBooking">
               <div class="row">
                 <div class="col-12 gy-3">
                   <div class="border p-3 bd-r-2 bg-payment">
@@ -275,14 +287,14 @@
                     
                       <div class="d-flex flex-column">
                         <label for="" class="form-label fw-500 fs-14">Phương thức thanh toán</label>
-                        <select class="paymentSelect" name="payment">
+                        <select class="paymentSelect">
                           <option value="card">Credit</option>
                           <option value="master-card">Master Card</option>
                           <option value="paypal">Paypal</option>
                         </select>
                         <!-- -->
-                        <input type="hidden" name="email" value="abc@gmail.com">
-                        <input type="hidden" name="id" value="123">
+                        <input type="hidden" value="abc@gmail.com">
+                        <input type="hidden"  value="123">
                       </div>
                 </div>
                 </div>

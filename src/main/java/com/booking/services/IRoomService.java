@@ -16,5 +16,7 @@ public interface IRoomService {
 	public List<Room> findAllByHostId(int hostId);
 	public boolean update(Room room);
 	public boolean delete(int id);
+	public Room findRoomById(int id);
+	public double findPriceByRoomId(int id);
 	public List<RoomDetail> findroombycitydaterequest(String name,String dateRange,int capacity,int childrenQuantity,int adultQuantity);
 }

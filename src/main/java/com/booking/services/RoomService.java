@@ -75,6 +75,30 @@ public class RoomService implements IRoomService{
 	}
 
 	@Override
+	public Room findRoomById(int id) {
+		Response<Room> response;
+		try {
+			response = roomAPI.findRoomById(id).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public double findPriceByRoomId(int id) {
+		Response<Double> response;
+		try {
+			response = roomAPI.findPriceByRoomId(id).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	@Override
 	public List<RoomDetail> findroombycitydaterequest(String name, String dateRange, int capacity, int childrenQuantity, int adultQuantity) {
 		Response<List<RoomDetail>> response ;
 		try {
