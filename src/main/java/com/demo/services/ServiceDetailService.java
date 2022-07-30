@@ -1,16 +1,11 @@
 package com.demo.services;
 
 import com.demo.entities.BookingDetail;
-import com.demo.entities.Category;
-import com.demo.entities.City;
 import com.demo.entities.ServiceDetail;
-import com.demo.entities.Staff;
 import com.demo.entities_api.ServiceDetailApi;
 import com.demo.repositories.ServiceDetailRepository;
 import com.demo.repositories.ServiceRepository;
 import com.demo.repositories.BookingDetailRepository;
-import com.demo.repositories.CategoryRepository;
-import com.demo.repositories.StaffRepository;
 import com.demo.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

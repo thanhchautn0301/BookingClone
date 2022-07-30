@@ -84,4 +84,14 @@ public class VoucherApiController {
             return new ResponseEntity<VoucherApi>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value="findvoucherbyname", method=RequestMethod.GET)
+    public ResponseEntity<VoucherApi> findvoucherbyname(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<VoucherApi>(voucherService.findVoucherByName(name),HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<VoucherApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -1,6 +1,5 @@
 package com.demo.jwt;
 
-import com.demo.entities.Role;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
 import com.demo.repositories.RoleRepository;

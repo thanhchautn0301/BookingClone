@@ -1,27 +1,20 @@
 package com.demo.controllers;
 
-import com.demo.entities.Staff;
 import com.demo.entities_api.AuthRequest;
 import com.demo.entities_api.AuthResponse;
-import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
-import com.demo.jwt.JwtTokenFilter;
 import com.demo.jwt.JwtTokenUtil;
 import com.demo.repositories.RoleRepository;
 import com.demo.services.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
-import javax.annotation.security.RolesAllowed;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 

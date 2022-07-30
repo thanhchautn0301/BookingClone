@@ -1,7 +1,6 @@
 package com.demo.services;
 
 import com.demo.entities.RoomType;
-import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.RoomTypeApi;
 import com.demo.repositories.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
