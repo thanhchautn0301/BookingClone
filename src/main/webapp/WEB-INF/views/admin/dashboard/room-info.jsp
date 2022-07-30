@@ -244,7 +244,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./add-room-type.html" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/type" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kiểu phòng</p>
                 </a>

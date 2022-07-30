@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booking.entities.Service;
 import com.booking.helpers.TokenReader;
+import com.booking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,10 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.booking.entities.Image;
 import com.booking.entities.Room;
-import com.booking.services.IAccommodationService;
-import com.booking.services.IImageService;
-import com.booking.services.IRoomService;
-import com.booking.services.IRoomTypeService;
+import com.booking.entities.RoomType;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -42,15 +42,88 @@ public class DashboardRoomController {
 	private IRoomService roomService;
 	@Autowired
 	private IImageService imageService;
+	@Autowired
+	private IServiceService iServiceService;
 
 	@RequestMapping(value = "type", method = RequestMethod.GET)
-	public String roomType() {
+	public String roomType(ModelMap modelMap) {
+		int hostId = 1;
+		modelMap.put("roomTypes", roomTypeService.findAllByHostId(hostId));
 		return "admin/dashboard/room-type";
 	}
+	
+	@RequestMapping(value = "type/add", method = RequestMethod.POST)
+	public String roomTypeAdd(RoomType roomType,RedirectAttributes redirectAttributes) {
+		int hostId = 1;
+		roomType.setStaffId(hostId);
+		boolean result = roomTypeService.create(roomType)!= null;
+		if(!result) {
+			redirectAttributes.addFlashAttribute("result","failed");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("result","success");
+		}
+		return "redirect:/admin/dashboard/room/type";
+	}
+	
+	
+	@RequestMapping(value = "type/edit", method = RequestMethod.POST)
+	public String roomTypeEdit(RoomType roomType,RedirectAttributes redirectAttributes) {
+		int hostId = 1;
+		roomType.setStaffId(hostId);
+		boolean result = roomTypeService.update(roomType);
+		if(!result) {
+			redirectAttributes.addFlashAttribute("result","failed");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("result","success");
+		}
+		return "redirect:/admin/dashboard/room/type";
+	}
+	
+	@RequestMapping(value = "type/delete/{id}", method = RequestMethod.GET)
+	public String roomTypeEdit(@PathVariable("id") int id,RedirectAttributes redirectAttributes) {
 
+		boolean result = roomTypeService.delete(id);
+		if(!result) {
+			redirectAttributes.addFlashAttribute("result","failed");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("result","success");
+		}
+		return "redirect:/admin/dashboard/room/type";
+	}
+	
+	
 	@RequestMapping(value = "service", method = RequestMethod.GET)
-	public String roomService() {
+	public String roomService(ModelMap modelMap) {
+
+		modelMap.put("accommos", accommoService.findAllByHostId(1));
+
 		return "admin/dashboard/room-service";
+	}
+
+	@RequestMapping(value = "service", method = RequestMethod.POST)
+	public String roomService(@RequestParam(name = "accommodation") Integer accommodationId,
+							  @RequestParam(name = "service") String serviceName,
+							  @RequestParam(name = "price") double price
+							  ) {
+
+		Service service = new Service();
+		service.setAccomodation_id(accommodationId);
+		service.setName(serviceName);
+		service.setPrice(price);
+		service.setStatus(true);
+
+
+		Service result =  iServiceService.create(service);
+		if(result!= null){
+			return "redirect:/admin/dashboard/room/service";
+			
+		}
+		else {
+			return "admin/dashboard/room-service";
+		}
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.GET)
