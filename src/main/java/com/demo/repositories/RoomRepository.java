@@ -69,4 +69,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "group by R.id, R.accomodation.id , R.accomodation.name , R.roomType.id, R.roomType.name , R.roomType.staffId, R.name, R.description, R.status, R.price")
     public List<RoomApi> findRoomByCityDateRequest(@Param("nameCity") String nameCity, @Param("from") Date from, @Param("to") Date to, @Param("capacity") int capacity, @Param("childrenQuantity") int childrenQuantity, @Param("adultQuantity") int adultQuantity);
 
+    
+    
+    @Query("select R.price  from Room R where status =true and R.id = :id")
+    public double findPriceByRoomId(@Param("id") int id);
 }

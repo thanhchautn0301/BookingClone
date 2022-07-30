@@ -168,6 +168,16 @@ public class RoomApiController implements ServletContextAware {
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;
 	}
+	
+	@RequestMapping(value="findprice/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Double> findPrice(@PathVariable("id") int id) {
+        try {
+            return new ResponseEntity<Double>(roomService.findPriceByRoomId(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Double>(0.0,HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
     @RequestMapping(value="findroombycitydaterequest", method=RequestMethod.GET)

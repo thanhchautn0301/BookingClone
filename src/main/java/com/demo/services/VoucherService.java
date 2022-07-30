@@ -35,6 +35,8 @@ public class VoucherService implements IVoucherService {
         try {
         	Voucher voucher = new Voucher();
 
+            voucher.setName(voucherApi.getName());
+
         	voucher.setPriceDiscount(voucherApi.getPriceDiscount());
         	
         	Accomodation accomodation = accomodationRepository.findById(voucherApi.getAccomodation_id()).get();
@@ -55,6 +57,8 @@ public class VoucherService implements IVoucherService {
     public boolean update(VoucherApi voucherApi) {
        try {
            Voucher voucher = voucherRepository.findById(voucherApi.getId()).get();
+
+           voucher.setName(voucherApi.getName());
 
            voucher.setPriceDiscount(voucherApi.getPriceDiscount());
        	
@@ -91,5 +95,15 @@ public class VoucherService implements IVoucherService {
     @Override
     public List<VoucherApi> findallvoucherpaginate(int offset, int no) {
         return voucherRepository.findAllVoucherPagination(PageRequest.of(offset,no));
+    }
+
+    @Override
+    public VoucherApi findVoucherByName(String name) {
+        try {
+            return  voucherRepository.findVoucherByName(name);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -28,4 +28,5 @@ public interface IRoomService {
     public List<RoomDetail> findAllByAccommodationId(int accommodationId);
     public List<RoomApi> findRoomByCityDateRequest(String nameCity,Date from,Date to,int capacity,int childrenQuantity,int adultQuantity);
 
+    public double findPriceByRoomId(int id);
 }
