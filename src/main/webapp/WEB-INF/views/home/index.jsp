@@ -371,7 +371,7 @@
                 <c:forEach var="item" items="${accommodationOfCity}">
                   <li class="splide__slide">
                     <a href="" class="text-decoration-none">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/dalat.jpg" class="img-carousel" alt="">
+                      <img src="http://localhost:9596/api/image/getimage/${item.image}" class="img-carousel" alt="">
                       <div>
                         <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
                         <p class="text-secondary fs-14">${item.numberOfAccommodation} chỗ nghỉ</p>
@@ -393,7 +393,7 @@
                 <c:forEach var="item" items="${accommodationOfCategory}">
                   <li class="splide__slide">
                     <a href="" class="text-decoration-none">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/bietthu.jpg" class="img-carousel" alt="">
+                      <img src="http://localhost:9596/api/image/getimage/${item.image}" class="img-carousel" alt="">
                       <div>
                         <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
                         <p class="text-secondary fs-14">${item.numberOfAccommodation} ${item.name}</p>
@@ -409,75 +409,42 @@
       <div class="row">
         <div class="col-sm-12 gy-5">
           <div class="row gx-3">
-            <div class="col-sm-6 gx-3">
-              <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/travelList/du_lich_da_lat.jpg');">
-                <div class="p-3 position-absolute top-0 start-0">
-                  <h4 class="h4 text-white fw-bold text-shadow">Đà Lạt</h4>
-                  <p class="text-white text-shadow">2.149 chỗ ở</p>
-                </div>
-                <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                 text-black bg-bonus-r">
-                  <p class="mb-0">Ưu đãi bắt đầu từ</p>
-                  <p class="mb-0 text-center fs-14">VND 364.000</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-sm-6 gx-3">
-              <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/travelList/sapabg.jpg')">
-                <div class="p-3 position-absolute top-0 start-0">
-                  <h4 class="h4 text-white fw-bold text-shadow">Sa Pa</h4>
-                  <p class="text-white text-shadow">443 chỗ ở</p>
-                </div>
-                <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                 text-black bg-bonus-r">
-                  <p class="mb-0">Ưu đãi bắt đầu từ</p>
-                  <p class="mb-0 text-center fs-14">VND 364.000</p>
-                </div>
-              </a>
-            </div>
+            <c:forEach var = "city" items="${cityHomeFirsts}">
+                  <div class="col-sm-6 gx-3">
+                    <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('http://localhost:9596/api/image/getimage/${city.image}');">
+                      <div class="p-3 position-absolute top-0 start-0">
+                        <h4 class="h4 text-white fw-bold text-shadow">${city.name}</h4>
+                        <p class="text-white text-shadow">${city.numberOfAccommodation} chỗ ở</p>
+                      </div>
+                      <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
+                      text-black bg-bonus-r">
+                        <!-- <p class="mb-0">Ưu đãi bắt đầu từ</p> -->
+                        <!-- <p class="mb-0 text-center fs-14">VND 364.000</p> -->
+                        <p class="mb-0 text-center fs-14">Khám phá ngay</p>
+                      </div>
+                    </a>
+                  </div>
+            </c:forEach>
           </div>
         </div>
         <div class="col-sm-12">
           <div class="row">
-            <div class="col-sm-4 gx-4 gy-3">
-              <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/travelList/qn_top.jpg')">
-                <div class="p-3 position-absolute top-0 start-0">
-                  <h4 class="h4 text-white fw-bold text-shadow">Quy Nhơn</h4>
-                  <p class="text-white text-shadow">485 chỗ ở</p>
-                </div>
-                <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                 text-black bg-bonus-r">
-                  <p class="mb-0">Ưu đãi bắt đầu từ</p>
-                  <p class="mb-0 text-center fs-14">VND 486.000</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-sm-4 gx-2 gy-3">
-              <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/travelList/buonme.jpg')">
-                <div class="p-3 position-absolute top-0 start-0">
-                  <h4 class="h4 text-white fw-bold text-shadow">Buôn Mê Thuột</h4>
-                  <p class="text-white text-shadow">93 chỗ ở</p>
-                </div>
-                <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                 text-black bg-bonus-r">
-                  <p class="mb-0">Ưu đãi bắt đầu từ</p>
-                  <p class="mb-0 text-center fs-14">VND 532.000</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-sm-4 gx-4 gy-3">
-              <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('${pageContext.request.contextPath}/resources/assets/img/travelList/danang.jpg')">
-                <div class="p-3 position-absolute top-0 start-0">
-                  <h4 class="h4 text-white fw-bold text-shadow">Đà Nẵng</h4>
-                  <p class="text-white text-shadow">2.511 chỗ ở</p>
-                </div>
-                <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                 text-black bg-bonus-r">
-                  <p class="mb-0">Ưu đãi bắt đầu từ</p>
-                  <p class="mb-0 text-center fs-14">VND 244.800</p>
-                </div>
-              </a>
-            </div>
+            <c:forEach var = "city" items="${cityHomeSeconds}">
+              <div class="col-sm-4 gx-4 gy-3">
+                <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('http://localhost:9596/api/image/getimage/${city.image}')">
+                  <div class="p-3 position-absolute top-0 start-0">
+                    <h4 class="h4 text-white fw-bold text-shadow">${city.name}</h4>
+                    <p class="text-white text-shadow">${city.numberOfAccommodation} chỗ ở</p>
+                  </div>
+                  <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
+                   text-black bg-bonus-r">
+                    <!-- <p class="mb-0">Ưu đãi bắt đầu từ</p>
+                    <p class="mb-0 text-center fs-14">VND 486.000</p> -->
+                    <p class="mb-0 text-center fs-14">Khám phá ngay</p>
+                  </div>
+                </a>
+              </div>
+            </c:forEach> 
           </div>
         </div>
       </div>
@@ -494,92 +461,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col gy-3 mb-4">
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Thừa Thiên - Huế</a>
-            <p class="text-secondary mb-0">520 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Phú Yên</a>
-            <p class="text-secondary mb-0">215 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Quảng Bình</a>
-            <p class="text-secondary mb-0">269 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Vịnh Hạ Long</a>
-            <p class="text-secondary mb-0">1,376 chỗ nghỉ</p>
-          </div>   
-        </div>
-        <div class="col gy-3">
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Thanh Hoá</a>
-            <p class="text-secondary mb-0">254 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Đắc Lắc</a>
-            <p class="text-secondary mb-0">125 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Thành Phố Hồ Chí Minh</a>
-            <p class="text-secondary mb-0">254 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Hà Tĩnh</a>
-            <p class="text-secondary mb-0">254 chỗ nghỉ</p>
-          </div>   
-        </div>
-        <div class="col gy-3">
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Gia Lai</a>
-            <p class="text-secondary mb-0">86 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Vĩnh Long</a>
-            <p class="text-secondary mb-0">42 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Bình Thuận</a>
-            <p class="text-secondary mb-0">603 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Bạc Liêu</a>
-            <p class="text-secondary mb-0">23 chỗ nghỉ</p>
-          </div>   
-        </div>
-        <div class="col gy-3">
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Cà Mau</a>
-            <p class="text-secondary mb-0">48chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Cần Thơ</a>
-            <p class="text-secondary mb-0">352</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Bình Dương</a>
-            <p class="text-secondary mb-0">78 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Ninh Thuận</a>
-            <p class="text-secondary mb-0">145 chỗ nghỉ</p>
-          </div>   
-        </div>
-        <div class="col gy-3">
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Trà Vinh</a>
-            <p class="text-secondary mb-0">17 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">TP Đà Nẵng</a>
-            <p class="text-secondary mb-0">2,514 chỗ nghỉ</p>
-          </div>
-          <div class="my-3 fs-14">
-            <a href="" class="fw-500 text-decoration-none text-dark">Hà Nội</a>
-            <p class="text-secondary mb-0">3,890 chỗ nghỉ</p>
-          </div>
-        </div>
+        <c:forEach var="item" items="${accommodationOfCity}" varStatus="loop">
+            <div class="col-md-2 ms-4 me-2">
+              <div class="my-3 fs-14">
+                <a href="" class="fw-500 text-decoration-none text-dark">${item.name}</a>
+                <p class="text-secondary mb-0">${item.numberOfAccommodation} chỗ nghỉ</p>
+              </div>
+            </div>
+        </c:forEach>
       </div>
     </div>
   </div> 

@@ -39,6 +39,8 @@ public class HomeController {
 	public String index(ModelMap modelMap) {
 		modelMap.put("accommodationOfCity", cityService.findAllAccommodationOfCity());
 		modelMap.put("accommodationOfCategory", categoryService.findAllAccommodationOfCategory());
+		modelMap.put("cityHomeFirsts", cityService.findHome().subList(0, 2));
+		modelMap.put("cityHomeSeconds", cityService.findHome().subList(2, 5));
 		return "home/index";
 	}
 	
