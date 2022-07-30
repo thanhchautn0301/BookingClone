@@ -32,6 +32,7 @@ public class CityService implements ICityService {
 			City city = new City();
 			city.setName(cityApi.getName());
 			city.setImage(cityApi.getImage());
+			city.setHome(cityApi.isHome());
 			city.setStatus(true);
 			City newCity = cityRepository.save(city);
 			cityApi.setId(newCity.getId());
@@ -47,6 +48,7 @@ public class CityService implements ICityService {
 		// TODO Auto-generated method stub
 		 City city = cityRepository.findById(cityApi.getId()).get();
 		 city.setName(cityApi.getName());
+		 city.setHome(cityApi.isHome());
         return cityRepository.save(city) != null;
 	}
 
@@ -93,8 +95,16 @@ public class CityService implements ICityService {
 
 
 	@Override
-	public List<CityApi> findHomeCity() {
-		return cityRepository.findHomeCity().subList(0, 5);
+	public List<AccommodationOfCityApi> findHomeCity() {
+		System.out.println("size:  " + cityRepository.findHomeCity().size());
+		return cityRepository.findHomeCity();
+	}
+
+
+
+	@Override
+	public List<CityApi> findAllCityWithHome() {
+		return cityRepository.findAllCityWithHome();
 	}
 	
 	
