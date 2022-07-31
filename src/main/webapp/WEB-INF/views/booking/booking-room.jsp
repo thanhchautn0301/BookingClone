@@ -182,11 +182,7 @@
                   <form action="" class="needs-validation" novalidate>
                     <div class="d-flex flex-column">
                       <label for="" class="form-label">Nhập mã giảm giá:</label>
-                      <select class="voucherSelect" name="voucher" required>
-                        <option value="ma1">Mã 1</option>
-                        <option value="ma2">Mã 2</option>
-                        <option value="ma3">Mã 3</option>
-                      </select>
+                      <input type="text" class="voucherSelect" name="voucher" required>                 
                       <div class="invalid-feedback">
                         * Vui lòng chọn 1 mã giảm giá !
                       </div>
@@ -336,10 +332,7 @@
            $('.paymentSelect').select2({
             theme: "classic"
            });
-           $('.voucherSelect').select2({
-
-           });
-           $('.voucherSelect').val(null).trigger('change');
+          
         });
 
         // Example starter JavaScript for disabling form submissions if there are invalid fields

@@ -15,8 +15,11 @@ public class BookingFlow implements IBookingFlow{
 	
 	@Autowired
 	private IBookingService bookingService;
+	@Autowired
 	private IBookingDetailService bookingDetailService;
+	@Autowired
 	private IInvoiceService invoiceService;
+	@Autowired
 	private IRoomService roomService;
 	
 	@Override
@@ -37,9 +40,9 @@ public class BookingFlow implements IBookingFlow{
 				if(bookingDetail_Saved!=null) {
 					invoice.setBooking_id(booking_Saved.getId());
 					invoice.setStatus(true);
-					if(invoice.getVoucher_id() != 0) {
-						// do something
-					}
+//					if(invoice.getVoucher_id() != 0) {
+//						// do something
+//					}
 					long get_stayDays = BookingDateHelper.countDay(bookingDetail.getCheckin(), bookingDetail.getCheckout());
 					double total = get_stayDays * roomService.findPriceByRoomId(bookingDetail.getRoomId());
 					invoice.setTotal(total);
