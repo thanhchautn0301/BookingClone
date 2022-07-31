@@ -183,11 +183,8 @@
                   <form method="get" class="needs-validation" id="voucher-check" novalidate>
                     <div class="d-flex flex-column">
                       <label for="" class="form-label">Nhập mã giảm giá:</label>
-<<<<<<< HEAD
-                      <input type="text" class="voucherSelect" name="voucher" required>                 
-=======
                       <input type="text" class="voucherSelect" required>
->>>>>>> loc
+                      <input type="hidden" name="accomodation_id" value="${room.accomodation_id }">
                       <div class="invalid-feedback">
                         * Vui lòng chọn 1 mã giảm giá !
                       </div>
@@ -212,7 +209,7 @@
                       <p class="fs-12">(cho 3 đêm & tất cả các khách)</p>
                     </div>
                     <div class="col-lg-5 col-sm-12">
-                      <h6 class="fw-bold text-lg-end text-sm-start">VND <span id="totalPrice">${roomPrice }</span></h6>
+                      <h6 class="fw-bold text-lg-end text-sm-start">VND <div id="totalPrice">${roomPrice }</div></h6>
                     </div>
                   </div>
                 </div>
@@ -339,19 +336,22 @@
 
             $('#voucher-check').submit(function(ev){
                 var voucher_name  = $('#voucher-check input[class="voucherSelect"]').val();
+                var accomodation_id = $('#voucher-check input[type="hidden"][name="accomodation_id"]').val();
                 if(voucher_name !== ""){
                   $.ajax({
                     type:'GET',
                     data:{
-                      name: voucher_name
+                      name: voucher_name,
+                      accomodation_id: accomodation_id
                     },
                     url: '${pageContext.request.contextPath}/customer/voucher/check',
                     success: function(result){
 
                      if(result.expDate != undefined){
                        var dateConvert = result.expDate.split("/");
-                       var isExpired = new Date(dateConvert[2],(+dateConvert[1])-1,dateConvert[0]) < new Date();
-
+                       var currentDate = new Date();
+                       var expiredDate = new Date(dateConvert[2],(+dateConvert[1])-1,dateConvert[0]);
+                       var isExpired =  expiredDate.setHours(12,0,0,0) < currentDate.setHours(12,0,0,0);  
                        if(!isExpired){
                          $('input[type="hidden"][name="voucher"]').val(voucher_name);
                          $('#totalPrice').text((+$('#totalPrice').text()) - result.priceDiscount);

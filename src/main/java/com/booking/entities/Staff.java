@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Staff {
     private int id;
     private String name;
@@ -11,6 +13,7 @@ public class Staff {
     private String email;
     private String civilIdentity;
     private String password;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dob;
     private String address;

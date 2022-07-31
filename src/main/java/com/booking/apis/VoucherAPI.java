@@ -25,7 +25,7 @@ public interface VoucherAPI {
 	public Call<Voucher> findvoucherById(@Path("id") int id);
 
 	@GET("voucher/findvoucherbyname")
-	public Call<Voucher> findvoucherByName(@Query("name") String name);
+	public Call<Voucher> findvoucherByName(@Query("name") String name,@Query("accomodation_id") int accomodation_id);
 
 
 }

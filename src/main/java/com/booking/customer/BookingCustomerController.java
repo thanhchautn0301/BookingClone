@@ -38,6 +38,8 @@ public class BookingCustomerController {
 	@Autowired
 	private IBookingFlow bookingFlow;
 	
+	private int accomodation_id;
+	
 	private int customerId = 1;
 	
 	@RequestMapping(value = {"form"}, method = RequestMethod.GET)
@@ -69,6 +71,7 @@ public class BookingCustomerController {
 		Room room = roomService.findRoomById(bookingDetail.getId());
 		String roomPrice = String.format("%.2f", room.getPrice());
 		modelMap.put("room", room);
+		accomodation_id = room.getAccomodation_id();
 		modelMap.put("customer", customerService.findCustomerById(customerId));
 		modelMap.addAttribute("roomPrice", roomPrice);
 		return "booking/booking-room";
@@ -88,7 +91,7 @@ public class BookingCustomerController {
 		// Day la set cung
 		// if else kiem tra xem voucher name co rong hay khong
 		voucherName = "abc";
-		Voucher voucher = voucherService.findVoucherByName(voucherName);
+		Voucher voucher = voucherService.findVoucherByName(voucherName,accomodation_id);
 		Invoice invoice = new Invoice();
 		invoice.setVoucher_id(voucher.getId());
 		bookingFlow.mainFlowBooking(bookingForm.getBooking(), bookingForm.getBookingDetail(), invoice);

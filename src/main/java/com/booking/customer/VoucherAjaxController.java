@@ -15,7 +15,8 @@ public class VoucherAjaxController {
     @Autowired
     private IVoucherService voucherService;
     @RequestMapping(value = "check" , method = RequestMethod.GET,produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-    public Voucher check(@RequestParam("name") String name){
-        return voucherService.findVoucherByName(name);
+    public Voucher check(@RequestParam("name") String name,
+    		@RequestParam("accomodation_id") int accomodation_id){
+        return voucherService.findVoucherByName(name,accomodation_id);
     }
 }
