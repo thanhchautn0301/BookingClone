@@ -102,7 +102,7 @@
                         <div class="d-flex py-3 login-form-animate">
                             <div class="login-bg" style="background-image: url('https://cdn-icons-png.flaticon.com/512/6486/6486286.png');"></div>
                             <div class="flex-fill px-4 login-form-wrapper">
-                                <form action="" id="loginForm">
+                                <form method="post" action="${pageContext.request.contextPath}/account/host/login" id="loginForm">
                                     <label for="" class="form-label fw-500">Email</label>
                                     <div class="input-group mb-2">
                                         <input type="email" name="email" autocomplete="off" class="form-control shadow-none border-end-0" placeholder="Enter your email..." required>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="pt-3">
                                         <button class="btn btn-primary2 text-white fw-500 px-4 d-flex align-items-center ms-auto">
-                                            Sign up 
+                                            Sign in
                                             <span class="ms-2"><i class="fa-solid fa-arrow-right fs-12"></i></span>
                                         </button>
                                     </div> 

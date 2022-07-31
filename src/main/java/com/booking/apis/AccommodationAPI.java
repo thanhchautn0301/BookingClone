@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.booking.entities.Accommodation;
 
+import com.booking.entities.AccommodationDetail;
 import com.booking.entities.SearchAccommodation;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -19,6 +20,8 @@ public interface AccommodationAPI {
 
 	@GET("accomodation/findaccomodationbycityid/{id}")
 	Call<SearchAccommodation> findByCityId(@Path("id") int id);
+	@GET("accomodation/findaccomodationbycityname")
+	Call<SearchAccommodation> findByCityName(@Query("name") String name);
 
 	@GET("accomodation/findaccomodationbyhostid/{id}")
 	Call<List<Accommodation>> findByHostId(@Path("id") int id);
@@ -35,5 +38,9 @@ public interface AccommodationAPI {
 	@Multipart
 	@POST("image/uploadImage")
 	Call<String> uploadImage(@Part MultipartBody.Part file);
+
+	@GET("accomodation/findaccommodationdetail/{id}")
+	Call<AccommodationDetail> findaccommodationdetail(@Path("id") int id);
+
 
 }

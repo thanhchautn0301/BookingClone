@@ -181,14 +181,14 @@
                  <aside>
                   <!-- Filter-Form -->
                       <form action="" class="row py-3 px-2 bg-orange bd-r-2 needs-validation mx-0" novalidate>
-                        <h4 class="h4">Tìm</h4>
+                        <h4 class="h4">Search</h4>
                         <div class="col-sm-12">
-                          <label for="province-filter" class="form-label mb-0 fs-12">Tên chỗ nghỉ / điểm đến:</label>
+                          <label for="province-filter" class="form-label mb-0 fs-12">Destination / property name:</label>
                           <div class="input-group bd-r-2">       
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
-                            <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white" value="Vũng Tàu"
+                            <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white"
                              aria-label="province" id="province-filter" autocomplete="off" required>
                              <div class="invalid-feedback mb-1">
                               <span style="background-color:#fff0f0" class="d-block p-2 bd-r-2 d-flex align-items-center">
@@ -201,44 +201,44 @@
                                    
                         </div>
                         <div class="col-sm-12">
-                          <label for="" class="form-label mb-0 fs-12">Ngày nhận phòng</label>
+                          <label for="" class="form-label mb-0 fs-12">Check-in date</label>
                           <div class="input-group bd-r-2">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 p-c py-2 shadow-none border-0 bd-r-2 bg-white"
-                             id="checkin-date-filter" value="Ngày nhận phòng" data-date-value="">
+                             id="checkin-date-filter" value="Check-in date" data-date-value="">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
                           </div>
                         </div>
                         <div class="col-sm-12">
-                          <label for="" class="form-label mb-0 fs-12">Ngày trả phòng</label>
+                          <label for="" class="form-label mb-0 fs-12">Check-out date</label>
                           <div class="input-group bd-r-2">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 py-2 p-c shadow-none border-0 bd-r-2 bg-white"
-                              id="checkout-date-filter" value="Ngày trả phòng" data-date-value="">
+                              id="checkout-date-filter" value="Check-out date" data-date-value="">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
                           </div>
                         </div>
                         <div class="col-sm-12">
-                          <label for="" class="form-label mb-0 fs-12">Nghỉ 1 đêm</label>
+                          <label for="" class="form-label mb-0 fs-12"><!-- Chau viet tinh ngay o day checkout-checkin --> Night stay</label>
                           <div class="input-group bd-r-2 position-relative">
                             <input type="text" class="form-control fs-14 py-2
                              shadow-none border-0 bd-r-2 bg-white input-drop-select p-c"
                              aria-label='filterRoom' id="input-filter-room"
-                              value="2 người lớn - 0 trẻ em - 1 phòng" readonly>
+                              value="2 adults - 0 children - 1 rooms" readonly>
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
                             <div class="input-list-dropdown bg-white p-3" id="filter-room-form">
                               <div class="d-flex align-items-center justify-content-between my-1">
-                                <span class="text-dark fw-500 fs-14">Người lớn</span>
+                                <span class="text-dark fw-500 fs-14">Adult</span>
                                 <div class="filter-room__action2 d-flex align-items-center me-2 border">
                                   <button class="btn btn-action border-0 br-0 shadow-none" data-type="minus" data-field="adults" type="button">
                                     <i class="fa-solid fa-minus"></i>
@@ -251,7 +251,7 @@
                                 </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-between my-1">
-                                <span class="text-dark fw-500 fs-14">Trẻ em</span>
+                                <span class="text-dark fw-500 fs-14">Children</span>
                                 <div class="filter-room__action2 d-flex align-items-center me-2 border">
                                   <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus" data-field="childs" type="button">
                                     <i class="fa-solid fa-minus"></i>
@@ -264,7 +264,7 @@
                                 </div>
                               </div>
                               <div class="d-flex align-items-center justify-content-between my-1">
-                                <span class="text-dark fw-500 fs-14">Phòng</span>
+                                <span class="text-dark fw-500 fs-14">Room</span>
                                 <div class="filter-room__action2 d-flex align-items-center me-2 border">
                                   <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus" data-field="rooms" type="button">
                                     <i class="fa-solid fa-minus"></i>
@@ -517,7 +517,7 @@
                  </aside>
               </div>
               <div class="col-sm-8 col-md-9">
-                <h4 class="h4 fw-bold">${city}: ${result} accomodations found.</h4>
+                <h4 class="h4 fw-bold">${city}: ${result} found.</h4>
                 <div class="row">
                   <div class="col-sm-12"><hr style="color: #ccc;"></div>
                 </div>
@@ -552,14 +552,14 @@
                     <div class="col-sm-12 mb-3">
                     <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
                       <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="${pageContext.request.contextPath}/resources/assets/img/${acc.image}" class="img-article bd-r-4" alt="">
+                        <img src="http://localhost:9596/api/image/getimage/${acc.image}" class="img-article bd-r-4" alt="">
                         <i class="fa-regular fa-heart position-absolute end-0 top-0 
                         text-white p-c fs-20 m-2 text-shadow-icon"
                         data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Lưu"></i>
                         <i class="fa-solid fa-heart position-absolute end-0 top-0 text-shadow-icon d-none p-c fs-20 m-2"></i>
                       </a> 
-                      <div class="ms-sm-0 ms-lg-3 d-flex justify-content-between">
+                      <div class="ms-sm-0 ms-lg-3 flex-fill d-flex justify-content-between">
 
                         <div class="w-75">
 
@@ -583,7 +583,7 @@
                               <span class="fs-20 fw-bold op-0-5">.</span>  
                               ${rand1}km away from center.
                             </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated mt-2">
+                            <p class="text-secondary fs-12 w-75 ps-2 has-separated limit-line mt-2">
                               ${acc.description}
                             </p>
                           </div>

@@ -28,15 +28,15 @@ public class BookingFlow implements IBookingFlow{
 			Booking booking_Saved = bookingService.create(booking);
 			if(booking_Saved != null) {
 				System.out.println("Id: " + booking_Saved.getId());
-				BookingDetail bookingDetail2 = new  BookingDetail();
-				bookingDetail2.setCheckin(new Date());
-				bookingDetail2.setCheckout(new Date());
-				bookingDetail2.setRoomId(1);
-				bookingDetail2.setQuantityAdult(3);
-				bookingDetail2.setQuantityChildren(2);
-				bookingDetail2.setStatus(true);
-				bookingDetail2.setBookingId(booking_Saved.getId());
-				BookingDetail bookingDetail_Saved = bookingDetailService.create(bookingDetail2);
+//				BookingDetail bookingDetail2 = new  BookingDetail();
+//				bookingDetail2.setCheckin(new Date());
+//				bookingDetail2.setCheckout(new Date());
+//				bookingDetail2.setRoomId(1);
+//				bookingDetail2.setQuantityAdult(3);
+//				bookingDetail2.setQuantityChildren(2);
+//				bookingDetail2.setStatus(true);
+//				bookingDetail2.setBookingId(booking_Saved.getId());
+				BookingDetail bookingDetail_Saved = bookingDetailService.create(bookingDetail);
 				if(bookingDetail_Saved!=null) {
 					invoice.setBooking_id(booking_Saved.getId());
 					invoice.setStatus(true);

@@ -21,6 +21,7 @@
     " crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css" />
     <title>Booking Details</title>
+
 </head>
 <body style="height: 100vh;">
     
@@ -179,14 +180,18 @@
               <div class="col-12 gy-3">
                 <div class="border bd-r-2 p-3">
                   <h6 class="fw-bold">Mã giảm giá</h6>
-                  <form action="" class="needs-validation" novalidate>
+                  <form method="get" class="needs-validation" id="voucher-check" novalidate>
                     <div class="d-flex flex-column">
                       <label for="" class="form-label">Nhập mã giảm giá:</label>
+<<<<<<< HEAD
                       <input type="text" class="voucherSelect" name="voucher" required>                 
+=======
+                      <input type="text" class="voucherSelect" required>
+>>>>>>> loc
                       <div class="invalid-feedback">
                         * Vui lòng chọn 1 mã giảm giá !
                       </div>
-                      <button class="btn btn-primary text-white mt-3" type="submit">Chọn mã giảm giá</button>
+                      <button class="btn btn-primary text-white mt-3" type="submit">Check voucher</button>
                     </div>
                   </form>
                 </div>
@@ -248,19 +253,19 @@
                   <div class="row">
                     <div class="col-sm-12 col-lg-6 mb-2">
                       <label for="" class="form-label fw-500 fs-14">Email:</label>
-                      <input type="text" name="" id="" class="form-control" value="${customer.email }" disabled readonly>
+                      <input type="text" id="" class="form-control" value="${customer.email }" disabled readonly>
                     </div>
                     <div class="col-sm-12 col-lg-6 mb-2">
                       <label for="" class="form-label fw-500 fs-14">Name:</label>
-                      <input type="text" name="" id="" class="form-control" value="${customer.name }" disabled readonly>
+                      <input type="text" id="" class="form-control" value="${customer.name }" disabled readonly>
                     </div>
                     <div class="col-sm-12 col-lg-6 mb-2">
                       <label for="" class="form-label fw-500 fs-14">Civil identity:</label>
-                      <input type="text" name="" id="" class="form-control" value="${customer.civilIdentity }" disabled readonly>
+                      <input type="text" id="" class="form-control" value="${customer.civilIdentity }" disabled readonly>
                     </div>
                     <div class="col-sm-12 col-lg-6 mb-2">
                       <label for="" class="form-label fw-500 fs-14">Phone number:</label>
-                      <input type="text" name="" id="" class="form-control" value="${customer.phone }" disabled readonly>
+                      <input type="text" id="" class="form-control" value="${customer.phone }" disabled readonly>
                     </div>
                   </div>
                 </div>
@@ -289,8 +294,6 @@
                           <option value="paypal">Paypal</option>
                         </select>
                         <!-- -->
-                        <input type="hidden" value="abc@gmail.com">
-                        <input type="hidden"  value="123">
                       </div>
                 </div>
                 </div>
@@ -298,6 +301,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="mt-3 d-flex justify-content-end">
+                    <input type="hidden" name="voucher">
                     <button class="btn btn-primary2 text-white fw-500 d-flex align-items-center" type="submit">
                       Đặt phòng
                       <span class="ms-2"><i class="fa-solid fa-angle-right fs-12"></i></span></button>
@@ -329,32 +333,65 @@
             $('#user-features').removeClass('show');
         })
         $(document).ready(function() {
-           $('.paymentSelect').select2({
-            theme: "classic"
-           });
-          
+            $('.paymentSelect').select2({
+                theme: "classic"
+            });
+
+            $('#voucher-check').submit(function(ev){
+                var voucher_name  = $('#voucher-check input[class="voucherSelect"]').val();
+                if(voucher_name !== ""){
+                  $.ajax({
+                    type:'GET',
+                    data:{
+                      name: voucher_name
+                    },
+                    url: '${pageContext.request.contextPath}/customer/voucher/check',
+                    success: function(result){
+
+                     if(result.expDate != undefined){
+                       var dateConvert = result.expDate.split("/");
+                       var isExpired = new Date(dateConvert[2],(+dateConvert[1])-1,dateConvert[0]) < new Date();
+
+                       if(!isExpired){
+                         $('input[type="hidden"][name="voucher"]').val(voucher_name);
+                         $('#totalPrice').text((+$('#totalPrice').text()) - result.priceDiscount);
+                       }
+                       else{
+                         alert('The voucher is currently unavailable because it has expired ('+result.expDate+')');
+                       }
+                     }
+                     else{
+                       alert('This voucher is not found');
+                     }
+                    }
+                  })
+                  ev.preventDefault();
+                }
+
+            })
+
         });
 
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function () {
-        'use strict'
+        (function () {
+            'use strict'
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
 
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-          .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-              if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
 
-              form.classList.add('was-validated')
-            }, false)
-          })
-      })()  
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
     </script>
 </body>
 </html>
