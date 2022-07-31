@@ -133,14 +133,12 @@ public class RoomService implements IRoomService {
     public List<RoomApi> findRoomByCityDateRequest(String nameCity, Date from, Date to, int capacity, int childrenQuantity, int adultQuantity) {
         return roomRepository.findRoomByCityDateRequest(nameCity, from, to, capacity, childrenQuantity, adultQuantity);
     }
-<<<<<<< HEAD
-=======
-
+    
 	@Override
 	public double findPriceByRoomId(int id) {
 		return roomRepository.findPriceByRoomId(id);
 	}
->>>>>>> loc
+
 
 
 }

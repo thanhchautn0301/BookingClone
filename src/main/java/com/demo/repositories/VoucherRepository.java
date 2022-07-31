@@ -26,6 +26,6 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
     @Query("select new com.demo.entities_api.VoucherApi(id, accomodation.id, priceDiscount, expDate, status,name) from Voucher where status =true and id =:id")
     public VoucherApi findVoucherById(@Param("id") int id);
 
-    @Query("select new com.demo.entities_api.VoucherApi(id, accomodation.id, priceDiscount, expDate, status,name) from Voucher where status =true and name =:name")
-    public VoucherApi findVoucherByName(@Param("name") String name);
+    @Query("select new com.demo.entities_api.VoucherApi(id, accomodation.id, priceDiscount, expDate, status,name) from Voucher where status =true and name =:name and accomodation.id = :accomodation_id")
+    public VoucherApi findVoucherByName(@Param("name") String name,@Param("accomodation_id") int accomodation_id);
 }

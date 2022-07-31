@@ -97,13 +97,13 @@ public class VoucherService implements IVoucherService {
         return voucherRepository.findAllVoucherPagination(PageRequest.of(offset,no));
     }
 
-    @Override
-    public VoucherApi findVoucherByName(String name) {
-        try {
-            return  voucherRepository.findVoucherByName(name);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	@Override
+	public VoucherApi findVoucherByName(String name, int accomodation_id) {
+		 try {
+	            return  voucherRepository.findVoucherByName(name,accomodation_id);
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        }
+	}
 }
