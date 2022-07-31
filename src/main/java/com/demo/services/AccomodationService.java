@@ -85,6 +85,7 @@ public class AccomodationService implements IAccomodationService {
 	       	Staff staff = staffRepository.findById(accomodationApi.getStaff_id()).get();
 	       	accomodation.setStaff(staff);     	
 	       	accomodation.setStatus(accomodationApi.isStatus());
+            accomodation.setDescription(accomodationApi.getDescription());
 
            return accomodationRepository.save(accomodation)!=null;
        } catch(Exception e) {
