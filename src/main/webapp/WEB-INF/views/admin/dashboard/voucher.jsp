@@ -330,6 +330,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th>Tên</th>    
                       <th>Chỗ nghỉ</th>    
                       <th>Giá giảm</th>    
                       <th>Thời hạn đến</th>    
@@ -341,10 +342,13 @@
 	                  	<tr>
 	                      <input type="hidden" name="id" value="${voucher.id}">
 	                      <td></td>
-	                      <td data-id="${voucher.accomodation_id}">
+                        <td >
                           <a href="" role="button" data-toggle="modal" data-target="#modal-info">
-                            ${voucher.accomodation_name}
+                            ${voucher.name}
                           </a>
+                        </td>
+	                      <td data-id="${voucher.accomodation_id}">
+                          ${voucher.accomodation_name}
                         </td>
 	                      <td>${voucher.priceDiscount}</td>
 	                      <td>                          
@@ -373,6 +377,12 @@
               </div>
               <div class="card-body">
                 <form method="post" action="${pageContext.request.contextPath}/admin/dashboard/voucher/add" id="voucherAddForm">
+                  <div class="form-group">
+                    <label for="">Tên voucher</label>
+                     <div class="input-group">
+                        <input type="text" name="name" class="form-control">
+                      </div>
+                  </div>
                   <div class="form-group">
                     <label>Chọn chỗ nghỉ</label>
                     <select class="form-control select2" name="accomodation_id" style="width: 100%;">
@@ -439,6 +449,13 @@
       </div>            
       <div class="modal-body container-fluid px-5">
         <div class="row">
+          <div class="form-group col-12">
+            <label>Tên voucher</label>
+            <div class="input-group">
+              <input type="text" name="name" class="form-control" 
+              autocomplete="off" id="" placeholder="Nhập tên voucher">
+            </div>
+          </div>
           <div class="form-group col-12">
             <label>Chỗ nghỉ</label>
             <select class="form-control select2" name="accomodation_id" style="width: 100%;">

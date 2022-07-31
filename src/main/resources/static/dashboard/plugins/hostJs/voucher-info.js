@@ -27,7 +27,7 @@ $(function () {
       },
       pageLength: 5,
       "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false
-    }).buttons().container().appendTo('#roomTypeTable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#voucherTable_wrapper .col-md-6:eq(0)');
     var rowLength = $('#voucherTable tbody').find('tr').length;
     for(let i = 0 ; i < rowLength;i++){
       $('#voucherTable tbody tr:eq('+i+') td:eq(0)').html(i+1);
@@ -66,7 +66,10 @@ $(function () {
             required: true,
             number: true,
             min: 0
-          }
+          },
+          name:{
+            required: true
+          },
       }
       ,messages:{
         expDate:{
@@ -76,7 +79,10 @@ $(function () {
           required: 'Vui lòng nhập giá trị voucher',
           number: 'Vui lòng nhập đúng định giá',
           min: 'Giá trị không được nhỏ hơn 0'
-        }
+        },
+        name:{
+          required: 'Vui lòng nhập tên'
+        },
       },
       errorElement: 'span',
       errorPlacement: function (error, element) {
@@ -98,10 +104,12 @@ $(function () {
       $('#modal-info #editForm input').attr('aria-invalid',"false");
       
       var id =currentRow.find("input[type='hidden'][name='id']").val(); 
-      var accommodation = currentRow.find("td:eq(1)").data('id');
-      var priceDiscount =currentRow.find("td:eq(2)").text().trim(); 
-      var expDate =currentRow.find("td:eq(3)").text().trim();
+      var name =currentRow.find("td:eq(1)").text().trim(); 
+      var accommodation = currentRow.find("td:eq(2)").data('id');
+      var priceDiscount =currentRow.find("td:eq(3)").text().trim(); 
+      var expDate =currentRow.find("td:eq(4)").text().trim();
 
+      $('#modal-info #editForm input[name="name"]').val(name);
       $('#modal-info #editForm select[name="accomodation_id"]').val(accommodation).trigger('change');
       $('#modal-info #editForm input[name="priceDiscount"]').val(priceDiscount);
       $('#modal-info #editForm input[name="expDate"]').val(expDate);

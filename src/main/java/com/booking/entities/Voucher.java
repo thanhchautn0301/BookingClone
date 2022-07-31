@@ -8,7 +8,7 @@ public class Voucher {
 
 	private int id;
 	private int accomodation_id;
-	private int accomodation_name;
+	private String accomodation_name;
 	private String name;
 	private Double priceDiscount;
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
@@ -16,7 +16,7 @@ public class Voucher {
 	private boolean status;
 
 	
-	public Voucher(int id, int accomodation_id, int accomodation_name, String name, Double priceDiscount, Date expDate,
+	public Voucher(int id, int accomodation_id, String accomodation_name, String name, Double priceDiscount, Date expDate,
 			boolean status) {
 		this.id = id;
 		this.accomodation_id = accomodation_id;
@@ -76,10 +76,10 @@ public class Voucher {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public int getAccomodation_name() {
+	public String getAccomodation_name() {
 		return accomodation_name;
 	}
-	public void setAccomodation_name(int accomodation_name) {
+	public void setAccomodation_name(String accomodation_name) {
 		this.accomodation_name = accomodation_name;
 	}
 	

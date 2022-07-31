@@ -20,16 +20,19 @@ $(function () {
     });
 
 
-  $('#roomAddForm').validate({
+  $('#voucherAddForm').validate({
     rules:{
         priceDiscount: {
         required: true,
         number: true,
         min: 0
       },
-        expDate:{
+      expDate:{
         required: true
-        }
+      },
+      name:{
+        required: true
+      }
     }
     ,messages:{
         priceDiscount: {
@@ -37,9 +40,13 @@ $(function () {
         number: 'Vui lòng nhập đúng định giá',
         min: 'Giá trị không được nhỏ hơn 0'
       },
-        expDate:{
+      expDate:{
         required: 'Vui lòng chọn thời gian kết thúc'
-        }
+      },
+      name:{
+        required: 'Vui lòng nhập tên'
+      }
+
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
