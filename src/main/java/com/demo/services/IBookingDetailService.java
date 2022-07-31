@@ -8,7 +8,7 @@ import java.util.List;
 public interface IBookingDetailService {
     public List<BookingDetailApi> findAll();
     public BookingDetailApi findByBookingDetailId(int bookingApi_id);
-    public boolean create(BookingDetailApi bookingDetailApi);
+    public BookingDetailApi create(BookingDetailApi bookingDetailApi);
     public boolean update(BookingDetailApi bookingDetailApi);
     public boolean delete(Integer id);
     public List<BookingDetailApi> findAllBookingDetailWithSort(String field);

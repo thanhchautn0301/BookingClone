@@ -51,12 +51,13 @@ public class BookingDetailApiController {
     }
 
     @RequestMapping(value="create", method=RequestMethod.POST)
-    public ResponseEntity<Boolean> create(@RequestBody BookingDetailApi bookingDetailApi) {
+    public ResponseEntity<BookingDetailApi> create(@RequestBody BookingDetailApi bookingDetailApi) {
         try {
-            return new ResponseEntity<Boolean>(bookingDetailService.create(bookingDetailApi),HttpStatus.OK);
+        	System.out.println("Date: " + bookingDetailApi.getCheckin());
+            return new ResponseEntity<BookingDetailApi>(bookingDetailService.create(bookingDetailApi),HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<BookingDetailApi>(HttpStatus.BAD_REQUEST);
         }
     }
 

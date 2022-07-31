@@ -8,31 +8,44 @@ public class VoucherApi {
 	
 	private int id;
 	private int accomodation_id;
-	private String accomodation_name;
+	private int accomodation_name;
+	private String name;
 	private Double priceDiscount;
 	@JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
 	private Date expDate;
 	private boolean status;
 
-	public VoucherApi(int id, int accomodation_id, String accomodation_name, Double priceDiscount, Date expDate, boolean status) {
-		super();
+	
+	public VoucherApi(int id, int accomodation_id, int accomodation_name, String name, Double priceDiscount,
+			Date expDate, boolean status) {
 		this.id = id;
 		this.accomodation_id = accomodation_id;
 		this.accomodation_name = accomodation_name;
+		this.name = name;
 		this.priceDiscount = priceDiscount;
 		this.expDate = expDate;
 		this.status = status;
 	}
-	public VoucherApi(int id, int accomodation_id, Double priceDiscount, Date expDate, boolean status) {
+	public VoucherApi(int id, int accomodation_id, Double priceDiscount, Date expDate, boolean status,String name) {
 		super();
 		this.id = id;
 		this.accomodation_id = accomodation_id;
 		this.priceDiscount = priceDiscount;
 		this.expDate = expDate;
 		this.status = status;
+		this.name = name;
 	}
 	public VoucherApi() {
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -63,10 +76,10 @@ public class VoucherApi {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public String getAccomodation_name() {
+	public int getAccomodation_name() {
 		return accomodation_name;
 	}
-	public void setAccomodation_name(String accomodation_name) {
+	public void setAccomodation_name(int accomodation_name) {
 		this.accomodation_name = accomodation_name;
 	}
 	

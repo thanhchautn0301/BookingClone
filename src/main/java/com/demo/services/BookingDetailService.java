@@ -2,13 +2,10 @@ package com.demo.services;
 
 import com.demo.entities.Booking;
 import com.demo.entities.BookingDetail;
-import com.demo.entities.Customer;
 import com.demo.entities.Room;
-import com.demo.entities_api.BookingApi;
 import com.demo.entities_api.BookingDetailApi;
 import com.demo.repositories.BookingDetailRepository;
 import com.demo.repositories.BookingRepository;
-import com.demo.repositories.CustomerRepository;
 import com.demo.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +36,7 @@ public class BookingDetailService implements IBookingDetailService {
     }
 
     @Override
-    public boolean create(BookingDetailApi bookingDetailApi) {
+    public BookingDetailApi create(BookingDetailApi bookingDetailApi) {
         try {
             // Tao moi 1 role de luu xuong csdl
             BookingDetail bookingDetail = new BookingDetail();
@@ -55,11 +52,12 @@ public class BookingDetailService implements IBookingDetailService {
 
             Room room = roomRepository.findById(bookingDetailApi.getRoomId()).get();
             bookingDetail.setRoom(room);
-
-            return bookingDetailRepository.save(bookingDetail)!=null;
+            BookingDetail newBookingDetail = bookingDetailRepository.save(bookingDetail);
+            bookingDetailApi.setId(newBookingDetail.getId());
+            return bookingDetailApi;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

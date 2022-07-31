@@ -3,17 +3,12 @@ package com.demo.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.demo.entities.City;
 import com.demo.entities.Customer;
-import com.demo.entities_api.CityApi;
 import com.demo.entities_api.CustomerApi;
 import com.demo.helper.Encrypt;
-import com.demo.repositories.CityRepository;
 import com.demo.repositories.CustomerRepository;
 @Service
 public class CustomerService implements ICustomerService {

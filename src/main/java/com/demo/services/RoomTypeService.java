@@ -1,7 +1,6 @@
 package com.demo.services;
 
 import com.demo.entities.RoomType;
-import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.RoomTypeApi;
 import com.demo.repositories.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class RoomTypeService implements IRoomTypeService {
     public boolean delete(Integer id) {
         try {
             RoomType roomType = roomTypeRepository.findById(id).get();
-            roomType.setStatus(true);
+            roomType.setStatus(false);
             return roomTypeRepository.save(roomType)!=null;
         } catch(Exception e) {
             e.printStackTrace();

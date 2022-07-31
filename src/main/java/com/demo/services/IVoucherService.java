@@ -13,4 +13,5 @@ public interface IVoucherService {
     public List<VoucherApi> findallvoucherwithsort(String field);
     public List<VoucherApi> findallvoucherpaginate(int offset, int no);
     public List<VoucherApi> findallbyhostid(int id);
+    public VoucherApi findVoucherByName(String name);
 }
