@@ -2,13 +2,10 @@ package com.demo.services;
 
 import com.demo.entities.Booking;
 import com.demo.entities.BookingDetail;
-import com.demo.entities.Customer;
 import com.demo.entities.Room;
-import com.demo.entities_api.BookingApi;
 import com.demo.entities_api.BookingDetailApi;
 import com.demo.repositories.BookingDetailRepository;
 import com.demo.repositories.BookingRepository;
-import com.demo.repositories.CustomerRepository;
 import com.demo.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

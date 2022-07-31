@@ -46,7 +46,17 @@ public class City implements java.io.Serializable {
 		this.home = home;
 	}
 
+<<<<<<< HEAD
 	
+=======
+//	public String getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(String image) {
+//		this.image = image;
+//	}
+>>>>>>> loc
 
 	public City() {
 	}

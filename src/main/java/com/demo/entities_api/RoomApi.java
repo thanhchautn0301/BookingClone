@@ -13,16 +13,37 @@ public class RoomApi {
     private String name;
     private String description;
 
+    private String image;
+
     public RoomApi() {
     }
 
     private boolean status;
 
-    
-  
+    public RoomApi(Integer id, Integer accomodation_id, String accomodation_name, Integer roomType_id, String roomType_name, Integer staff_id, String name, String description,  boolean status, double price,String image) {
+        this.id = id;
+        this.accomodation_id = accomodation_id;
+        this.accomodation_name = accomodation_name;
+        this.roomType_id = roomType_id;
+        this.roomType_name = roomType_name;
+        this.staff_id = staff_id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.status = status;
+        this.price = price;
+    }
 
-	public RoomApi(Integer id, Integer accomodation_id, String accomodation_name, Integer roomType_id,
-			String roomType_name, Integer staff_id, String name, String description, boolean status, double price) {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public RoomApi(Integer id, Integer accomodation_id, String accomodation_name, Integer roomType_id,
+                   String roomType_name, Integer staff_id, String name, String description, boolean status, double price) {
 		super();
 		this.id = id;
 		this.accomodation_id = accomodation_id;

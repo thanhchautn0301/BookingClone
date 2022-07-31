@@ -108,5 +108,13 @@ public class Voucher implements java.io.Serializable {
 	public void setInvoices(Set<Invoice> invoices) {
 		this.invoices = invoices;
 	}
+	private String name;
+	@Column(name = "NAME", nullable = false, length = 250)
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 }

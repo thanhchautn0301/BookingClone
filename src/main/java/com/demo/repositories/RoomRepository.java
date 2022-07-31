@@ -57,16 +57,23 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "where R.status = true and R.accomodation.id =:id")
     public List<RoomDetail> findRoomByAccommodationId(@Param("id") int accommodationId);
 
-    //search find name city and data check int check out and category
-    @Query("select new com.demo.entities_api.RoomApi(R.id, R.accomodation.id , R.accomodation.name , R.roomType.id, R.roomType.name , R.roomType.staffId, R.name, R.description, R.status, R.price) " +
-            "from Room R, RoomType RT " +
-            "where R.status =true and R.accomodation.name =:nameCity and RT.id = R.roomType.id and " +
+    //search find name city and data check int check out and category like %:nameCity%
+    @Query("select  new com.demo.entities_api.RoomApi(R.id, R.accomodation.id , R.accomodation.name , R.roomType.id, R.roomType.name , R.roomType.staffId, R.name, R.description, R.status, R.price,IM.name ) " +
+            "from Room R, RoomType RT left join Image IM on R.id = IM.room.id  " +
+            "where R.status =true and R.accomodation.city.name like %:nameCity%  and RT.id = R.roomType.id  and " +
             "R.roomType.quantityAdult >= :adultQuantity and R.roomType.quantityChildren >= :childrenQuantity and R.roomType.capacity >= :capacity and " +
             "R.id not in ( " +
             "select BDT.room.id " +
             "from BookingDetail BDT " +
-            "where (( BDT.checkout >= :from and BDT.checkout <= :to) or (BDT.checkin >= :from and  BDT.checkin <= :to )) )" +
+            "where (( BDT.checkout >= :from and BDT.checkout <= :to) or (BDT.checkin >= :from and  BDT.checkin <= :to )) ) " +
             "group by R.id, R.accomodation.id , R.accomodation.name , R.roomType.id, R.roomType.name , R.roomType.staffId, R.name, R.description, R.status, R.price")
     public List<RoomApi> findRoomByCityDateRequest(@Param("nameCity") String nameCity, @Param("from") Date from, @Param("to") Date to, @Param("capacity") int capacity, @Param("childrenQuantity") int childrenQuantity, @Param("adultQuantity") int adultQuantity);
 
+<<<<<<< HEAD
+=======
+    
+    
+    @Query("select R.price  from Room R where R.status =true and R.id = :id")
+    public double findPriceByRoomId(@Param("id") int id);
+>>>>>>> loc
 }

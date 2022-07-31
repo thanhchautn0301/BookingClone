@@ -2,13 +2,9 @@ package com.demo.services;
 
 import com.demo.entities.Booking;
 import com.demo.entities.Customer;
-import com.demo.entities.Role;
 import com.demo.entities_api.BookingApi;
-import com.demo.entities_api.CustomerApi;
-import com.demo.entities_api.RoleApi;
 import com.demo.repositories.BookingRepository;
 import com.demo.repositories.CustomerRepository;
-import com.demo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
