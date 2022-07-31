@@ -92,4 +92,9 @@ public class VoucherService implements IVoucherService {
     public List<VoucherApi> findallvoucherpaginate(int offset, int no) {
         return voucherRepository.findAllVoucherPagination(PageRequest.of(offset,no));
     }
+
+    @Override
+    public List<VoucherApi> findallbyhostid(int id) {
+        return voucherRepository.findAllVoucherByHostId(id);
+    }
 }

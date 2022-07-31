@@ -24,4 +24,10 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     @Query("select new com.demo.entities_api.VoucherApi(id, accomodation.id, priceDiscount, expDate, status) from Voucher where status =true and id =:id")
     public VoucherApi findVoucherById(@Param("id") int id);
+
+    @Query("select new com.demo.entities_api.VoucherApi(V.id, V.accomodation.id, A.name, V.priceDiscount, V.expDate, V.status) " + 
+    "from Voucher V LEFT OUTER JOIN Accomodation A " +
+    "on V.accomodation.id = A.id "+ 
+    "where V.status = true and A.staff.id =:id")
+    public List<VoucherApi> findAllVoucherByHostId(@Param("id") int id);
 }
