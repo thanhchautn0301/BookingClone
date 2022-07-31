@@ -138,4 +138,12 @@ public class AccomodationService implements IAccomodationService {
        return accomodationApi;
     }
 
+
+    @Override
+    public List<AccomodationApi> findallaccomodationbycityname(String cityName) {
+        return accomodationRepository.findAllAccomodationByCityName(cityName);
+    }
+
+
+
 }

@@ -179,4 +179,27 @@ public class RoomApiController implements ServletContextAware {
         }
     }
 
+
+    @RequestMapping(value="findroombycitydaterequest", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomApi>> findroombycitydaterequest(@RequestParam("name") String name,@RequestParam(value = "daterange") String dateRange,@RequestParam("capacity") int capacity,@RequestParam("childrenquantity") int childrenQuantity,@RequestParam("adultquantity") int adultQuantity) {
+        try {
+            Date from = null;
+            Date to = null;
+            if(dateRange !=null) {
+                String[] dates = dateRange.split("to");
+
+                String f = dates[0].trim().replace("-","/");
+                String t = dates[1].trim().replace("-","/");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                from = sdf.parse(f);
+                to = sdf.parse(t);
+            }
+            return new ResponseEntity<List<RoomApi>>(roomService.findRoomByCityDateRequest(name, from, to, capacity, childrenQuantity, adultQuantity), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
