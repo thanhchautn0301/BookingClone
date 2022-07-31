@@ -15,7 +15,7 @@ $(function () {
 
 
   $('#reservationdatetime').datetimepicker({
-    format: 'L',
+    format:'DD/MM/YYYY',
     minDate: new Date()
     });
 
@@ -27,7 +27,7 @@ $(function () {
         number: true,
         min: 0
       },
-        EXP_Date:{
+        expDate:{
         required: true
         }
     }
@@ -37,7 +37,7 @@ $(function () {
         number: 'Vui lòng nhập đúng định giá',
         min: 'Giá trị không được nhỏ hơn 0'
       },
-        EXP_Date:{
+        expDate:{
         required: 'Vui lòng chọn thời gian kết thúc'
         }
     },

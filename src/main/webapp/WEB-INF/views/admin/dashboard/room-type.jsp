@@ -429,7 +429,7 @@
   <div class="modal-dialog h-100 my-0 py-3">
     <form action="${pageContext.request.contextPath }/admin/dashboard/room/type/edit" method="post" id="editForm" class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Thông tin thành phố</h4>
+        <h4 class="modal-title">Thông tin kiểu phòng</h4>
         <button
           type="button"
           class="close"

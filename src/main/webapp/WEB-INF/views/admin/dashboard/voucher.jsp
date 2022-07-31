@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +31,14 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/daterangepicker/daterangepicker.css">
  <!-- summernote -->
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.css">
+  <style>
+    #voucherTable_filter{
+      float: right;
+    }
+    .dataTables_empty{
+      text-align: center;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -173,7 +183,7 @@
   <aside class="main-sidebar sidebar-dark-navy elevation-4">
     <!-- Brand Logo -->
     <a href="add-room.html" class="brand-link">
-      <img src="${pageContext.request.contextPath}/resources/dashboard/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="${pageContext.request.contextPath}/resources/dashboard/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opavoucher: .8">
       <span class="brand-text font-weight-light">TLTC</span>
     </a>
 
@@ -285,12 +295,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tạo voucher mới</h1>
+            <h1 class="m-0">Voucher</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Quản lý phòng</a></li>
-              <li class="breadcrumb-item active">Tạo voucher</li>
+              <li class="breadcrumb-item active">Voucher</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -303,16 +313,72 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <form id="roomAddForm">
-                <div class="card-body">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Danh sách voucher</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <table
+                  id="voucherTable"
+                  class="table table-bordered table-striped"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Chỗ nghỉ</th>    
+                      <th>Giá giảm</th>    
+                      <th>Thời hạn đến</th>    
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  	<c:forEach var="voucher" items="${vouchers}">
+	                  	<tr>
+	                      <input type="hidden" name="id" value="${voucher.id}">
+	                      <td></td>
+	                      <td data-id="${voucher.accomodation_id}">
+                          <a href="" role="button" data-toggle="modal" data-target="#modal-info">
+                            ${voucher.accomodation_name}
+                          </a>
+                        </td>
+	                      <td>${voucher.priceDiscount}</td>
+	                      <td>                          
+                          <fmt:formatDate pattern = "dd/MM/yyyy" value = "${voucher.expDate}" />
+                        </td>
+	                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/voucher/delete/${voucher.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
+	                    </tr> 
+                  	</c:forEach>
+                       
+                  </tbody>      
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Tạo voucher mới</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <form method="post" action="${pageContext.request.contextPath}/admin/dashboard/voucher/add" id="voucherAddForm">
                   <div class="form-group">
                     <label>Chọn chỗ nghỉ</label>
-                    <select class="form-control select2" name="accomodation-type" style="width: 100%;">
-                        <option value="accomodation 1">Accomodation 1</option>
-                        <option value="accomodation 2">Accomodation 2</option>
-                        <option value="accomodation 3">Accomodation 3</option>
-                        <option value="accomodation 4">Accomodation 4</option>
+                    <select class="form-control select2" name="accomodation_id" style="width: 100%;">
+                      <c:forEach var="accommo" items="${accommodations }">
+                      	<option value="${accommo.id }">${accommo.name}</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="form-group">
@@ -327,19 +393,19 @@
                   <div class="form-group">
                     <label>Date and time:</label>
                       <div class="input-group w-25 date" id="reservationdatetime" data-target-input="nearest">
-                          <input type="text" name="EXP_Date" class="form-control datetimepicker-input"
+                          <input type="text" name="expDate" class="form-control datetimepicker-input"
                            data-target="#reservationdatetime" data-toggle="datetimepicker"/>
                           <div class="input-group-append" data-target="#reservationdatetime">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                       </div>
-                  </div>    
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Thêm voucher</button>
+                  </div>
+                </form> 
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Thêm voucher</button>
-                </div>
-              </form>
+                <!-- /.card-body -->                
             </div>
           </div>
         </div>
@@ -356,11 +422,89 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<!-- Modal -->
+<div class="modal fade" id="modal-info">
+  <div class="modal-dialog h-80 my-0 py-3">
+    <form action="${pageContext.request.contextPath}/admin/dashboard/voucher/edit" method="post" id="editForm" class="modal-content h-100 overflow-auto">
+      <div class="modal-header pl-5">
+        <h4 class="modal-title">Thông tin voucher</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>            
+      <div class="modal-body container-fluid px-5">
+        <div class="row">
+          <div class="form-group col-12">
+            <label>Chỗ nghỉ</label>
+            <select class="form-control select2" name="accomodation_id" style="width: 100%;">
+              <c:forEach var="accommo" items="${accommodations}">
+       			<option value="${accommo.id}">${accommo.name}</option>
+              </c:forEach>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <label>Giá giảm</label>
+            <div class="input-group">
+              <input type="number" name="priceDiscount" class="form-control" 
+              autocomplete="off" id="" placeholder="Nhập giá giảm">
+              <div class="input-group-append">
+                <span class="input-group-text">$</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label>Thời hạn đến</label>
+            <div class="input-group  date" id="expDate" data-target-input="nearest">
+                <input type="text" name="expDate" class="form-control datetimepicker-input"
+                data-target="#expDate" autocomplete="off" data-toggle="datetimepicker"/>
+                <div class="input-group-append" data-target="#expDate">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="id">
+      </div>
+      <div class="modal-footer px-5 justify-content-between">
+        <button
+          type="button"
+          class="btn btn-default"
+          data-dismiss="modal"
+        >
+          Đóng
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Lưu
+        </button>
+      </div>
+    </form>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jszip/jszip.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- bs-custom-file-input -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
@@ -392,5 +536,7 @@
 <!-- Select2 -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/js/select2.full.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/hostJs/add-voucher.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/hostJs/voucher-info.js"></script>
+
 </body>
 </html>
