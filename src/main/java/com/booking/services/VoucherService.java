@@ -86,5 +86,19 @@ public class VoucherService implements IVoucherService {
 			return null;
 		}
 	}
+
+
+
+	@Override
+	public Voucher findVoucherByName(String name) {
+        try {
+            voucherAPI = APIClient.getClient().create(VoucherAPI.class);
+            Response<Voucher> response = voucherAPI.findvoucherByName(name).execute();
+            return response.body();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	
 }
