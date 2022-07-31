@@ -1,13 +1,18 @@
 package com.booking.apis;
 
-
-
 import java.util.List;
 
 import com.booking.entities.Voucher;
 
 import retrofit2.Call;
 import retrofit2.http.*;
+
+import com.booking.entities.Voucher;
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import java.util.List;
 
 public interface VoucherAPI {
 	@POST("voucher/create")
@@ -27,4 +32,8 @@ public interface VoucherAPI {
 
 	@GET("voucher/findallbyhostid/{id}")
 	public Call<List<Voucher>> findAllByHostId(@Path("id") int id);
+
+	@GET("voucher/findvoucherbyname")
+	public Call<Voucher> findvoucherByName(@Query("name") String name);
+
 }

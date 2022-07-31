@@ -10,4 +10,5 @@ public interface IVoucherService {
 	public boolean update(Voucher city);
 	public boolean delete(int id);
 	public List<Voucher> findAllByHostId(int id);
+	public Voucher findVoucherByName(String name);
 }
