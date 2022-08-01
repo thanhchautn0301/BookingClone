@@ -87,13 +87,11 @@ public class VoucherService implements IVoucherService {
 		}
 	}
 
-
-
 	@Override
-	public Voucher findVoucherByName(String name) {
+    public Voucher findVoucherByName(String name,int accomodation_id) {
         try {
             voucherAPI = APIClient.getClient().create(VoucherAPI.class);
-            Response<Voucher> response = voucherAPI.findvoucherByName(name).execute();
+            Response<Voucher> response = voucherAPI.findvoucherByName(name,accomodation_id).execute();
             return response.body();
         } catch (Exception e) {
             e.printStackTrace();
