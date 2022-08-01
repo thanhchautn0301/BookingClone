@@ -20,6 +20,7 @@ $(function () {
   })
 
   $('#accomodationAddForm').validate({
+	ignore: ":hidden:not(#summernote),.note-editable.card-block",
     rules:{
         name: {
             required: true,
@@ -33,7 +34,7 @@ $(function () {
 		},
         photos:{
             required: true,
-            accept: "image/jpeg, image/pjpeg, image/png"
+            accept: "image/jpeg, image/jpg, image/pjpeg, image/png"
         }
     }
     ,messages:{

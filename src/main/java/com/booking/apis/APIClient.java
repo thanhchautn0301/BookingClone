@@ -29,7 +29,7 @@ public class APIClient {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://localhost:9596/api/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setDateFormat("dd/MM/yyyy").create()))
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().setDateFormat("dd/MM/yyyy").create()))
                 .client(client.build())
                 .build();
         return retrofit;

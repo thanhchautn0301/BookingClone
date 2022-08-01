@@ -5,6 +5,7 @@ package com.booking.user;
 import com.booking.entities.Accommodation;
 import com.booking.entities.SearchAccommodation;
 import com.booking.helpers.TokenReader;
+import com.booking.entities.*;
 import com.booking.services.IAccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -105,8 +106,22 @@ public class HomeController {
 		return "home/search";
 	}
 	
-	@RequestMapping(value = {"details"}, method = RequestMethod.GET)
-	public String details() {
+	@RequestMapping(value = {"details/{accommodationId}"}, method = RequestMethod.GET)
+	public String details(@PathVariable("accommodationId") Integer id,ModelMap modelMap) {
+
+		AccommodationDetail accommodationDetail = accommodationService.findaccommodationdetail(id);
+		List<String> images = accommodationDetail.getImages();
+		List<Service> services = accommodationDetail.getServices();
+		List<RoomDetail> rooms = accommodationDetail.getRooms();
+		Accommodation accommodations = accommodationDetail.getAccommodation();
+		modelMap.put("images",images);
+		modelMap.put("services",services);
+		modelMap.put("rooms",rooms);
+		modelMap.put("accommodation",accommodations);
+
+
 		return "home/details";
 	}
+
+
 }

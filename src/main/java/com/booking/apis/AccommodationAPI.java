@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.booking.entities.Accommodation;
 
+import com.booking.entities.AccommodationDetail;
 import com.booking.entities.SearchAccommodation;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -37,5 +38,9 @@ public interface AccommodationAPI {
 	@Multipart
 	@POST("image/uploadImage")
 	Call<String> uploadImage(@Part MultipartBody.Part file);
+
+	@GET("accomodation/findaccommodationdetail/{id}")
+	Call<AccommodationDetail> findaccommodationdetail(@Path("id") int id);
+
 
 }

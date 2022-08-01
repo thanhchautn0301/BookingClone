@@ -16,9 +16,9 @@ public class DashboardAdminController {
 	
 	
 	
-	@RequestMapping(value = "voucher",method = RequestMethod.GET)
-	public String voucher() {
-		return "admin/dashboard/voucher";
-	}
+	// @RequestMapping(value = "voucher",method = RequestMethod.GET)
+	// public String voucher() {
+	// 	return "admin/dashboard/voucher";
+	// }
 	
 }

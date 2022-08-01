@@ -20,6 +20,7 @@ $(function () {
   })
 
   $('#roomAddForm').validate({
+	ignore: ":hidden:not(#summernote),.note-editable.card-block",
     rules:{
       name: {
         required: true,
