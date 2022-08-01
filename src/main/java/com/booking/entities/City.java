@@ -6,6 +6,8 @@ public class City {
 	private boolean status;
 
 	private String image;
+	private boolean home;
+	
 
 	public String getImage() {
 		return image;
@@ -40,6 +42,22 @@ public class City {
 		this.status = status;
 		this.image = image;
 	}
+	public City(int id, String name, boolean status, String image, boolean home) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.status = status;
+		this.image = image;
+		this.home = home;
+	}
 	public City() {}
+
+	public boolean isHome() {
+		return home;
+	}
+
+	public void setHome(boolean home) {
+		this.home = home;
+	}
 	
 }

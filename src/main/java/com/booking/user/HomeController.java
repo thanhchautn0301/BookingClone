@@ -42,7 +42,8 @@ public class HomeController {
 	public String index(ModelMap modelMap, RedirectAttributes redirectAttributes) {
 		modelMap.put("accommodationOfCity", cityService.findAllAccommodationOfCity());
 		modelMap.put("accommodationOfCategory", categoryService.findAllAccommodationOfCategory());
-
+		modelMap.put("cityHomeFirsts", cityService.findHome().subList(0, 2));
+		modelMap.put("cityHomeSeconds", cityService.findHome().subList(2, 5));
 		if(TokenReader.token !=null) {
 			modelMap.put("msg","has-login");
 			return "home/index";
