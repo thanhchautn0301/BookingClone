@@ -84,4 +84,23 @@ public class VoucherApiController {
             return new ResponseEntity<VoucherApi>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value="findallbyhostid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<List<VoucherApi>> findallbyhostid(@PathVariable("id") int id) {
+        try {
+            return new ResponseEntity<List<VoucherApi>>(voucherService.findallbyhostid(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<VoucherApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+            @RequestMapping(value="findvoucherbyname", method=RequestMethod.GET)
+    public ResponseEntity<VoucherApi> findvoucherbyname(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<VoucherApi>(voucherService.findVoucherByName(name),HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<VoucherApi>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

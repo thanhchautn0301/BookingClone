@@ -4,8 +4,11 @@ import com.demo.entities.Accomodation;
 import com.demo.entities.Category;
 import com.demo.entities.City;
 import com.demo.entities.Staff;
+import com.demo.repositories.AccomodationRepository;
+import com.demo.repositories.CategoryRepository;
+import com.demo.repositories.CityRepository;
+import com.demo.repositories.StaffRepository;
 import com.demo.entities_api.*;
-import com.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -82,6 +85,7 @@ public class AccomodationService implements IAccomodationService {
 	       	Staff staff = staffRepository.findById(accomodationApi.getStaff_id()).get();
 	       	accomodation.setStaff(staff);     	
 	       	accomodation.setStatus(accomodationApi.isStatus());
+            accomodation.setDescription(accomodationApi.getDescription());
 
            return accomodationRepository.save(accomodation)!=null;
        } catch(Exception e) {

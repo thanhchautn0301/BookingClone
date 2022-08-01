@@ -1,7 +1,9 @@
 package com.demo.controllers;
 
+import com.demo.entities.RoomType;
 import com.demo.entities_api.RoomApi;
 import com.demo.entities_api.RoomTypeApi;
+import com.demo.helper.Util;
 import com.demo.services.IRoomService;
 import com.demo.services.IRoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,13 +170,24 @@ public class RoomApiController implements ServletContextAware {
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;
 	}
+	
+	@RequestMapping(value="findprice/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Double> findPrice(@PathVariable("id") int id) {
+        try {
+            return new ResponseEntity<Double>(roomService.findPriceByRoomId(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Double>(0.0,HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
     @RequestMapping(value="findroombycitydaterequest", method=RequestMethod.GET)
-    public ResponseEntity<List<RoomApi>> findroombycitydaterequest(@RequestParam("name") String name,@RequestParam(value = "daterange") String dateRange,@RequestParam("capacity") int capacity,@RequestParam("childrenquantity") int childrenQuantity,@RequestParam("adultquantity") int adultQuantity) {
+    public ResponseEntity<List<RoomApi>> findroombycitydaterequest(@RequestParam("name") String name,@RequestParam(value = "daterange") String dateRange, @RequestParam(value = "category") String category) {
         try {
             Date from = null;
             Date to = null;
+            RoomType roomType = null;
             if(dateRange !=null) {
                 String[] dates = dateRange.split("to");
 
@@ -185,7 +198,10 @@ public class RoomApiController implements ServletContextAware {
                 from = sdf.parse(f);
                 to = sdf.parse(t);
             }
-            return new ResponseEntity<List<RoomApi>>(roomService.findRoomByCityDateRequest(name, from, to, capacity, childrenQuantity, adultQuantity), HttpStatus.OK);
+            if(category != null){
+                roomType = Util.GetRoomType(category);
+            }
+            return new ResponseEntity<List<RoomApi>>(roomService.findRoomByCityDateRequest(name, from, to, roomType.getCapacity(), roomType.getQuantityChildren(), roomType.getQuantityAdult()), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
