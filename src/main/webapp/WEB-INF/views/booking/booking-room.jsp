@@ -183,7 +183,11 @@
                   <form method="get" class="needs-validation" id="voucher-check" novalidate>
                     <div class="d-flex flex-column">
                       <label for="" class="form-label">Nhập mã giảm giá:</label>
+<<<<<<< HEAD
+                      <input type="text" class="voucherSelect" name="voucher" required>                 
+=======
                       <input type="text" class="voucherSelect" required>
+>>>>>>> loc
                       <div class="invalid-feedback">
                         * Vui lòng chọn 1 mã giảm giá !
                       </div>
