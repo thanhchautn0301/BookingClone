@@ -170,7 +170,7 @@
                   </div>
                   <div>
                     <h6 class="fs-14 fw-bold pb-2 mb-0">You have selected:</h6>
-                    <p class="fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</p>
+                    <p class="fs-14">${room.name } (${booking.bookingDetail.quantityAdult } adults + ${booking.bookingDetail.quantityChildren } children)</p>
                     <a href="" class="btn btn-action2 text-blue text-blue-hover-none fw-500 border-0 px-1 fs-14">Đổi lựa chọn của bạn</a>
                   </div>
                 </div>  
@@ -201,7 +201,8 @@
                   <div class="row mb-3 px-3">
                     <div class="col-lg-8 col-sm-12 fs-14">${room.name} (${room.roomType_name })</div>
                     <div class="col-lg-4 col-sm-12 fs-14 text-lg-end text-sm-start">
-                    VND ${roomPrice }</div>
+                    	VND&nbsp;<span id="currentPrice">${roomPrice }</span>
+                    </div>
                   </div>
                   <div class="row justify-content-between py-3 m-0 bg-blue2">
                     <div class="col-lg-7 col-sm-12">
@@ -354,13 +355,24 @@
                        var isExpired =  expiredDate.setHours(12,0,0,0) < currentDate.setHours(12,0,0,0);  
                        if(!isExpired){
                          $('input[type="hidden"][name="voucher"]').val(voucher_name);
-                         $('#totalPrice').text((+$('#totalPrice').text()) - result.priceDiscount);
+                         var resultPrice = (+$('#currentPrice').text()) - result.priceDiscount;
+                         if(resultPrice < 0){
+                        	 $('#totalPrice').text('0');
+                         }
+                         else{
+                        	 $('#totalPrice').text(resultPrice);
+                         }
+                         
                        }
                        else{
+                    	 $('#totalPrice').text($('#currentPrice').text());
+                    	 $('input[type="hidden"][name="voucher"]').val("");
                          alert('The voucher is currently unavailable because it has expired ('+result.expDate+')');
                        }
                      }
                      else{
+                       $('#totalPrice').text($('#currentPrice').text());
+                       $('input[type="hidden"][name="voucher"]').val("");
                        alert('This voucher is not found');
                      }
                     }
