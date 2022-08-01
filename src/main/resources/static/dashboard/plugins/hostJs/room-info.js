@@ -146,5 +146,51 @@ $(function () {
   $('#modal-info #editForm input[name="price"]').val(price);
 
   $('#modal-info #editForm #summernote[name="description"]').summernote('code',desc); 
+  
 
 }) 
+
+$('#infoTable').on('click','.btn-delete',function(ev){
+	var currentRow = $(this).closest('tr');
+	var deleteBtn = currentRow.find('.btn-delete');
+	ev.preventDefault();	
+	Swal.fire({
+	  title: 'Are you sure?',
+	  text: "You won't be able to revert this!",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+				{
+					showConfirmButton: false,
+					title:'Deleted!',
+		      		text:'Your file has been deleted.',
+		      		icon:'success'
+				}
+		      
+		    )
+		   setTimeout(function(){
+			window.location.href= deleteBtn.attr("href");
+			},1500); 
+		  }
+		})
+});
+
+
+
+var resultValue = $('#show-msg-result').val().split("-");
+
+
+if(resultValue[1] == 'success'){
+		setTimeout(function(){
+			Swal.fire(
+			  resultValue[0]+' Room Success',
+			  '',
+			  'success'
+		)
+		},300);
+}

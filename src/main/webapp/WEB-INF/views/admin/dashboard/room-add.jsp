@@ -23,6 +23,7 @@
   <!-- JQVMap -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/sweetalert2/sweetalert2.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
@@ -35,7 +36,7 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  
+  <input type="hidden" id="show-msg-result" value="${result }">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -396,6 +397,7 @@
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- overlayScrollbars -->
 <!-- jquery-validation -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/jquery-validation/jquery.validate.min.js"></script>
