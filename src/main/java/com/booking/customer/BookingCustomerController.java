@@ -38,39 +38,47 @@ public class BookingCustomerController {
 	@Autowired
 	private IBookingFlow bookingFlow;
 	
+	private int accomodation_id;
+	
 	private int customerId = 1;
 	
 	@RequestMapping(value = {"form"}, method = RequestMethod.GET)
-	public String index(HttpSession session,ModelMap modelMap) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public String index(HttpSession session,ModelMap modelMap,
+			@RequestParam("checkIn") String checkIn,@RequestParam("checkOut") String checkOut
+			,@RequestParam("id") int roomId) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		Date bookingDate = new Date();
 		
 		//		id_Booking,id_customer,booking_date,payment,status
 		Booking booking = new Booking(1,customerId,bookingDate,"Cash",true);
 
 		
-		Date dateCheckIn = new Date();
+		Date dateCheckIn = null;
 		try {
-			dateCheckIn = dateFormat.parse("2022-08-01");
+			dateCheckIn = dateFormat.parse(checkIn);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		 Date dateCheckOut = new Date();
+		 Date dateCheckOut = null;
 		try {
-			dateCheckOut = dateFormat.parse("2022-08-14");
+			dateCheckOut = dateFormat.parse(checkOut);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 //	 	id_bookingDetail,id_booking,id_room,quantityAdults,quantityChildren,
 			// date_CheckIn,date_CheckOut,status
-		BookingDetail bookingDetail = new  BookingDetail(1,1,2,3,2,dateCheckIn,dateCheckOut,true);
+		BookingDetail bookingDetail = new  BookingDetail(1,1,roomId,3,2,dateCheckIn,dateCheckOut,true);
 		BookingForm bookingForm = new BookingForm(booking,bookingDetail);
 		session.setAttribute("booking", bookingForm);
-		Room room = roomService.findRoomById(bookingDetail.getId());
+		Room room = roomService.findRoomById(bookingDetail.getRoomId());
 		String roomPrice = String.format("%.2f", room.getPrice());
 		modelMap.put("room", room);
+		accomodation_id = room.getAccomodation_id();
 		modelMap.put("customer", customerService.findCustomerById(customerId));
 		modelMap.addAttribute("roomPrice", roomPrice);
+		long get_stayDays = BookingDateHelper.countDay(bookingForm.getBookingDetail().getCheckin(),bookingForm.getBookingDetail().getCheckout());
+		double total = get_stayDays * roomService.findPriceByRoomId(bookingForm.getBookingDetail().getRoomId());
+		modelMap.put("totalPrice", total);
 		return "booking/booking-room";
 	}
 
@@ -80,17 +88,27 @@ public class BookingCustomerController {
 	}
 	
 	@RequestMapping(value = {"startBooking"}, method = RequestMethod.POST)
-	public String mainFLowBooking(HttpSession session,String voucherName) {
+	public String mainFLowBooking(HttpSession session,@RequestParam("voucher") String voucherName) {
 		BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
-		System.out.println("Booking detail checkin : " + bookingForm.getBookingDetail().getCheckin());
-		System.out.println("Booking detail checkout : " + bookingForm.getBookingDetail().getCheckout());
+		
 		// Lay tu input voucher tu form booking
 		// Day la set cung
 		// if else kiem tra xem voucher name co rong hay khong
-		voucherName = "abc";
-		Voucher voucher = voucherService.findVoucherByName(voucherName);
+		Voucher voucher = new Voucher();
+		long get_stayDays = BookingDateHelper.countDay(bookingForm.getBookingDetail().getCheckin(),bookingForm.getBookingDetail().getCheckout());
+		double total = get_stayDays * roomService.findPriceByRoomId(bookingForm.getBookingDetail().getRoomId());
 		Invoice invoice = new Invoice();
-		invoice.setVoucher_id(voucher.getId());
+		if(voucherName != "") {
+			voucher = voucherService.findVoucherByName(voucherName,accomodation_id);
+		}
+		if(voucher.getId() != 0 ) {
+			invoice.setVoucher_id(voucher.getId());
+			total -= voucher.getPriceDiscount();
+			if(total < 0) {
+				total = 0;
+			}
+		}
+		invoice.setTotal(total);
 		bookingFlow.mainFlowBooking(bookingForm.getBooking(), bookingForm.getBookingDetail(), invoice);
 		return "booking/booking-success";
 	}

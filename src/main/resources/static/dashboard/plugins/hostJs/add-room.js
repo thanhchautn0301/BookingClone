@@ -60,3 +60,15 @@ $(function () {
       $(element).removeClass('is-invalid');
     }
   })
+  var resultValue = $('#show-msg-result').val().split("-");
+
+
+if(resultValue[1] == 'success'){
+		setTimeout(function(){
+			Swal.fire(
+			  resultValue[0]+' Room Success',
+			  '',
+			  'success'
+		)
+		},300);
+}

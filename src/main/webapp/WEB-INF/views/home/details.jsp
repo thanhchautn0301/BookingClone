@@ -696,8 +696,8 @@
               </td>
               <td class="b-l-hotel bg-book-room">
                 <form action="${pageContext.request.contextPath}/customer/booking/form" method="get" class="h-100 d-flex justify-content-center text-center align-items-center">
-                  <input type="hidden" name="checkOut" value="03-07-2022">
-                  <input type="hidden" name="checkIn" value="08-07-2022">
+                  <input type="hidden" name="checkIn" value="03-09-2022">
+                  <input type="hidden" name="checkOut" value="08-09-2022">
                   <input type="hidden" name="id" value="${room.id}">
                   <button class="text-blue bg-white border-0 text-decoration-underline" type="submit">Đặt chỗ ngay</button>
                 </form>
