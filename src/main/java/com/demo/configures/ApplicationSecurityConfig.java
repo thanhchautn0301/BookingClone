@@ -68,6 +68,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // permit cua customer
                 // other require token
+                .antMatchers("/api/room/findroombyid/{id}").permitAll()
+                .antMatchers("/api/room/findprice/{id}").permitAll()
                 .antMatchers("/api/customer/login").permitAll()
                 .antMatchers("/api/customer/register").permitAll()
                 .antMatchers("/api/customer/forgotpw").permitAll()
@@ -82,12 +84,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/staff/findstaffapibyemail").permitAll()
                 .antMatchers("/api/staff/forgotpw").permitAll()
 
-                .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
+                // permit cho user search
+                .antMatchers("/api/accomodation/findaccommodationdetail1/{id}").permitAll()
+                .antMatchers("/api/accomodation/findaccommodationdetail/{id}").permitAll()
+                .antMatchers("/api/voucher/findvoucherbyname").permitAll()
+
+                // yeu cau login moi duoc booking
                 .antMatchers("/api/accomodation/*").permitAll()
                 .antMatchers("/api/image/getimage/{name}").permitAll()
+                .antMatchers("/api/image/*").permitAll()
                 .antMatchers("/api/category/*").permitAll()
                 .antMatchers("/api/city/*").permitAll()
-                .antMatchers("/api/room/*").permitAll()
                 .anyRequest().authenticated();
 
         // handling error

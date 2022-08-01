@@ -19,10 +19,30 @@ public class RoomDetail {
     private Integer quantityChildren;
     private String descriptionRoomType;
 
+    private Double price;
+
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public RoomDetail() {
     }
 
-    public RoomDetail(Integer id, Integer accomodationId, String accomodationName, Integer staff_id, String nameRoom, String descriptionRoom, Integer roomTypeId, String nameRoomType, Integer capacity, Integer quantityAdult, Integer quantityChildren, String descriptionRoomType) {
+    public RoomDetail(Integer id, Integer accomodationId, String accomodationName, Integer staff_id, String nameRoom, String descriptionRoom, Integer roomTypeId, String nameRoomType, Integer capacity, Integer quantityAdult, Integer quantityChildren, String descriptionRoomType, Double price, String image) {
         this.id = id;
         this.accomodationId = accomodationId;
         this.accomodationName = accomodationName;
@@ -36,6 +56,8 @@ public class RoomDetail {
         this.quantityAdult = quantityAdult;
         this.quantityChildren = quantityChildren;
         this.descriptionRoomType = descriptionRoomType;
+        this.price = price;
+        this.image = image;
     }
 
     public Integer getId() {

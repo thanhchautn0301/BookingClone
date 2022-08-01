@@ -3,17 +3,11 @@ package com.demo.services;
 import com.demo.entities.Image;
 import com.demo.entities.Room;
 import com.demo.entities.Accomodation;
-import com.demo.entities.Category;
-import com.demo.entities.City;
-import com.demo.entities.Staff;
 import com.demo.entities_api.ImageApi;
 import com.demo.helper.FileUpload;
 import com.demo.repositories.ImageRepository;
 import com.demo.repositories.RoomRepository;
 import com.demo.repositories.AccomodationRepository;
-import com.demo.repositories.CategoryRepository;
-import com.demo.repositories.StaffRepository;
-import com.demo.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -131,7 +125,12 @@ public class ImageService implements IImageService, ServletContextAware {
 		}
 	}
 
-	@Override
+    @Override
+    public List<String> findImageByAccommodationId(int accommodationId) {
+        return imageRepository.findImageByAccommodationId(accommodationId);
+    }
+
+    @Override
 	public void setServletContext(ServletContext servletContext) {
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;

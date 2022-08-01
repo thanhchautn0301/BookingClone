@@ -4,8 +4,11 @@ import com.demo.entities.Accomodation;
 import com.demo.entities.Category;
 import com.demo.entities.City;
 import com.demo.entities.Staff;
+import com.demo.repositories.AccomodationRepository;
+import com.demo.repositories.CategoryRepository;
+import com.demo.repositories.CityRepository;
+import com.demo.repositories.StaffRepository;
 import com.demo.entities_api.*;
-import com.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,11 +28,11 @@ public class AccomodationService implements IAccomodationService {
     @Autowired
     private CityRepository cityRepository;
 
-    @Autowired
-    private RoomRepository roomRepository;
 
-    @Autowired
-    private RoomTypeRepository roomTypeRepository;
+
+
+
+
 
 
 
@@ -49,6 +52,7 @@ public class AccomodationService implements IAccomodationService {
         	Accomodation accomodation = new Accomodation();
 
         	accomodation.setName(accomodationApi.getName());
+            accomodation.setDescription(accomodationApi.getDescription());
         	
         	Category category = categoryRepository.findById(accomodationApi.getCategory_id()).get();
         	accomodation.setCategory(category);
@@ -81,6 +85,7 @@ public class AccomodationService implements IAccomodationService {
 	       	Staff staff = staffRepository.findById(accomodationApi.getStaff_id()).get();
 	       	accomodation.setStaff(staff);     	
 	       	accomodation.setStatus(accomodationApi.isStatus());
+            accomodation.setDescription(accomodationApi.getDescription());
 
            return accomodationRepository.save(accomodation)!=null;
        } catch(Exception e) {
@@ -116,36 +121,33 @@ public class AccomodationService implements IAccomodationService {
         return accomodationRepository.findAllAccomodationByHostId(hostId);
     }
 
-    @Override
+   @Override
     public List<AccomodationApi> findallaccomodationbycityid(int cityId) {
         return accomodationRepository.findAllAccomodationByCityId(cityId);
     }
+    @Override
+    public AccomodationApi getAccommodationById(Integer id){
+        Accomodation accomodation = accomodationRepository.getById(id);
+        AccomodationApi accomodationApi = new AccomodationApi();
+        accomodationApi.setId(accomodation.getId());
+        accomodationApi.setCategory_id(accomodation.getCategory().getId());
+        accomodationApi.setCategory_name(accomodation.getCategory().getName());
+        accomodationApi.setCity_id(accomodation.getCity().getId());
+        accomodationApi.setCity_name(accomodation.getCity().getName());
+        accomodationApi.setStaff_id(accomodation.getStaff().getId());
+        accomodationApi.setName(accomodation.getName());
+        accomodationApi.setStatus(true);
+        accomodationApi.setImage(null);
+        accomodationApi.setDescription(accomodation.getDescription());
+       return accomodationApi;
+    }
+
 
     @Override
     public List<AccomodationApi> findallaccomodationbycityname(String cityName) {
         return accomodationRepository.findAllAccomodationByCityName(cityName);
     }
 
-    @Override
-    public AccommodationDetail getAccommodationDetail(Integer accommodationId) {
-        if(accommodationId != null) {
-            List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
 
 
-            List<ServiceApi> services = new ArrayList<ServiceApi>();
-
-            List<String> images = new ArrayList<String>();
-
-            AccomodationApi accommodation = new AccomodationApi();
-
-            roomDetails = roomRepository.findRoomByAccommodationId(accommodationId);
-
-
-
-
-        }
-
-
-        return null;
-    }
 }

@@ -1,7 +1,9 @@
 package com.demo.controllers;
 
+import com.demo.entities.RoomType;
 import com.demo.entities_api.RoomApi;
 import com.demo.entities_api.RoomTypeApi;
+import com.demo.helper.Util;
 import com.demo.services.IRoomService;
 import com.demo.services.IRoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 public class RoomApiController implements ServletContextAware {
     @Autowired
     private IRoomService roomService;
-    
     private ServletContext servletContext;
     
     @RequestMapping(value="findall", method=RequestMethod.GET)
@@ -123,7 +124,7 @@ public class RoomApiController implements ServletContextAware {
 //    }
 
     @RequestMapping(value="findroombyid/{id}", method=RequestMethod.GET)
-    public ResponseEntity<RoomApi> findallroomtypewithpaginate(@PathVariable int id) {
+    public ResponseEntity<RoomApi> findroombyid(@PathVariable int id) {
         try {
             return new ResponseEntity<RoomApi>(roomService.findByRoomId(id), HttpStatus.OK);
         } catch (Exception ex) {
@@ -168,5 +169,44 @@ public class RoomApiController implements ServletContextAware {
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;
 	}
+	
+	@RequestMapping(value="findprice/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Double> findPrice(@PathVariable("id") int id) {
+        try {
+            return new ResponseEntity<Double>(roomService.findPriceByRoomId(id), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Double>(0.0,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(value="findroombycitydaterequest", method=RequestMethod.GET)
+    public ResponseEntity<List<RoomApi>> findroombycitydaterequest(@RequestParam("name") String name,@RequestParam(value = "daterange") String dateRange, @RequestParam(value = "category") String category) {
+        try {
+            Date from = null;
+            Date to = null;
+            RoomType roomType = null;
+            if(dateRange !=null) {
+                String[] dates = dateRange.split("to");
+
+                String f = dates[0].trim().replace("-","/");
+                String t = dates[1].trim().replace("-","/");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                from = sdf.parse(f);
+                to = sdf.parse(t);
+            }
+            if(category != null){
+                roomType = Util.GetRoomType(category);
+            }
+            System.out.print("Quantity: "+ roomType.getQuantityAdult());
+            List<RoomApi> result = roomService.findRoomByCityDateRequest(name, from, to, roomType.getQuantityChildren(), roomType.getQuantityAdult());
+            return new ResponseEntity<List<RoomApi>>(result, HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

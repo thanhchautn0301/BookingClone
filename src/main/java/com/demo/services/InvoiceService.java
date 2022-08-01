@@ -2,17 +2,11 @@ package com.demo.services;
 
 import com.demo.entities.Invoice;
 import com.demo.entities.Booking;
-import com.demo.entities.Category;
-import com.demo.entities.City;
-import com.demo.entities.Staff;
 import com.demo.entities.Voucher;
 import com.demo.entities_api.InvoiceApi;
 import com.demo.repositories.InvoiceRepository;
 import com.demo.repositories.BookingRepository;
-import com.demo.repositories.CategoryRepository;
-import com.demo.repositories.StaffRepository;
 import com.demo.repositories.VoucherRepository;
-import com.demo.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -47,13 +41,14 @@ public class InvoiceService implements IInvoiceService {
         	
             Booking booking = bookingRepository.findById(invoiceApi.getBooking_id()).get();
             invoice.setBooking(booking);
-            Voucher voucher = voucherRepository.findById(invoiceApi.getVoucher_id()).get();
-            invoice.setVoucher(voucher);
-            invoice.setTotal(invoiceApi.getTotal());
+            if(invoiceApi.getVoucher_id() !=null) {
+                Voucher voucher = voucherRepository.findById(invoiceApi.getVoucher_id()).get();
+                invoice.setVoucher(voucher);
+            }
             invoice.setDeposit(invoiceApi.getDeposit());
             invoice.setOweMoney(invoiceApi.getOweMoney());            
         	invoice.setStatus(invoiceApi.getStatus());
-        	
+            invoice.setTotal(invoiceApi.getTotal());
         	Invoice newInvoice = invoiceRepository.save(invoice);
         	invoiceApi.setId(newInvoice.getId());
             return invoiceApi;

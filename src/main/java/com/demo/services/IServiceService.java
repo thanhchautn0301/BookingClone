@@ -13,5 +13,5 @@ public interface IServiceService {
     public boolean delete(int serviceId);
     public List<ServiceApi> findallservicewithsort(String field);
     public List<ServiceApi> findallservicepaginate(int offset, int no);
-    public ServiceApi findServiceByAccommodationId(Integer id);
+    public List<ServiceApi> findServiceByAccommodationId(Integer id);
 }

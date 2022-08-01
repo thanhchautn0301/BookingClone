@@ -17,4 +17,6 @@ public interface IImageService {
     public List<ImageApi> findallimagewithsort(String field);
     public List<ImageApi> findallimagepaginate(int offset, int no);
     public String uploadImage(ServletContext servletContext,MultipartFile file);
+
+    public List<String> findImageByAccommodationId(int accommodationId);
 }
