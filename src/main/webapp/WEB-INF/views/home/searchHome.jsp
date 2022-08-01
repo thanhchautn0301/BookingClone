@@ -180,7 +180,7 @@
               <div class="col-sm-4 col-md-3 mb-5">
                  <aside>
                   <!-- Filter-Form -->
-                      <form action="${pageContext.request.contextPath}/home/searchhome" method="get"  class="row py-3 px-2 bg-orange bd-r-2 needs-validation mx-0" novalidate>
+                      <form action="${pageContext.request.contextPath}/home/searchhome" method="get" class="row py-3 px-2 bg-orange bd-r-2 needs-validation mx-0" novalidate>
                         <h4 class="h4">Search</h4>
                         <div class="col-sm-12">
                           <label for="province-filter" class="form-label mb-0 fs-12">Destination / property name:</label>
@@ -188,9 +188,9 @@
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
-                            <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white"
-                             aria-label="province" id="province-filter" name="cityName" autocomplete="off" required value="${city}">
-                             <div class="invalid-feedback mb-1">
+                            <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white" name="cityName"
+                             aria-label="province" id="province-filter" autocomplete="off" required value="${filter.cityName}">
+                             <div class="invalid-feedback mb-1" >
                               <span style="background-color:#fff0f0" class="d-block p-2 bd-r-2 d-flex align-items-center">
                                 <i class="fa-solid fa-circle-info fs-20 me-2"></i>
                                 <span class="text-dark">Vui lòng nhập điểm đến để bắt đầu tìm kiếm.</span>
@@ -207,7 +207,7 @@
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 p-c py-2 shadow-none border-0 bd-r-2 bg-white"
-                             id="checkin-date-filter" placeholder="Check-in date" name="datecheckin">
+                             id="checkin-date-filter" placeholder="Check-in date" name="datecheckin" value="${filter.fromDate}">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
@@ -220,7 +220,7 @@
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 py-2 p-c shadow-none border-0 bd-r-2 bg-white"
-                              id="checkout-date-filter" placeholder="Check-out date" name="checkout">
+                              id="checkout-date-filter" placeholder="Check-out date" name="checkout" value="${filter.toDate}">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
@@ -230,9 +230,9 @@
                           <label for="" class="form-label mb-0 fs-12"><!-- Chau viet tinh ngay o day checkout-checkin --> Night stay</label>
                           <div class="input-group bd-r-2 position-relative">
                             <input type="text" class="form-control fs-14 py-2
-                             shadow-none border-0 bd-r-2 bg-white input-drop-select p-c"
+                             shadow-none border-0 bd-r-2 bg-white input-drop-select p-c" name="category"
                              aria-label='filterRoom' id="input-filter-room"
-                                   value="${filter.adult} adults - ${filter.children} children" name="category" readonly>
+                              value="${filter.adult} adults - ${filter.children} children"/>
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
@@ -517,7 +517,7 @@
                  </aside>
               </div>
               <div class="col-sm-8 col-md-9">
-                <h4 class="h4 fw-bold">${city}: ${result} found.</h4>
+                <h4 class="h4 fw-bold">${filter.cityName}: ${result} found.</h4>
                 <div class="row">
                   <div class="col-sm-12"><hr style="color: #ccc;"></div>
                 </div>
@@ -546,13 +546,13 @@
                 </div>
 
                 <article class="hotel-article row mt-3">
-                  <c:forEach var="acc" items="${accomms }">
+                  <c:forEach var="room" items="${rooms }">
                     <c:set var="rand1"><%= java.lang.Math.round(java.lang.Math.random() * 2 +1) %></c:set>
                     <c:set var="rand2"><%= java.lang.Math.round(java.lang.Math.random() * 4 +1) %></c:set>
                     <div class="col-sm-12 mb-3">
                     <div class="border p-3 d-flex flex-sm-column-reverse flex-lg-row bd-r-2">
                       <a href="#" class="position-relative d-inline-block text-decoration-none mt-sm-3 mt-lg-0">
-                        <img src="http://localhost:9596/api/image/getimage/${acc.image}" class="img-article bd-r-4" alt="">
+                        <img src="http://localhost:9596/api/image/getimage/${room.image}" class="img-article bd-r-4" alt="">
                         <i class="fa-regular fa-heart position-absolute end-0 top-0 
                         text-white p-c fs-20 m-2 text-shadow-icon"
                         data-bs-toggle="tooltip" data-bs-placement="top"
@@ -565,7 +565,7 @@
 
                           <h5 class="h5 d-flex flex-wrap align-items-lg-center fw-bold mb-0">
                             <a href="" class="text-blue text-decoration-none me-2">
-                              ${acc.name}
+                              ${room.accomodation_name}
                             </a>
                             <i class="fa-solid p-1 bd-r-2 fs-12 fa-thumbs-up
                             bg-orange text-white" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -577,15 +577,17 @@
                             ></i>
                           </h5>
 
-                          <div class="hotel-info">
-                            <a href="" class="text-blue fs-14 fw-500">${acc.city_name}</a>
+                          <div class="hotel-info w-100">
+                            <a href="" class="text-blue fs-14 fw-500">${room.name}</a>
                             <span class="text-secondary fs-12">
                               <span class="fs-20 fw-bold op-0-5">.</span>  
                               ${rand1}km away from center.
                             </span>
-                            <p class="text-secondary fs-12 w-75 ps-2 has-separated limit-line mt-2">
-                              ${acc.description}
-                            </p>
+                            <div class="text-secondary fs-12 w-100 ps-2 has-separated limit-line mt-2">
+                              ${room.roomType_name}<br/>
+                              ${filter.adult} Adult<br/>${filter.children} Children<br/>
+
+                            </div>
                           </div>
 
                         </div>
@@ -593,7 +595,7 @@
                         <div class="flex-fill">
                           <a href="#" class="d-flex ps-3 align-items-center text-decoration-none justify-content-end">
                             <div class="me-2 m-w-70">
-                              <p class="fw-bold text-dark fs-6 mb-0">${acc.category_name}</p>
+                              <p class="fw-bold text-dark fs-6 mb-0">${room.roomType_name}</p>
                               <p class="fs-12 text-secondary mb-0">155 đánh giá</p>
                             </div>
                             <span class="text-white bg-primary bd-r-4 icon-size p-3 d-flex align-items-center justify-content-center">
@@ -602,11 +604,11 @@
                           </a>
                           <div class="mt-2 text-end">
                             <p class="text-secondary fs-12 mb-0">Is available</p>
-                            <h5 class="mb-0">${acc.status?"Always available":"Not available"}</h5>
-                            <p class="text-secondary fs-12 mb-0">Top booking</p>
+                            <h5 class="mb-0">${room.status?"Always available":"Not available"}</h5>
+                            <p class="text-secondary fs-12 mb-0">${room.price}</p>
                           </div>
                           <div class="text-end mt-2">
-                            <a href="details/${acc.id}" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
+                            <a href="details/${room.accomodation_id}" class="btn btn-primary2 fs-14 d-inline-flex text-white justify-content-between fw-500">
                               Xem chỗ trống
                               <i class="fa-solid fa-angle-right fs-12 mx-2"></i>
                             </a>

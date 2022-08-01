@@ -1066,7 +1066,7 @@ input.ignore-validate{
     display: none;
 }
 
-limit-line{
+.limit-line > p{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;

@@ -11,7 +11,7 @@ $(function () {
   $('[data-mask]').inputmask()
 
   $('#dob').datetimepicker({
-    format: 'DD/MM/yyyy'
+    format: 'dd/MM/yyyy'
     });
 
 
@@ -24,6 +24,7 @@ $(function () {
         dob:{
           required: true
         },
+
         phone:{
           required: true
         },

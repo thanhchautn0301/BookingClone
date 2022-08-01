@@ -330,7 +330,7 @@
                   </div>
                   <div class="form-group">
                     <label for="">Mô tả</label>
-                    <textarea class="form-control" name="description" id="summernote" cols="30" rows="15"></textarea>
+                    <textarea class="form-control" name="description" cols="30" rows="5"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="">Thêm ảnh</label>

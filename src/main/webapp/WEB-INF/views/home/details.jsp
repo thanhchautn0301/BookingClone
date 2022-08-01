@@ -533,7 +533,8 @@
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-calendar-day"></i>
                   </span>
-                  <input type="text" id="check-room-date"
+                  <input type="text" id="check-room-date" name="daterange" value=""
+
                     class="form-control p-c ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white" data-date-value=""
                     required />
                   <span class="input-group-text border-0 bg-white">
@@ -542,7 +543,7 @@
                 </div>
                 <div
                   class="d-flex justify-content-sm-between align-items-center my-sm-2 my-md-0 flex-fill justify-content-md-evenly">
-                  <div>
+                  <div >
                     <span>Phòng</span>
                     <select class="form-select p-c shadow-none select-box d-inline-block" aria-label="roomSelect">
                       <option value="1" selected>1</option>

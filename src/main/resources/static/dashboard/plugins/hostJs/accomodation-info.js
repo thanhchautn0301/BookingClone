@@ -99,12 +99,12 @@ $(function () {
   var id = currentRow.find("input[type='hidden'][name='id']").val(); 
   var name = currentRow.find("td:eq(1)").text(); 
   var city = currentRow.find("td:eq(2)").data('id'); 
-  var category = currentRow.find("td:eq(3)").data('id'); 
-
+  var category = currentRow.find("td:eq(3)").data('id');
+  var desc = $('.card-body').find("textarea[name='description'][data-id='"+id+"']").val();
 
   $('#modal-info #editForm input[name="name"]').val(name.trim());
   $('#modal-info #editForm input[name="id"]').val(id);
   $('#modal-info #editForm select[name="city_id"]').val(city).trigger('change');
   $('#modal-info #editForm select[name="category_id"]').val(category).trigger('change');
-
+  $('#modal-info #editForm textarea[name="description"]').val(desc);
 }) 

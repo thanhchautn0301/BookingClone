@@ -1,16 +1,5 @@
 $(function () {
     bsCustomFileInput.init();
-    $('#summernote').summernote({
-        toolbar: [
-            // [groupName, [list of button]]
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
-        ]
-    });
   });
   $('.select2').select2()
 
@@ -20,7 +9,6 @@ $(function () {
   })
 
   $('#accomodationAddForm').validate({
-	ignore: ":hidden:not(#summernote),.note-editable.card-block",
     rules:{
         name: {
             required: true,
