@@ -7,11 +7,14 @@ import com.demo.entities_api.ServiceApi;
 import com.demo.repositories.*;
 import com.demo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -164,6 +167,52 @@ public class AccomodationApiController {
 
 
                 roomDetails = roomService.findAllByAccommodationId(id);
+
+                services = serviceService.findServiceByAccommodationId(id);
+
+                images =  imageService.findImageByAccommodationId(id);
+
+                accomodationApi = accomodationService.getAccommodationById(id);
+
+                accommodationDetail.setServices(services);
+                accommodationDetail.setImages(images);
+                accommodationDetail.setRooms(roomDetails);
+                accommodationDetail.setAccommodation(accomodationApi);
+
+            }
+
+
+
+            return new ResponseEntity<AccommodationDetail>(accommodationDetail,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<AccommodationDetail>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findaccommodationdetail1/{id}", method=RequestMethod.GET)
+    public ResponseEntity<AccommodationDetail> findaccomodationdetail1(@PathVariable("id") int id,@RequestParam("fromDate") String fromDate,
+                                                                      @RequestParam("toDate") String toDate, @RequestParam("adult") Integer adult, @RequestParam("children") Integer child) {
+        try {
+            AccommodationDetail accommodationDetail = new AccommodationDetail();
+            if((Integer)id != null) {
+                List<RoomDetail> roomDetails = new ArrayList<RoomDetail>();
+
+
+                List<ServiceApi> services = new ArrayList<ServiceApi>();
+
+                List<String> images = new ArrayList<String>();
+
+                AccomodationApi accomodationApi = new AccomodationApi();
+
+                Date from = null;
+                Date to = null;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                from = sdf.parse(fromDate.replace('-','/'));
+                to = sdf.parse(toDate.replace('-','/'));
+
+                roomDetails = roomService.findRoomByAccommodationId1(id,from,to,child,adult);
 
                 services = serviceService.findServiceByAccommodationId(id);
 
