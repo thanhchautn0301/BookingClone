@@ -328,7 +328,8 @@ isELIgnored="false"%>
                       <td data-id="${accommo.city_id}">${accommo.city_name}</td>
                       <td data-id="${accommo.category_id}">${accommo.category_name}</td>
                       <td><a href="${pageContext.request.contextPath }/admin/dashboard/accommodation/delete/${accommo.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
-                    </tr>   
+                      <textarea name="description" data-id="${accommo.id}" hidden>${accommo.description }</textarea>
+                    </tr>
                   </c:forEach>  
                   </tbody>
                 </table>
@@ -388,7 +389,11 @@ isELIgnored="false"%>
 	            <option value="${category.id}">${category.name}</option>
           	</c:forEach>
           </select>
-        </div>        
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="5" cols="30" name="description"></textarea>
+        </div>
         <div class="form-group">
           <label for="">Thêm ảnh</label>
           <div class="input-group">

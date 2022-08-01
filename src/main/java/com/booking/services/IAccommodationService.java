@@ -19,4 +19,6 @@ public interface IAccommodationService {
 	public String uploadFile(MultipartBody.Part file) ;
 
 	public AccommodationDetail findaccommodationdetail(int id);
+
+	public AccommodationDetail findaccommodationdetail1(int id, String fromDate, String toDate, Integer adult, Integer child);
 }

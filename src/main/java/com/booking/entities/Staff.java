@@ -1,6 +1,7 @@
 package com.booking.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -11,7 +12,8 @@ public class Staff {
     private String email;
     private String civilIdentity;
     private String password;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dob;
     private String address;
     private int role_id;

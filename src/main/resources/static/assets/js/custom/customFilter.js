@@ -37,9 +37,9 @@
             }
             
   
-            else if(fieldName == 'rooms'){
-                currentResult[2] = ' ' +  thisSpan.text() + ' phòng';
-            }   
+            // else if(fieldName == 'rooms'){
+            //     currentResult[2] = ' ' +  thisSpan.text() + ' phòng';
+            // }
   
           }
 
@@ -60,7 +60,7 @@
             
           }
   
-          thisInput.val(currentResult[0] + '-' + currentResult[1] + '-' + currentResult[2]);
+          thisInput.val(currentResult[0] + '-' + currentResult[1]) ;
   
         }
   
@@ -87,9 +87,9 @@
   
             }
   
-            else if(fieldName == 'rooms'){
-              currentResult[2] = ' ' +  thisSpan.text() + ' phòng';
-            }    
+            // else if(fieldName == 'rooms'){
+            //   currentResult[2] = ' ' +  thisSpan.text() + ' phòng';
+            // }
   
           }
   
@@ -110,7 +110,7 @@
             currentResult[1] = ' ' +  thisSpan.text() + ' trẻ em ';
   
           }
-          thisInput.val(currentResult[0] + '-' + currentResult[1] + '-' + currentResult[2]);
+          thisInput.val(currentResult[0] + '-' + currentResult[1]);
         }
   
    })

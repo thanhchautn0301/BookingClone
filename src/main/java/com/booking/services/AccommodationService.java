@@ -131,4 +131,15 @@ public class AccommodationService implements IAccommodationService {
 		}
 	}
 
+	@Override
+	public AccommodationDetail findaccommodationdetail1(int id, String fromDate, String toDate, Integer adult, Integer child) {
+		try {
+			Response<AccommodationDetail> response = accommodationAPI.findaccommodationdetail1(id,fromDate,toDate,adult,child).execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

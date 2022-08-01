@@ -262,7 +262,7 @@
 
               <input type="text" class="form-control shadow-none fw-500 rounded-0 ps-0 p-c
                border-0 p-3 input-drop-select position-relative" id="input-filter-date" aria-label="filterDate"
-                value="Nhận phòng - Trả phòng" aria-describedby="filter-date" autocomplete="off">
+                 placeholder="Nhận phòng - Trả phòng" aria-describedby="filter-date" autocomplete="off" name="daterange" >
             </div>
             <div class="input-group mb-3 border-filter rounded-end br-r-0">
               <span class="input-group-text rounded-0 border-0 bg-white p-3" id="filter-room">
@@ -270,7 +270,7 @@
               </span>
 
               <input type="text" class="form-control shadow-none ps-0 fw-500 rounded-0 p-c border-0 p-3 input-drop-select"
-                id="input-filter-room" value="2 người lớn - 0 trẻ em - 1 phòng" aria-label="filterRoom"
+                id="input-filter-room" value="2 người lớn - 0 trẻ em" aria-label="filterRoom" name="category"
                 aria-describedby="filter-date" autocomplete="off" readonly>
 
               <div class="filter-room-form bg-white input-list-dropdown" id="filter-room-form">
@@ -304,7 +304,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="filter-room-info d-flex align-items-center justify-content-between p-2">
+                <div class="filter-room-info d-flex align-items-center justify-content-between p-2 d-none">
                   <span class="text-dark fw-500 ms-2">Phòng</span>
                   <div class="filter-room__action d-flex align-items-center me-2">
                     <button type="button" class="btn btn-action disable" data-type="minus" data-field="rooms">
@@ -380,7 +380,7 @@
                 <c:forEach var="item" items="${accommodationOfCity}">
                   <li class="splide__slide">
                     <a href="" class="text-decoration-none">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/travelList/dalat.jpg" class="img-carousel" alt="">
+                      <img src="http://localhost:9596/api/image/getimage/${item.image}" class="img-carousel" alt="">
                       <div>
                         <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
                         <p class="text-secondary fs-14">${item.numberOfAccommodation} chỗ nghỉ</p>
@@ -402,7 +402,7 @@
                 <c:forEach var="item" items="${accommodationOfCategory}">
                   <li class="splide__slide">
                     <a href="" class="text-decoration-none">
-                      <img src="${pageContext.request.contextPath}/resources/assets/img/hotelcategories/bietthu.jpg" class="img-carousel" alt="">
+                      <img src="http://localhost:9596/api/image/getimage/${item.image}" class="img-carousel" alt="">
                       <div>
                         <p class="fw-bold text-black mb-0 mt-1">${item.name}</p>
                         <p class="text-secondary fs-14">${item.numberOfAccommodation} ${item.name}</p>
