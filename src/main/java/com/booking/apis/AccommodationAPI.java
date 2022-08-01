@@ -42,5 +42,8 @@ public interface AccommodationAPI {
 	@GET("accomodation/findaccommodationdetail/{id}")
 	Call<AccommodationDetail> findaccommodationdetail(@Path("id") int id);
 
-
+	@GET("accomodation/findaccommodationdetail1/{id}")
+	Call<AccommodationDetail> findaccommodationdetail1(@Path("id") int id,@Query("fromDate") String fromDate,
+													   @Query("toDate") String toDate,
+													   @Query("adult") Integer adult, @Query("children") Integer child ) ;
 }

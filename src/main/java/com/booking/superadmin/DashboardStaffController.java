@@ -13,6 +13,10 @@ import com.booking.entities.Staff;
 import com.booking.services.IRoleService;
 import com.booking.services.IStaffService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Controller
 @RequestMapping(value = "superadmin/dashboard/staff")
 public class DashboardStaffController {
@@ -37,10 +41,10 @@ public class DashboardStaffController {
 	}
 	
 	@RequestMapping(value = "add",method = RequestMethod.POST)
-	public String staffAddSubmit(Staff staff,RedirectAttributes redirectAttributes) {
+	public String staffAddSubmit(Staff staff,RedirectAttributes redirectAttributes)  {
 		staff.setPassword("abc");
-		staffService.create(staff);
-		if(staff != null) {
+		Staff temp1 = staffService.create(staff);
+		if(temp1 != null) {
 			redirectAttributes.addFlashAttribute("result", "success");
 		}
 		else {

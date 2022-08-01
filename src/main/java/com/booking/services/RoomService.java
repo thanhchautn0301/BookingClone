@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.booking.entities.AccommodationDetail;
 import com.booking.entities.RoomDetail;
+import com.booking.entities.RoomHome;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -99,10 +100,10 @@ public class RoomService implements IRoomService{
 	}
 
 	@Override
-	public List<RoomDetail> findroombycitydaterequest(String name, String dateRange, int capacity, int childrenQuantity, int adultQuantity) {
-		Response<List<RoomDetail>> response ;
+	public List<RoomHome> findroombycitydaterequest(String name, String dateRange, String category) {
+		Response<List<RoomHome>> response ;
 		try {
-			response = roomAPI.findRoomByCityDate(name,dateRange,capacity,childrenQuantity,adultQuantity).execute();
+			response = roomAPI.findRoomByCityDate(name,dateRange,category).execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();

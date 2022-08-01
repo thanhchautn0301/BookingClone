@@ -53,6 +53,7 @@ public class DashboardAccommodationController {
 			RedirectAttributes redirectAttributes) 
 	{
 		accommodation.setStaff_id(1);
+
 		boolean result = accommodationService.update(accommodation);
 		if(!result) {
 			redirectAttributes.addFlashAttribute("result", "failed");
