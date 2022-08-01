@@ -29,16 +29,18 @@
  <!-- Theme style -->
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/dist/css/adminlte.min.css">
  <!-- overlayScrollbars -->
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/sweetalert2/sweetalert2.min.css">
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
  <!-- summernote -->
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/summernote/summernote-bs4.min.css">
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dashboard/plugins/customStyle/style.css">
+	
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  
+  <input type="hidden" id="show-msg-result" value="${result }">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -226,7 +228,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/dashboard/room/info" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/dashboard/room/info" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xem danh sách phòng</p>
                 </a>
@@ -335,7 +337,7 @@
 	                      <% Room room = (Room) pageContext.getAttribute("room");
 	                      	 String price = String.format("%.2f", room.getPrice());%>
 	                      <td><%= price %></td>
-	                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/room/delete?id=${room.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
+	                      <td><a href="${pageContext.request.contextPath }/admin/dashboard/room/delete?id=${room.id}" class="btn btn-danger btn-sm btn-delete"><i class="fas fa-times"></i></a></td>
 	                      <textarea name="description" data-id="${room.id}" hidden>${room.description }</textarea>
 	                    </tr> 
                   	</c:forEach>
@@ -488,6 +490,7 @@
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dashboard/dist/js/adminlte.js"></script>
 <!-- Select2 -->
+<script src="${pageContext.request.contextPath}/resources/dashboard/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/select2/js/select2.full.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dashboard/plugins/hostJs/room-info.js"></script>
 </body>

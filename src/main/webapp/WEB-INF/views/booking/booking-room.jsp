@@ -7,6 +7,8 @@
 <% BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
    Date checkIn = bookingForm.getBookingDetail().getCheckin();
    Date checkOut = bookingForm.getBookingDetail().getCheckout();
+   long stayDays = BookingDateHelper.countDay(checkIn,checkOut);
+;
 %>
 
 <!DOCTYPE html>
@@ -165,12 +167,13 @@
                   </div>
                   <div>
                     <h6 class="fs-14 py-2 mb-0 mt-3">Total length of stay:</h6>
-                    <p class="fs-14 fw-bold mb-0"><%= BookingDateHelper.countDay(checkIn, checkOut) %>&nbsp;days</p>
+                    <p class="fs-14 fw-bold mb-0"><%= stayDays %>&nbsp;days</p>
+                    <input type="hidden" id="stayDays" value="<%= stayDays %>">
                     <hr class="hr-color">
                   </div>
                   <div>
                     <h6 class="fs-14 fw-bold pb-2 mb-0">You have selected:</h6>
-                    <p class="fs-14">Phòng Giường Đôi Có Ban Công (2 Người Lớn + 1 Trẻ Em)</p>
+                    <p class="fs-14">${room.name } (${booking.bookingDetail.quantityAdult } adults + ${booking.bookingDetail.quantityChildren } children)</p>
                     <a href="" class="btn btn-action2 text-blue text-blue-hover-none fw-500 border-0 px-1 fs-14">Đổi lựa chọn của bạn</a>
                   </div>
                 </div>  
@@ -183,11 +186,8 @@
                   <form method="get" class="needs-validation" id="voucher-check" novalidate>
                     <div class="d-flex flex-column">
                       <label for="" class="form-label">Nhập mã giảm giá:</label>
-<<<<<<< HEAD
-                      <input type="text" class="voucherSelect" name="voucher" required>                 
-=======
                       <input type="text" class="voucherSelect" required>
->>>>>>> loc
+                      <input type="hidden" name="accomodation_id" value="${room.accomodation_id }">
                       <div class="invalid-feedback">
                         * Vui lòng chọn 1 mã giảm giá !
                       </div>
@@ -204,15 +204,16 @@
                   <div class="row mb-3 px-3">
                     <div class="col-lg-8 col-sm-12 fs-14">${room.name} (${room.roomType_name })</div>
                     <div class="col-lg-4 col-sm-12 fs-14 text-lg-end text-sm-start">
-                    VND ${roomPrice }</div>
+                    	VND&nbsp;<span id="currentPrice">${roomPrice }</span>
+                    </div>
                   </div>
                   <div class="row justify-content-between py-3 m-0 bg-blue2">
                     <div class="col-lg-7 col-sm-12">
-                      <h6 class="fw-bold mb-0">Giá</h6>
-                      <p class="fs-12">(cho 3 đêm & tất cả các khách)</p>
+                      <h6 class="fw-bold mb-0">Total</h6>
+                      <p class="fs-12">(for <%= BookingDateHelper.countDay(checkIn, checkOut) %> nights & all customers)</p>
                     </div>
                     <div class="col-lg-5 col-sm-12">
-                      <h6 class="fw-bold text-lg-end text-sm-start">VND <span id="totalPrice">${roomPrice }</span></h6>
+                      <h6 class="fw-bold text-lg-end text-sm-start">VND <div id="totalPrice">${totalPrice }</div></h6>
                     </div>
                   </div>
                 </div>
@@ -339,28 +340,42 @@
 
             $('#voucher-check').submit(function(ev){
                 var voucher_name  = $('#voucher-check input[class="voucherSelect"]').val();
+                var accomodation_id = $('#voucher-check input[type="hidden"][name="accomodation_id"]').val();
                 if(voucher_name !== ""){
                   $.ajax({
                     type:'GET',
                     data:{
-                      name: voucher_name
+                      name: voucher_name,
+                      accomodation_id: accomodation_id
                     },
                     url: '${pageContext.request.contextPath}/customer/voucher/check',
                     success: function(result){
 
                      if(result.expDate != undefined){
                        var dateConvert = result.expDate.split("/");
-                       var isExpired = new Date(dateConvert[2],(+dateConvert[1])-1,dateConvert[0]) < new Date();
-
+                       var currentDate = new Date();
+                       var expiredDate = new Date(dateConvert[2],(+dateConvert[1])-1,dateConvert[0]);
+                       var isExpired =  expiredDate.setHours(12,0,0,0) < currentDate.setHours(12,0,0,0);  
                        if(!isExpired){
                          $('input[type="hidden"][name="voucher"]').val(voucher_name);
-                         $('#totalPrice').text((+$('#totalPrice').text()) - result.priceDiscount);
+                         var resultPrice = ((+$('#currentPrice').text()) * +$('#stayDays').val()) - result.priceDiscount;
+                         if(resultPrice < 0){
+                        	 $('#totalPrice').text('0');
+                         }
+                         else{
+                        	 $('#totalPrice').text(resultPrice);
+                         }
+                         
                        }
                        else{
+                    	 $('#totalPrice').text($('#currentPrice').text());
+                    	 $('input[type="hidden"][name="voucher"]').val("");
                          alert('The voucher is currently unavailable because it has expired ('+result.expDate+')');
                        }
                      }
                      else{
+                       $('#totalPrice').text($('#currentPrice').text());
+                       $('input[type="hidden"][name="voucher"]').val("");
                        alert('This voucher is not found');
                      }
                     }

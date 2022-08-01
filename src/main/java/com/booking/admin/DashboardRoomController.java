@@ -151,8 +151,8 @@ public class DashboardRoomController {
 		room.setStaff_id(hostId);
 		Room result = roomService.create(room);
 		if(result != null) {
-			
-			if(photos.length > 0) {
+			redirectAttributes.addFlashAttribute("result", "Add-success");
+			if(photos.length > 1) {
 				for (MultipartFile file : photos) {		
 					
 					File imageFile = new File(System.getProperty("java.io.tmpdir")+"/"+ file.getOriginalFilename());
@@ -169,20 +169,16 @@ public class DashboardRoomController {
 						image.setRoom_id(result.getId());
 						image.setStatus(true);
 						imageService.create(image);
-						
-				    }
-				    
+				    }   
 				}
 			}
 		}
 		
-
-		if (result != null) {
-			redirectAttributes.addFlashAttribute("result", "failed");
-		} else {
-			redirectAttributes.addFlashAttribute("result", "success");
+		else {
+			redirectAttributes.addFlashAttribute("result", "Add-failed");
+			return "redirect:/admin/dashboard/room/add";
 		}
-		return "redirect:/admin/dashboard/room/add";
+		return "redirect:/admin/dashboard/room/info";
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
@@ -192,9 +188,9 @@ public class DashboardRoomController {
 		room.setStaff_id(hostId);
 		boolean result = roomService.update(room);
 		if (!result) {
-			redirectAttributes.addFlashAttribute("result", "failed");
+			redirectAttributes.addFlashAttribute("result", "Update-failed");
 		} else {
-			redirectAttributes.addFlashAttribute("result", "success");
+			redirectAttributes.addFlashAttribute("result", "Update-success");
 		}
 		return "redirect:/admin/dashboard/room/info";
 	}

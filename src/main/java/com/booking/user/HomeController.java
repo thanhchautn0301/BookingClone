@@ -173,11 +173,12 @@ public class HomeController {
 
 		AccommodationDetail accommodationDetail = new AccommodationDetail();
 		Filter filter = (Filter) session.getAttribute("filter");
-		if(filter != null ){
-			accommodationDetail = accommodationService.findaccommodationdetail1(id, filter.getFromDate(), filter.getToDate(), filter.getAdult(), filter.getChildren());
-		}else{
-			accommodationDetail = accommodationService.findaccommodationdetail(id);
-		}
+//		if(filter != null ){
+//			accommodationDetail = accommodationService.findaccommodationdetail1(id, filter.getFromDate(), filter.getToDate(), filter.getAdult(), filter.getChildren());
+//		}else{
+//			accommodationDetail = accommodationService.findaccommodationdetail(id);
+//		}
+		accommodationDetail = accommodationService.findaccommodationdetail(id);
 
 		List<String> images = accommodationDetail.getImages();
 		List<Service> services = accommodationDetail.getServices();
