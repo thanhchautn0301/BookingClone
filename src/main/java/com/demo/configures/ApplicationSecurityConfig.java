@@ -30,6 +30,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private StaffRepository staffRepository;
 
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
     private JwtTokenFilter jwtTokenFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,9 +41,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // Auth for staff
         auth.userDetailsService(username ->staffRepository.findStaffApiByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Email "+username +" not found !"))
                 );
+
+        // Auth for customer
+        auth.userDetailsService(username ->customerRepository.findCustomerApiByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email "+username +" not found !"))
+        );
     }
 
     @Override @Bean
@@ -57,16 +66,28 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // allow request ( chia role )
         http.authorizeRequests()
+                // permit cua customer
+                // other require token
+                .antMatchers("/api/customer/login").permitAll()
+                .antMatchers("/api/customer/register").permitAll()
+                .antMatchers("/api/customer/forgotpw").permitAll()
+                .antMatchers("/api/customer/findcustomerbyid/{id}").permitAll()
+                .antMatchers("/api/customer/findcustomerbyemail").permitAll()
+
+                // permit cua staff
+                // other require token
                 .antMatchers("/api/staff/login").permitAll()
                 .antMatchers("/api/staff/create").permitAll()
                 .antMatchers("/api/staff/findstaffbyid").permitAll()
                 .antMatchers("/api/staff/findstaffapibyemail").permitAll()
                 .antMatchers("/api/staff/forgotpw").permitAll()
+
                 .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
                 .antMatchers("/api/accomodation/*").permitAll()
                 .antMatchers("/api/image/getimage/{name}").permitAll()
                 .antMatchers("/api/category/*").permitAll()
                 .antMatchers("/api/city/*").permitAll()
+                .antMatchers("/api/room/*").permitAll()
                 .anyRequest().authenticated();
 
         // handling error

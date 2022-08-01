@@ -1,6 +1,7 @@
 package com.demo.jwt;
 
 import com.demo.entities.Role;
+import com.demo.entities_api.CustomerApi;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
 import com.demo.repositories.RoleRepository;
@@ -74,7 +75,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private UserDetails getUserDetails(String accessToken) {
-        StaffApi userDetails = new StaffApi();
         Claims claims = jwtUtil.parseClaims(accessToken);
         String subject = (String) claims.get(Claims.SUBJECT);
         String roleName = (String) claims.get("role");
@@ -85,15 +85,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         RoleApi role = roleRepository.findRoleByName(roleName);
 
-        System.out.println("Role tim ve dc la: "+role.getId());
+        StaffApi userDetails = new StaffApi();
+            // Assign role for userDetails
+            userDetails.setRole_name(role.getName());
 
-        // Assign role for userDetails
-        userDetails.setRole_name(role.getName());
+            String[] jwtSubject = subject.split(",");
 
-        String[] jwtSubject = subject.split(",");
-
-        userDetails.setId(Integer.parseInt(jwtSubject[0]));
-        userDetails.setEmail(jwtSubject[1]);
-        return userDetails;
+            userDetails.setId(Integer.parseInt(jwtSubject[0]));
+            userDetails.setEmail(jwtSubject[1]);
+            return userDetails;
     }
 }

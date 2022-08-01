@@ -115,7 +115,7 @@ public class Customer implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "CIVIL_IDENTITY", nullable = false, length = 100)
+	@Column(name = "CIVIL_IDENTITY", nullable = true, length = 100)
 	public String getCivilIdentity() {
 		return this.civilIdentity;
 	}
