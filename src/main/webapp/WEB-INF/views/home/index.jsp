@@ -419,20 +419,38 @@
         <div class="col-sm-12 gy-5">
           <div class="row gx-3">
             <c:forEach var = "city" items="${cityHomeFirsts}">
-                  <div class="col-sm-6 gx-3">
-                    <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('http://localhost:9596/api/image/getimage/${city.image}');">
-                      <div class="p-3 position-absolute top-0 start-0">
-                        <h4 class="h4 text-white fw-bold text-shadow">${city.name}</h4>
-                        <p class="text-white text-shadow">${city.numberOfAccommodation} chỗ ở</p>
-                      </div>
-                      <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
-                      text-black bg-bonus-r">
-                        <!-- <p class="mb-0">Ưu đãi bắt đầu từ</p> -->
-                        <!-- <p class="mb-0 text-center fs-14">VND 364.000</p> -->
-                        <p class="mb-0 text-center fs-14">Khám phá ngay</p>
-                      </div>
-                    </a>
-                  </div>
+                  <c:if test="${cityHomeFirsts.size() == 1}">
+                    <div class="col-sm-12 gx-3">
+                      <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('http://localhost:9596/api/image/getimage/${city.image}');">
+                        <div class="p-3 position-absolute top-0 start-0">
+                          <h4 class="h4 text-white fw-bold text-shadow">${city.name}</h4>
+                          <p class="text-white text-shadow">${city.numberOfAccommodation} chỗ ở</p>
+                        </div>
+                        <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
+                        text-black bg-bonus-r">
+                          <!-- <p class="mb-0">Ưu đãi bắt đầu từ</p> -->
+                          <!-- <p class="mb-0 text-center fs-14">VND 364.000</p> -->
+                          <p class="mb-0 text-center fs-14">Khám phá ngay</p>
+                        </div>
+                      </a>
+                    </div>
+                  </c:if>
+                  <c:if test="${cityHomeFirsts.size() > 1}">
+                    <div class="col-sm-6 gx-3">
+                      <a href="" class="card-content text-decoration-none d-block position-relative" style="background-image: url('http://localhost:9596/api/image/getimage/${city.image}');">
+                        <div class="p-3 position-absolute top-0 start-0">
+                          <h4 class="h4 text-white fw-bold text-shadow">${city.name}</h4>
+                          <p class="text-white text-shadow">${city.numberOfAccommodation} chỗ ở</p>
+                        </div>
+                        <div class="p-1 fs-12 m-3 position-absolute bottom-0 end-0
+                        text-black bg-bonus-r">
+                          <!-- <p class="mb-0">Ưu đãi bắt đầu từ</p> -->
+                          <!-- <p class="mb-0 text-center fs-14">VND 364.000</p> -->
+                          <p class="mb-0 text-center fs-14">Khám phá ngay</p>
+                        </div>
+                      </a>
+                    </div>
+                  </c:if>
             </c:forEach>
           </div>
         </div>

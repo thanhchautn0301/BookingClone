@@ -66,7 +66,7 @@ public class DashboardCityController {
 	}
 	
 	@RequestMapping(value = "edit",method = RequestMethod.POST)
-	public String city(@RequestParam("name") String cityName, @RequestParam("home") boolean isHome,@RequestParam("id") int id
+	public String city(@RequestParam("name") String cityName, @RequestParam(value = "home", required=false) boolean isHome,@RequestParam("id") int id
 			,RedirectAttributes redirectAttributes) {
 			City city = new City();
 			city.setId(id);
