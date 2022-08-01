@@ -201,7 +201,9 @@ public class RoomApiController implements ServletContextAware {
             if(category != null){
                 roomType = Util.GetRoomType(category);
             }
-            return new ResponseEntity<List<RoomApi>>(roomService.findRoomByCityDateRequest(name, from, to, roomType.getQuantityChildren(), roomType.getQuantityAdult()), HttpStatus.OK);
+            System.out.print("Quantity: "+ roomType.getQuantityAdult());
+            List<RoomApi> result = roomService.findRoomByCityDateRequest(name, from, to, roomType.getQuantityChildren(), roomType.getQuantityAdult());
+            return new ResponseEntity<List<RoomApi>>(result, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);

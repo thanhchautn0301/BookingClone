@@ -18,131 +18,136 @@ import java.util.List;
 
 @Service
 public class RoomService implements IRoomService {
-    @Autowired
-    private RoomRepository roomRepository;
+	@Autowired
+	private RoomRepository roomRepository;
 
-    @Autowired
-    private AccomodationRepository accomodationRepository;
+	@Autowired
+	private AccomodationRepository accomodationRepository;
 
-    @Autowired
-    private RoomTypeRepository roomTypeRepository;
-    @Override
-    public List<RoomApi> findall() {
-        return roomRepository.findAllRoom();
-    }
+	@Autowired
+	private RoomTypeRepository roomTypeRepository;
 
-    @Override
-    public RoomApi findByRoomId(int roomId) {
-        return roomRepository.findRoomById(roomId);
-    }
+	@Override
+	public List<RoomApi> findall() {
+		return roomRepository.findAllRoom();
+	}
 
-    @Override
-    public RoomApi create(RoomApi roomApi) {
-        try {
-            Room room = new Room();
+	@Override
+	public RoomApi findByRoomId(int roomId) {
+		return roomRepository.findRoomById(roomId);
+	}
 
-            room.setDescription(roomApi.getDescription());
-            room.setName(roomApi.getName());
-            room.setStatus(roomApi.isStatus());
-            room.setPrice(roomApi.getPrice());
+	@Override
+	public RoomApi create(RoomApi roomApi) {
+		try {
+			Room room = new Room();
 
-            RoomType roomType = roomTypeRepository.findById(roomApi.getRoomType_id()).get();
+			room.setDescription(roomApi.getDescription());
+			room.setName(roomApi.getName());
+			room.setStatus(roomApi.isStatus());
+			room.setPrice(roomApi.getPrice());
 
-            room.setRoomType(roomType);
+			RoomType roomType = roomTypeRepository.findById(roomApi.getRoomType_id()).get();
 
-            Accomodation accomodation = accomodationRepository.findById(roomApi.getAccomodation_id()).get();
-            room.setAccomodation(accomodation);
+			room.setRoomType(roomType);
 
-            Room newRoom = roomRepository.save(room);
-            roomApi.setId(newRoom.getId());
-            return roomApi;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			Accomodation accomodation = accomodationRepository.findById(roomApi.getAccomodation_id()).get();
+			room.setAccomodation(accomodation);
 
-    @Override
-    public boolean update(RoomApi roomApi) {
-       try {
-           Room room = roomRepository.findById(roomApi.getId()).get();
+			Room newRoom = roomRepository.save(room);
+			roomApi.setId(newRoom.getId());
+			return roomApi;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-           room.setDescription(roomApi.getDescription());
-           room.setName(roomApi.getName());
-           room.setStatus(roomApi.isStatus());
-           room.setPrice(roomApi.getPrice());
+	@Override
+	public boolean update(RoomApi roomApi) {
+		try {
+			Room room = roomRepository.findById(roomApi.getId()).get();
 
-           RoomType roomType = roomTypeRepository.findById(roomApi.getRoomType_id()).get();
+			room.setDescription(roomApi.getDescription());
+			room.setName(roomApi.getName());
+			room.setStatus(roomApi.isStatus());
+			room.setPrice(roomApi.getPrice());
 
-           room.setRoomType(roomType);
+			RoomType roomType = roomTypeRepository.findById(roomApi.getRoomType_id()).get();
 
-           Accomodation accomodation = accomodationRepository.findById(roomApi.getAccomodation_id()).get();
-           room.setAccomodation(accomodation);
+			room.setRoomType(roomType);
 
+			Accomodation accomodation = accomodationRepository.findById(roomApi.getAccomodation_id()).get();
+			room.setAccomodation(accomodation);
 
-           return roomRepository.save(room)!=null;
-       } catch(Exception e) {
-           e.printStackTrace();
-           return false;
-       }
-    }
+			return roomRepository.save(room) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-    @Override
-    public boolean delete(Integer roomId) {
-        try {
-            Room room = roomRepository.findById(roomId).get();
-            room.setStatus(false);
-            return roomRepository.save(room)!=null;
-        } catch(Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+	@Override
+	public boolean delete(Integer roomId) {
+		try {
+			Room room = roomRepository.findById(roomId).get();
+			room.setStatus(false);
+			return roomRepository.save(room) != null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-    @Override
-    public List<RoomApi> findallroomwithsort(String field) {
-        return roomRepository.findAllRoomSort(Sort.by(field));
-    }
+	@Override
+	public List<RoomApi> findallroomwithsort(String field) {
+		return roomRepository.findAllRoomSort(Sort.by(field));
+	}
 
-    @Override
-    public List<RoomApi> findallroompaginate(int offset, int no) {
-        return roomRepository.findAllRoomPagination(PageRequest.of(offset,no));
-    }
+	@Override
+	public List<RoomApi> findallroompaginate(int offset, int no) {
+		return roomRepository.findAllRoomPagination(PageRequest.of(offset, no));
+	}
 
 	@Override
 	public List<RoomApi> findAllByHostId(int hostId) {
 		return roomRepository.findAllRoomByHostId(hostId);
 	}
-    @Override
-    public List<RoomApi> findroombyguestrequest(Integer id, Date from, Date to, int capacity, int childrenQuantity, int adultQuantity ) {
-        return roomRepository.findRoomByGuestRequest(id, from, to, capacity,childrenQuantity, adultQuantity);
-    }
 
-    @Override
-    public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity) {
-        return roomRepository.findRoomByAdminRequest(id, capacity,childrenQuantity, adultQuantity);
-    }
+	@Override
+	public List<RoomApi> findroombyguestrequest(Integer id, Date from, Date to, int capacity, int childrenQuantity,
+			int adultQuantity) {
+		return roomRepository.findRoomByGuestRequest(id, from, to, capacity, childrenQuantity, adultQuantity);
+	}
 
-    // loc_home_accomm_detail
-    @Override
-    public List<RoomDetail> findAllByAccommodationId(int accommodationId) {
-        return roomRepository.findRoomByAccommodationId(accommodationId);
-    }
+	@Override
+	public List<RoomApi> findroombyadminrequest(Integer id, int capacity, int childrenQuantity, int adultQuantity) {
+		return roomRepository.findRoomByAdminRequest(id, capacity, childrenQuantity, adultQuantity);
+	}
 
-    @Override
-    public List<RoomDetail> findRoomByAccommodationId1(int accommodationId, Date from, Date to, int childrenQuantity, int adultQuantity) {
-        return roomRepository.findRoomByAccommodationId1(accommodationId,from,to,childrenQuantity,adultQuantity);
-    }
+	// loc_home_accomm_detail
+	@Override
+	public List<RoomDetail> findAllByAccommodationId(int accommodationId) {
+		return roomRepository.findRoomByAccommodationId(accommodationId);
+	}
 
-    @Override
-    public List<RoomApi> findRoomByCityDateRequest(String nameCity, Date from, Date to,  int childrenQuantity, int adultQuantity) {
-        return roomRepository.findRoomByCityDateRequest(nameCity, from, to,  childrenQuantity, adultQuantity);
-    }
-    
+	@Override
+	public List<RoomDetail> findRoomByAccommodationId1(int accommodationId, Date from, Date to, int childrenQuantity,
+			int adultQuantity) {
+		return roomRepository.findRoomByAccommodationId1(accommodationId, from, to, childrenQuantity, adultQuantity);
+	}
+
 	@Override
 	public double findPriceByRoomId(int id) {
 		return roomRepository.findPriceByRoomId(id);
 	}
+
+	@Override
+	public List<RoomApi> findRoomByCityDateRequest(String nameCity, Date from, Date to, int childrenQuantity,
+			int adultQuantity) {
+		return roomRepository.findRoomByCityDateRequest(nameCity, from, to, childrenQuantity, adultQuantity);
+	}
+
 
 
 
