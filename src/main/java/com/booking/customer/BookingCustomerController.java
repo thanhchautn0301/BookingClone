@@ -76,6 +76,9 @@ public class BookingCustomerController {
 		accomodation_id = room.getAccomodation_id();
 		modelMap.put("customer", customerService.findCustomerById(customerId));
 		modelMap.addAttribute("roomPrice", roomPrice);
+		long get_stayDays = BookingDateHelper.countDay(bookingForm.getBookingDetail().getCheckin(),bookingForm.getBookingDetail().getCheckout());
+		double total = get_stayDays * roomService.findPriceByRoomId(bookingForm.getBookingDetail().getRoomId());
+		modelMap.put("totalPrice", total);
 		return "booking/booking-room";
 	}
 

@@ -27,6 +27,7 @@ public class BookingFlow implements IBookingFlow{
 		if(booking != null) {
 			Booking booking_Saved = bookingService.create(booking);
 			if(booking_Saved != null) {
+				bookingDetail.setBookingId(booking_Saved.getId());
 				BookingDetail bookingDetail_Saved = bookingDetailService.create(bookingDetail);
 				if(bookingDetail_Saved!=null) {
 					invoice.setBooking_id(booking_Saved.getId());

@@ -7,6 +7,8 @@
 <% BookingForm bookingForm = (BookingForm) session.getAttribute("booking");
    Date checkIn = bookingForm.getBookingDetail().getCheckin();
    Date checkOut = bookingForm.getBookingDetail().getCheckout();
+   long stayDays = BookingDateHelper.countDay(checkIn,checkOut);
+;
 %>
 
 <!DOCTYPE html>
@@ -165,7 +167,8 @@
                   </div>
                   <div>
                     <h6 class="fs-14 py-2 mb-0 mt-3">Total length of stay:</h6>
-                    <p class="fs-14 fw-bold mb-0"><%= BookingDateHelper.countDay(checkIn, checkOut) %>&nbsp;days</p>
+                    <p class="fs-14 fw-bold mb-0"><%= stayDays %>&nbsp;days</p>
+                    <input type="hidden" id="stayDays" value="<%= stayDays %>">
                     <hr class="hr-color">
                   </div>
                   <div>
@@ -206,11 +209,11 @@
                   </div>
                   <div class="row justify-content-between py-3 m-0 bg-blue2">
                     <div class="col-lg-7 col-sm-12">
-                      <h6 class="fw-bold mb-0">Giá</h6>
-                      <p class="fs-12">(cho 3 đêm & tất cả các khách)</p>
+                      <h6 class="fw-bold mb-0">Total</h6>
+                      <p class="fs-12">(for <%= BookingDateHelper.countDay(checkIn, checkOut) %> nights & all customers)</p>
                     </div>
                     <div class="col-lg-5 col-sm-12">
-                      <h6 class="fw-bold text-lg-end text-sm-start">VND <div id="totalPrice">${roomPrice }</div></h6>
+                      <h6 class="fw-bold text-lg-end text-sm-start">VND <div id="totalPrice">${totalPrice }</div></h6>
                     </div>
                   </div>
                 </div>
@@ -355,7 +358,7 @@
                        var isExpired =  expiredDate.setHours(12,0,0,0) < currentDate.setHours(12,0,0,0);  
                        if(!isExpired){
                          $('input[type="hidden"][name="voucher"]').val(voucher_name);
-                         var resultPrice = (+$('#currentPrice').text()) - result.priceDiscount;
+                         var resultPrice = ((+$('#currentPrice').text()) * +$('#stayDays').val()) - result.priceDiscount;
                          if(resultPrice < 0){
                         	 $('#totalPrice').text('0');
                          }
