@@ -1,5 +1,6 @@
 package com.demo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,13 @@ public class CityService implements ICityService {
 
 	@Override
 	public List<CityApi> findHomeCity() {
-		return cityRepository.findHomeCity().subList(0, 5);
+		List<CityApi> cities = cityRepository.findHomeCity();
+		if(cities !=null && cities.size() >=5) {
+			return cities.subList(0,5);
+		}
+		else {
+			return new ArrayList<CityApi>();
+		}
 	}
 	
 	

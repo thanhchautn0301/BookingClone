@@ -100,4 +100,9 @@ public class InvoiceService implements IInvoiceService {
     public List<InvoiceApi> findallinvoicepaginate(int offset, int no) {
         return invoiceRepository.findAllInvoicePagination(PageRequest.of(offset,no));
     }
+
+    @Override
+    public List<InvoiceApi> findallinvoicebycustomerid(int id) {
+        return invoiceRepository.findAllInvoiceByCustomerId(id);
+    }
 }

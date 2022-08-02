@@ -12,4 +12,5 @@ public interface IInvoiceService {
     public boolean delete(int invoiceId);
     public List<InvoiceApi> findallinvoicewithsort(String field);
     public List<InvoiceApi> findallinvoicepaginate(int offset, int no);
+    public List<InvoiceApi> findallinvoicebycustomerid(int id);
 }

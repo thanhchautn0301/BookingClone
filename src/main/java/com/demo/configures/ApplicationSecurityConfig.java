@@ -87,6 +87,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 // permit cho user search
                 .antMatchers("/api/accomodation/findaccommodationdetail1/{id}").permitAll()
                 .antMatchers("/api/accomodation/findaccommodationdetail/{id}").permitAll()
+                .antMatchers("/api/room/findroombycitydaterequest").permitAll()
                 .antMatchers("/api/voucher/findvoucherbyname").permitAll()
 
                 // yeu cau login moi duoc booking

@@ -3,6 +3,7 @@ package com.demo.repositories;
 import com.demo.entities.Customer;
 import com.demo.entities.Role;
 import com.demo.entities_api.CustomerApi;
+import com.demo.entities_api.InvoiceApi;
 import com.demo.entities_api.StaffApi;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -42,5 +43,16 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Transactional
     @Query("update Customer c set c.password = :password where c.id = :id")
     public int resetPassword(@Param("id" ) int id, @Param("password") String password);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update Customer c set c.email = :email where c.id = :id")
+    public int resetEmail(@Param("id" ) int id, @Param("email") String email);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update Customer c set c.phone = :phone where c.id = :id")
+    public int resetPhone(@Param("id" ) int id, @Param("phone") String phone);
+
 
 }

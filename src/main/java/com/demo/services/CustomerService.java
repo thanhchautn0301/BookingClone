@@ -110,4 +110,24 @@ public class CustomerService implements ICustomerService {
 		}
 	}
 
+	@Override
+	public int resetEmail(int id, String email) {
+		try {
+			return customerRepository.resetEmail(id,email);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public int resetPhone(int id, String phone) {
+		try {
+			return customerRepository.resetPhone(id,phone);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 }

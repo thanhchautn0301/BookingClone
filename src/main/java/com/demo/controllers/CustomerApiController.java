@@ -177,6 +177,28 @@ public class CustomerApiController {
 		}
 	}
 
+	@RequestMapping(value="resetemail", method= RequestMethod.PUT)
+	public ResponseEntity<?> resetemail(@RequestParam("id") int id,@RequestParam("email") String email) {
+		try {
+			int result = customerService.resetEmail(id, email);
+			return new ResponseEntity<Integer>(result,HttpStatus.OK);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<Integer>(-1,HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@RequestMapping(value="resetphone", method= RequestMethod.PUT)
+	public ResponseEntity<?> resetphone(@RequestParam("id") int id,@RequestParam("phone") String phone) {
+		try {
+			int result = customerService.resetPhone(id, phone);
+			return new ResponseEntity<Integer>(result,HttpStatus.OK);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<Integer>(-1,HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@RequestMapping(value="register", method= RequestMethod.POST)
 	public ResponseEntity<Boolean> register(@RequestParam("email") String email,@RequestParam("password") String password) {
 		try {
