@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.entities_api.AccommodationOfCityApi;
 import com.demo.entities_api.CityApi;
 import com.demo.services.ICityService;
 
@@ -100,13 +101,23 @@ public class CityApiController {
 	        }
 	    }
 	 @RequestMapping(value="findHome", method=RequestMethod.GET)
-	    public ResponseEntity<List<CityApi>> findHome() {
+	    public ResponseEntity<List<AccommodationOfCityApi>> findHome() {
 	        try {
-	            return new ResponseEntity<List<CityApi>>(cityService.findHomeCity(), HttpStatus.OK);
+	            return new ResponseEntity<List<AccommodationOfCityApi>>(cityService.findHomeCity(), HttpStatus.OK);
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
-	            return new ResponseEntity<List<CityApi>>(HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<List<AccommodationOfCityApi>>(HttpStatus.BAD_REQUEST);
 	        }
 	    }
+
+	 @RequestMapping(value="findallwithhome", method=RequestMethod.GET)
+		public ResponseEntity<List<CityApi>> findAllWithHome() {
+			try {
+				return new ResponseEntity<List<CityApi>>(cityService.findAllCityWithHome(), HttpStatus.OK);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				return new ResponseEntity<List<CityApi>>(HttpStatus.BAD_REQUEST);
+			}
+		}
 	 
 }

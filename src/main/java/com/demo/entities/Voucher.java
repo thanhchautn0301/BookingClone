@@ -41,6 +41,18 @@ public class Voucher implements java.io.Serializable {
 		this.status = status;
 	}
 
+
+	public Voucher(Integer id, Accomodation accomodation, Double priceDiscount, Date expDate, boolean status,
+			Set<Invoice> invoices, String name) {
+		this.id = id;
+		this.accomodation = accomodation;
+		this.priceDiscount = priceDiscount;
+		this.expDate = expDate;
+		this.status = status;
+		this.invoices = invoices;
+		this.name = name;
+	}
+
 	public Voucher(Accomodation accomodation, Double priceDiscount, Date expDate, boolean status,
 			Set<Invoice> invoices) {
 		this.accomodation = accomodation;

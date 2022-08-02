@@ -98,6 +98,11 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
+    public List<VoucherApi> findallbyhostid(int id) {
+        return voucherRepository.findAllVoucherByHostId(id);
+    }
+    
+    @Override
     public VoucherApi findVoucherByName(String name) {
         try {
             return  voucherRepository.findVoucherByName(name);
