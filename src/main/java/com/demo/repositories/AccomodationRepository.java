@@ -43,7 +43,8 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id " +
-            "where A.status =true and A.staff.id = :hostId")
+            "where A.status =true and A.staff.id = :hostId " +
+            "group by A.id")
     public List<AccomodationApi> findAllAccomodationByHostId(@Param("hostId") int hostId);
 
 
