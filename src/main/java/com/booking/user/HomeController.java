@@ -28,6 +28,8 @@ import retrofit2.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -50,7 +52,18 @@ public class HomeController {
 	public String index(ModelMap modelMap, RedirectAttributes redirectAttributes) {
 		modelMap.put("accommodationOfCity", cityService.findAllAccommodationOfCity());
 		modelMap.put("accommodationOfCategory", categoryService.findAllAccommodationOfCategory());
-
+		List<AccommodationOfCity> cities = cityService.findHome();
+		int size = cities.size();
+		if(size == 3){
+			modelMap.put("cityHomeFirsts", new ArrayList<AccommodationOfCity>());
+			modelMap.put("cityHomeSeconds", cities);
+		}else if(size < 5){
+			modelMap.put("cityHomeFirsts", cities);
+			modelMap.put("cityHomeSeconds", new ArrayList<AccommodationOfCity>());
+		}else if(size >= 5){
+			modelMap.put("cityHomeFirsts", cities.subList(0, 2));
+			modelMap.put("cityHomeSeconds", cities.subList(2, 5));
+		}
 		if(TokenReader.token !=null) {
 			modelMap.put("msg","has-login");
 			return "home/index";

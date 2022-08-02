@@ -138,10 +138,13 @@ $(function () {
   $('#modal-info #editForm input').attr('aria-invalid',"false");
 
   var id = currentRow.find('input[type="hidden"][name="id"]').val();
-  var name =currentRow.find("td:eq(1)").text().trim(); 
+  var name =currentRow.find("td:eq(1)").text().trim();
+  var isHome = currentRow.find('input[type="hidden"][name="isHome"]').val();
+  console.log("Is home: " + isHome);
 
 
   $('#modal-info #editForm input[name="name"]').val(name);
   $('#modal-info #editForm input[name="id"]').val(id);
+  $('#modal-info #editForm input[name="home"]').prop("checked", isHome !== "false")
 }) 
 

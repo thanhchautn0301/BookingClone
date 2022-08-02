@@ -34,13 +34,13 @@ public class DashboardCityController {
 		if(result != null) {
 			System.out.println("Result : " + result);
 		}
-		modelMap.put("cities", cityService.findAll());
+		modelMap.put("cities", cityService.findAllWithHome());
 		return "superadmin/dashboard/city";
 	}
 	
 	@RequestMapping(value = "add",method = RequestMethod.POST)
 	public String city(@RequestParam("name") String cityName, @RequestParam(name = "photos", required = false) MultipartFile photos
-			,RedirectAttributes redirectAttributes) throws IOException {
+			,RedirectAttributes redirectAttributes, @RequestParam("home") boolean isHome) throws IOException {
 			City city = null;
 			if(photos != null){
 				File imageFile = new File(System.getProperty("java.io.tmpdir")+"/"+ photos.getOriginalFilename());
@@ -52,7 +52,7 @@ public class DashboardCityController {
 				String nameImageString = "";
 				nameImageString = imageService.uploadFile(imageBody);
 				if(nameImageString != "") {
-					city = cityService.create(cityName,nameImageString);
+					city = cityService.create(cityName,nameImageString, isHome);
 				}
 			}
 
@@ -66,11 +66,12 @@ public class DashboardCityController {
 	}
 	
 	@RequestMapping(value = "edit",method = RequestMethod.POST)
-	public String city(@RequestParam("name") String cityName,@RequestParam("id") int id
+	public String city(@RequestParam("name") String cityName, @RequestParam(value = "home", required=false) boolean isHome,@RequestParam("id") int id
 			,RedirectAttributes redirectAttributes) {
 			City city = new City();
 			city.setId(id);
 			city.setName(cityName);
+			city.setHome(isHome);
 			boolean result = cityService.update(city);
 			if(result) {
 				redirectAttributes.addFlashAttribute("result","success");

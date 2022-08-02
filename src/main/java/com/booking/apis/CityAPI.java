@@ -33,4 +33,10 @@ public interface CityAPI {
 
 	@GET("city/findAllAccommodationOfCity")
 	public Call<List<AccommodationOfCity>> findAllAccommodationOfCity();
+
+	@GET("city/findallwithhome")
+	public Call<List<City>> findallWithHome();
+
+	@GET("city/findHome")
+	public Call<List<AccommodationOfCity>> findHome();
 }

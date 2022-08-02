@@ -323,7 +323,8 @@ isELIgnored="false"%>
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Tên thành phố</th>    
+                      <th>Tên thành phố</th>
+                      <th>Hiện thị ở trang chủ</th>    
                       <th></th>
                     </tr>
                   </thead>
@@ -331,8 +332,19 @@ isELIgnored="false"%>
                   	<c:forEach var="city" items="${cities}">
 	                  	<tr>
 	                      <input type="hidden" name="id" value="${city.id}">
+                        <input type="hidden" name="isHome" value="${city.home}">
 	                      <td></td>
 	                      <td><a href="" role="button" data-toggle="modal" data-target="#modal-info">${city.name}</a></td>
+	                      <td>
+                          <c:choose>
+                            <c:when test="${city.home}">
+                              <span class="badge badge-success">Có</span>
+                            </c:when>    
+                            <c:otherwise>
+                              <span class="badge badge-secondary">Không</span>
+                            </c:otherwise>
+                        </c:choose>
+                        </td>
 	                      <td><a href="${pageContext.request.contextPath }/superadmin/dashboard/city/delete/${city.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fas fa-times"></i></a></td>
 	                    </tr> 
                   	</c:forEach>
@@ -367,6 +379,12 @@ isELIgnored="false"%>
                         <label class="custom-file-label" for="exampleInputFile">Upload image</label>
                       </div>
                     </div>
+                  </div>
+                  <div class="form-group ml-4">
+                    <input type="checkbox" autocomplete="off" class="form-check-input" name="home" id="isHome">
+                    <label class="form-check-label " for="isHome">
+                      Hiện thị ở trang chủ
+                    </label>
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -409,6 +427,12 @@ isELIgnored="false"%>
         <div class="form-group">
           <label>Tên thành phố</label>
           <input type="text" autocomplete="off" class="form-control" name="name">
+        </div>
+        <div class="form-group ml-4">
+          <input type="checkbox" autocomplete="off" class="form-check-input" name="home" id="isHome">
+          <label class="form-check-label " for="isHome">
+            Hiện thị ở trang chủ
+          </label>
         </div>
         <input type="hidden" name="id">
       </div>

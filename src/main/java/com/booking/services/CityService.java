@@ -26,10 +26,11 @@ public class CityService implements ICityService {
 
 
 	@Override
-	public City create(String name, String image) {
+	public City create(String name, String image, boolean isHome) {
 		City city = new City();
 		city.setImage(image);
 		city.setName(name);
+		city.setHome(isHome);
 		city.setStatus(true);
 		try {
 			Response<City> response = cityAPI.create(city).execute();
@@ -58,7 +59,7 @@ public class CityService implements ICityService {
 	@Override
 	public boolean update(City city) {
 		try {
-			System.out.println("City id : " + city.getId() + "\n Name: " + city.getName());
+			System.out.println("City id : " + city.getId() + "\n Name: " + city.getName() + "\n IsHome: " + city.isHome());
 			Response<Boolean> response = cityAPI.update(city).execute();
 			return response.body();
 		} catch (Exception e) {
@@ -97,6 +98,32 @@ public class CityService implements ICityService {
 	public List<AccommodationOfCity> findAllAccommodationOfCity() {
 		try {
 			Response<List<AccommodationOfCity>> response = cityAPI.findAllAccommodationOfCity().execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+
+	@Override
+	public List<City> findAllWithHome() {
+		try {
+			Response<List<City>> response = cityAPI.findallWithHome().execute();
+			return response.body();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+
+	@Override
+	public List<AccommodationOfCity> findHome() {
+		try {
+			Response<List<AccommodationOfCity>> response = cityAPI.findHome().execute();
 			return response.body();
 		} catch (Exception e) {
 			e.printStackTrace();
