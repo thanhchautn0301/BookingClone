@@ -1,3 +1,13 @@
+  $(document).ready(function(){
+	  var amountChilds = $('.amount-result[data-field="childs"]').text();
+  		if(amountChilds == 0 || amountChilds == '0'){
+				$('button[data-type="minus"][data-field="childs"]').addClass('disable');
+  		}
+  		else{
+				$('button[data-type="minus"][data-field="childs"]').removeClass('disable');
+  		}	
+})
+  
   var inputFilterRoom = $('#input-filter-room');
   
   /* Begin of Action */

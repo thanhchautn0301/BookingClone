@@ -65,8 +65,7 @@ $("#check-room-date").flatpickr({
     mode: "range",
     showMonths: 2,
     minDate: "today",
-    dateFormat: "d-m-Y",
-    defaultDate: 'today'
+    dateFormat: "d-m-Y"
 });
 
 $('.flatpickr-input:visible').on('focus', function () {

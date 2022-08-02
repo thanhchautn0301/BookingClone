@@ -341,6 +341,7 @@
             $('#voucher-check').submit(function(ev){
                 var voucher_name  = $('#voucher-check input[class="voucherSelect"]').val();
                 var accomodation_id = $('#voucher-check input[type="hidden"][name="accomodation_id"]').val();
+                
                 if(voucher_name !== ""){
                   $.ajax({
                     type:'GET',
@@ -368,13 +369,13 @@
                          
                        }
                        else{
-                    	 $('#totalPrice').text($('#currentPrice').text());
+                    	 $('#totalPrice').text(((+$('#currentPrice').text()) * +$('#stayDays').val()));
                     	 $('input[type="hidden"][name="voucher"]').val("");
                          alert('The voucher is currently unavailable because it has expired ('+result.expDate+')');
                        }
                      }
                      else{
-                       $('#totalPrice').text($('#currentPrice').text());
+                       $('#totalPrice').text(((+$('#currentPrice').text()) * +$('#stayDays').val()));
                        $('input[type="hidden"][name="voucher"]').val("");
                        alert('This voucher is not found');
                      }

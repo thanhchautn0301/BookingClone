@@ -1,5 +1,16 @@
+<%@page import="com.booking.helpers.Filter"%>
+<%@page import="com.booking.helpers.BookingDateHelper"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+Filter filterSession = (Filter) session.getAttribute("filter");
+long stayDays = 0;
+String dateRangeDetails = "";
+if(filterSession.getFromDate() != null & filterSession.getToDate() != null){
+	stayDays = BookingDateHelper.countDay(filterSession.getFromDate(), filterSession.getToDate());
+	dateRangeDetails = filterSession.getFromDate() + " to " + filterSession.getToDate();
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +24,14 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/flatpickr.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==
     " crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/sweetalert2/sweetalert2.min.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css" />
+  <style>
+  	body.swal2-shown.swal2-height-auto{
+  		padding-right: 0 !important;
+  		margin-right: 10px;
+  	}
+  </style>
 </head>
 
 <body>
@@ -207,7 +225,7 @@
               </div>
             </div>
             <!-- Filter-Form -->
-            <form action="" class="row py-3 px-2 bg-orange bd-r-2 needs-validation mx-0" novalidate>
+            <form action="${pageContext.request.contextPath}/home/searchhome" method="get" class="row py-3 px-2 bg-orange bd-r-2 needs-validation mx-0" novalidate>
               <h4 class="h4">Tìm</h4>
               <div class="col-sm-12">
                 <label for="province-filter" class="form-label mb-0 fs-12">Tên chỗ nghỉ / điểm đến:</label>
@@ -216,53 +234,53 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                   </span>
                   <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white"
-                    value="Vũng Tàu" aria-label="province" id="province-filter" autocomplete="off" required />
+                    value="${sessionScope.filter.cityName }" aria-label="province" id="province-filter" autocomplete="off" name="cityName" required />
                   <div class="invalid-feedback mb-1">
                     <span style="background-color: #fff0f0" class="d-block p-2 bd-r-2 d-flex align-items-center">
                       <i class="fa-solid fa-circle-info fs-20 me-2"></i>
-                      <span class="text-dark">Vui lòng nhập điểm đến để bắt đầu tìm kiếm.</span>
+                      <span class="text-dark">Please enter a destination to start your search.</span>
                     </span>
                   </div>
                 </div>
               </div>
               <div class="col-sm-12">
-                <label for="" class="form-label mb-0 fs-12">Ngày nhận phòng</label>
+                <label for="" class="form-label mb-0 fs-12">Check in Date</label>
                 <div class="input-group bd-r-2">
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-calendar-day"></i>
                   </span>
                   <input type="text" class="form-control p-c ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white"
-                    id="checkin-date-filter" value="Ngày nhận phòng" data-date-value="" />
+                    id="checkin-date-filter" value="${sessionScope.filter.fromDate}" name="datecheckin" placeholder="Check in date"/>
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-angle-down fs-12"></i>
                   </span>
                 </div>
               </div>
               <div class="col-sm-12">
-                <label for="" class="form-label mb-0 fs-12">Ngày trả phòng</label>
+                <label for="" class="form-label mb-0 fs-12">Check out Date</label>
                 <div class="input-group bd-r-2">
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-calendar-day"></i>
                   </span>
                   <input type="text" class="form-control p-c ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white"
-                    id="checkout-date-filter" value="Ngày trả phòng" data-date-value="" />
+                    id="checkout-date-filter" value="${sessionScope.filter.toDate}" name="checkout" placeholder="Check in date"/>
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-angle-down fs-12"></i>
                   </span>
                 </div>
               </div>
               <div class="col-sm-12">
-                <label for="" class="form-label mb-0 fs-12">Nghỉ 1 đêm</label>
+                <label for="" class="form-label mb-0 fs-12"><%= stayDays %> night stay</label>
                 <div class="input-group bd-r-2 position-relative">
                   <input type="text"
                     class="form-control fs-14 py-2 shadow-none border-0 bd-r-2 bg-white input-drop-select p-c"
-                    aria-label="filterRoom" id="input-filter-room" value="2 người lớn - 0 trẻ em - 1 phòng" readonly />
+                    aria-label="filterRoom" id="input-filter-room" name="category" value="${sessionScope.filter.adult } adults - ${sessionScope.filter.children } children" readonly />
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-angle-down fs-12"></i>
                   </span>
                   <div class="input-list-dropdown bg-white p-3" id="filter-room-form">
                     <div class="d-flex align-items-center justify-content-between my-1">
-                      <span class="text-dark fw-500 fs-14">Người lớn</span>
+                      <span class="text-dark fw-500 fs-14">Adults</span>
                       <div class="filter-room__action2 d-flex align-items-center me-2 border">
                         <button class="btn btn-action border-0 br-0 shadow-none" data-type="minus" data-field="adults"
                           type="button">
@@ -270,7 +288,7 @@
                         </button>
                         <span
                           class="text-dark fw-500 w-40 h-40 d-flex align-items-center justify-content-center amount-result"
-                          data-field="adults">2</span>
+                          data-field="adults">${sessionScope.filter.adult }</span>
                         <button class="btn btn-action border-0 br-0 shadow-none" data-type="plus" data-field="adults"
                           type="button">
                           <i class="fa-solid fa-plus"></i>
@@ -278,7 +296,7 @@
                       </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between my-1">
-                      <span class="text-dark fw-500 fs-14">Trẻ em</span>
+                      <span class="text-dark fw-500 fs-14">Children</span>
                       <div class="filter-room__action2 d-flex align-items-center me-2 border">
                         <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus"
                           data-field="childs" type="button">
@@ -286,14 +304,14 @@
                         </button>
                         <span
                           class="text-dark fw-500 w-40 h-40 d-flex align-items-center justify-content-center amount-result"
-                          data-field="childs">0</span>
+                          data-field="childs">${sessionScope.filter.children }</span>
                         <button class="btn btn-action border-0 br-0 shadow-none" data-type="plus" data-field="childs"
                           type="button">
                           <i class="fa-solid fa-plus"></i>
                         </button>
                       </div>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between my-1">
+                    <div class="d-flex align-items-center justify-content-between my-1 d-none">
                       <span class="text-dark fw-500 fs-14">Phòng</span>
                       <div class="filter-room__action2 d-flex align-items-center me-2 border">
                         <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus"
@@ -326,17 +344,13 @@
             <div class="col-sm-12">
               <div class="d-flex align-items-center has-bd-bt flex-wrap">
                 <a href=""
-                  class="p-2 text-decoration-none hv-black bg-blue2 bd-r-2 flex-fill text-center fw-bold text-blue">Thông
-                  tin căn hộ & giá</a>
+                  class="p-2 text-decoration-none hv-black bg-blue2 bd-r-2 flex-fill text-center fw-bold text-blue">Apartment information & prices</a>
                 <a href=""
-                  class="p-2 text-decoration-none hv-black bg-blue2 me-sm-0 me-md-1 mx-1 bd-r-2 text-center fw-bold text-blue">Tiện
-                  nghi</a>
+                  class="p-2 text-decoration-none hv-black bg-blue2 me-sm-0 me-md-1 mx-1 bd-r-2 text-center fw-bold text-blue">Convenients</a>
                 <a href=""
-                  class="p-2 text-decoration-none hv-black bg-blue2 me-sm-1 me-md-0 me-lg-1 bd-r-2 text-center fw-bold text-blue">Quy
-                  tắc chung</a>
+                  class="p-2 text-decoration-none hv-black bg-blue2 me-sm-1 me-md-0 me-lg-1 bd-r-2 text-center fw-bold text-blue">General rules</a>
                 <a href=""
-                  class="p-2 text-decoration-none hv-black mb-sm-1 mb-md-0 mt-sm-1 mt-lg-0 bg-blue2 bd-r-2 flex-fill text-center fw-bold text-blue">Đánh
-                  giá của khách (817)</a>
+                  class="p-2 text-decoration-none hv-black mb-sm-1 mb-md-0 mt-sm-1 mt-lg-0 bg-blue2 bd-r-2 flex-fill text-center fw-bold text-blue">Guest Reviews (+∞)</a>
               </div>
             </div>
           </div>
@@ -344,13 +358,13 @@
             <div class="col-sm-12 mt-3">
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                  <span class="bg-secondary bd-r-2 fs-12 text-white p-1 me-2">Khách sạn</span>
+                  <span class="bg-secondary bd-r-2 fs-12 text-white p-1 me-2">${accommodation.category_name }</span>
                   <span class="fw-bold h4 text-black mb-0">${accommodation.name}</span>
                 </div>
                 <div class="d-flex align-items-center">
                   <i class="fa-regular fa-heart fs-20 text-blue me-3"></i>
                   <a href="#table-hotel" class="btn btn-primary2 bd-r-2 text-white" type="button">
-                    Đặt ngay
+                    Book now!
                   </a>
                 </div>
               </div>
@@ -412,21 +426,17 @@
         </div>
       </div>
       <!-- Features-info -->
-      <div class="row my-4">
+    <!--   <div class="row my-4">
         <c:forEach var="service" items="${services}">
           <div class="col">
             <div class="text-center">
-              <svg viewBox="0 0 128 128" width="2em" height="2em">
-                <path
-                        d="M8 40v76a4 4 0 0 0 4 4h104a4 4 0 0 0 4-4V40zm96 56H24V72h80zm0-32H24v-8h80zm12-56H12a4 4 0 0 0-4 4v20h112V12a4 4 0 0 0-4-4zM92 26a6 6 0 1 1 6-6 6 6 0 0 1-6 6zm16 0a6 6 0 1 1 6-6 6 6 0 0 1-6 6z">
-                </path>
-              </svg>
+    			<i class="fa-solid fa-square-h fs-2"></i>
               <p class="mb-0">${service.name}</p>
             </div>
           </div>
         </c:forEach>
 
-      </div>
+      </div> -->
       <!-- Hotel-description -->
       <div class="row mt-3">
         <div class="col-sm-6 col-lg-9">
@@ -438,30 +448,29 @@
           <div>
             <div class="bg-blue2 bd-r-2 mb-3">
               <div class="p-3">
-                <h6 class="fw-bold">Điểm nổi bật của chỗ nghỉ</h6>
+                <h6 class="fw-bold">Highlights of the property</h6>
                 <p class="d-flex align-items-center mt-2">
                   <span class="icon-size px-2 me-2">
                     <i class="fa-solid fa-location-dot fs-20"></i>
                   </span>
-                  <span class="fs-14">Địa điểm hàng đầu: Được khách gần đây đánh giá cao (8,8
-                    điểm)</span>
+                  <span class="fs-14">Top Location: Highly rated by recent guests (8.8 points)</span>
                 </p>
                 <p class="d-flex align-items-center mt-2">
                   <span class="icon-size px-2 me-2">
                     <i class="fa-solid fa-square-parking fs-20"></i>
                   </span>
-                  <span class="fs-14">Có chỗ đậu xe trong khuôn viên</span>
+                  <span class="fs-14">Parking is available on site</span>
                 </p>
               </div>
             </div>
             <div class="bg-blue2 bd-r-2">
               <div class="p-3">
                 <p class="text-success fw-500 fs-14 mb-2">
-                  <i class="fa-solid fa-check fs-5"></i> Thông tin uy tín
+                  <i class="fa-solid fa-check fs-5"></i> Reputable information
                 </p>
                 <p class="fs-12">
-                  Khách nói rằng mô tả và hình ảnh chỗ nghỉ này
-                  <span class="fw-bold">đúng với sự thật.</span>
+                  Guests say the property's description and photos are
+                  <span class="fw-bold">true.</span>
                 </p>
               </div>
             </div>
@@ -469,11 +478,11 @@
         </div>
         <div class="col-sm-12 col-lg-9">
           <div class="features">
-            <h6 class="h6 fw-bold mb-3">Các tiện nghi được ưa chuộng nhất</h6>
+            <h6 class="h6 fw-bold mb-3">The most popular amenities</h6>
             <div>
               <span class="me-2">
                 <i class="fa-solid fa-water text-success fs-5"></i>
-                <span class="fs-14"> Giáp biển </span>
+                <span class="fs-14"> Seafront </span>
               </span>
               <span class="me-2">
                 <i class="fa-solid fa-wifi text-success fs-5"></i>
@@ -481,15 +490,15 @@
               </span>
               <span class="me-2">
                 <i class="fa-solid fa-square-parking text-success fs-5"></i>
-                <span class="fs-14"> Chỗ đỗ xe </span>
+                <span class="fs-14"> Parking </span>
               </span>
               <span class="me-2">
                 <i class="fa-solid fa-people-group text-success fs-5"></i>
-                <span class="fs-14"> Phòng gia đình </span>
+                <span class="fs-14"> Family's room </span>
               </span>
               <span class="me-2">
                 <i class="fa-solid fa-ban-smoking text-success fs-5"></i>
-                <span class="fs-14"> Phòng không hút thuốc </span>
+                <span class="fs-14"> Non-Smoking Room </span>
               </span>
             </div>
           </div>
@@ -502,19 +511,18 @@
       <div class="row">
         <div class="col-12">
           <div class="d-flex align-items-center justify-content-between">
-            <h4>Phòng trống</h4>
+            <h4>Empty Room</h4>
             <div class="hover-cs text-center mb-2 px-0 py-2">
               <p class="fw-500 fs-14 text-dark mb-0">
                 <i class="fa-solid fa-clipboard-check primary-text fs-6"></i>
-                Chúng Tôi Luôn Khớp Giá!
+                We always Price Matched!
               </p>
               <div class="hover-cs-info bg-black-fade text-start">
-                <span class="text-success fs-14 fw-bold">Chúng Tôi Luôn Khớp Giá!</span>
+                <span class="text-success fs-14 fw-bold">We always Price Matched!</span>
                 <p class="d-flex mb-0">
                   <span class="p-3"><i class="fa-solid fa-clipboard-check text-success fs-2"></i></span>
                   <span class="fs-14">
-                    Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá
-                    thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!
+                    Low room rates • No booking fees • Find a lower price? We will refund the difference!
                   </span>  
                 </p>
               </div>
@@ -524,114 +532,79 @@
         <div class="col-12">
           <div class="room-check p-2 mb-3">
             <div class="fs-18 m-2 mb-0">
-              Bạn muốn nghỉ tại Gia Tuan's Hotel vào lúc nào?
+              When would you like to stay at ${accommodation.name }?
             </div>
-            <form action="" class="needs-validation p-2">
-              <div class="fw-bold fs-14 mb-2">Ngày nhận - trả phòng</div>
+            <form method="get" class="p-2" id="check-room-form">
+              <div class="fw-bold fs-14 mb-2">Check in - Check out</div>
               <div class="d-flex flex-wrap">
                 <div class="input-group bd-r-2 w-25 flex-sm-fill me-sm-0 me-2">
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-calendar-day"></i>
                   </span>
-                  <input type="text" id="check-room-date" name="daterange" value=""
-
+                  <input type="text" id="check-room-date" value="<%= dateRangeDetails %>"
                     class="form-control p-c ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white" data-date-value=""
-                    required />
+                   />
                   <span class="input-group-text border-0 bg-white">
                     <i class="fa-solid fa-angle-down fs-12"></i>
                   </span>
                 </div>
                 <div
                   class="d-flex justify-content-sm-between align-items-center my-sm-2 my-md-0 flex-fill justify-content-md-evenly">
-                  <div >
-                    <span>Phòng</span>
-                    <select class="form-select p-c shadow-none select-box d-inline-block" aria-label="roomSelect">
-                      <option value="1" selected>1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4</option>
-                      <option value="">5</option>
-                      <option value="">6</option>
-                      <option value="">7</option>
-                      <option value="">8</option>
-                      <option value="">9</option>
-                      <option value="">10</option>
-                      <option value="">11</option>
-                      <option value="">12</option>
-                      <option value="">13</option>
-                      <option value="">14</option>
-                      <option value="">15</option>
-                      <option value="">16</option>
-                      <option value="">17</option>
-                      <option value="">18</option>
-                      <option value="">19</option>
-                      <option value="">20</option>
-                      <option value="">21</option>
-                      <option value="">22</option>
-                      <option value="">23</option>
-                      <option value="">24</option>
-                      <option value="">25</option>
-                      <option value="">26</option>
-                      <option value="">27</option>
-                      <option value="">28</option>
-                      <option value="">29</option>
-                      <option value="">30</option>
-                    </select>
-                  </div>
                   <div>
-                    <span>Người lớn</span>
-                    <select class="form-select p-c shadow-none select-box d-inline-block" aria-label="roomSelect">
-                      <option value="1" selected>1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                      <option value="">4</option>
-                      <option value="">5</option>
-                      <option value="">6</option>
-                      <option value="">7</option>
-                      <option value="">8</option>
-                      <option value="">9</option>
-                      <option value="">10</option>
-                      <option value="">11</option>
-                      <option value="">12</option>
-                      <option value="">13</option>
-                      <option value="">14</option>
-                      <option value="">15</option>
-                      <option value="">16</option>
-                      <option value="">17</option>
-                      <option value="">18</option>
-                      <option value="">19</option>
-                      <option value="">20</option>
-                      <option value="">21</option>
-                      <option value="">22</option>
-                      <option value="">23</option>
-                      <option value="">24</option>
-                      <option value="">25</option>
-                      <option value="">26</option>
-                      <option value="">27</option>
-                      <option value="">28</option>
-                      <option value="">29</option>
-                      <option value="">30</option>
-                    </select>
-                  </div>
-                  <div>
-                    <span>Trẻ em</span>
-                    <select class="form-select p-c shadow-none select-box d-inline-block" aria-label="roomSelect">
-                      <option value="0" selected>0</option>
+                    <span>Adults</span>
+                    <select id="checkRoom-adults" class="form-select p-c shadow-none select-box d-inline-block" data-value="${sessionScope.filter.adult }" aria-label="roomSelect">
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
-                      <option value="4">5</option>
-                      <option value="4">6</option>
-                      <option value="4">7</option>
-                      <option value="4">8</option>
-                      <option value="4">9</option>
-                      <option value="4">10</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span>Children</span>
+                    <select id="checkRoom-children" class="form-select p-c shadow-none select-box d-inline-block" data-value="${sessionScope.filter.children }" aria-label="roomSelect">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
                     </select>
                   </div>
                 </div>
+                <input type="hidden" id="accommodation_id" value="${accommodation.id}">
                 <button class="btn btn-primary2 flex-sm-grow-1 mt-sm-2 mt-lg-0 text-white bd-r-2" type="submit">
-                  Kiểm tra phòng trống
+                  Check room
                 </button>
               </div>
             </form>
@@ -660,8 +633,12 @@
               </tr>
             </thead>
             <tbody class="border-top-0">
-            <c:forEach var="room" items="${rooms}">
-            <tr>
+           	<c:if test="${rooms == null }">
+           		<p id="room-null" class="text-danger py-2"><i class="fa-solid fa-circle-info fs-20"></i>&nbsp;Select dates to see availability and prices at this property</p>
+           	</c:if>
+           	<c:if test="${rooms != null }">
+           		<c:forEach var="room" items="${rooms}">
+            <tr class="room-found">
               <td class="w-25">
                 <div class="">
                   <a href="" class="text-blue h5 fw-bold">${room.nameRoom}</a>
@@ -695,15 +672,17 @@
                 </ul>
               </td>
               <td class="b-l-hotel bg-book-room">
-                <form action="${pageContext.request.contextPath}/customer/booking/form" method="get" class="h-100 d-flex justify-content-center text-center align-items-center">
-                  <input type="hidden" name="checkIn" value="03-09-2022">
-                  <input type="hidden" name="checkOut" value="08-09-2022">
+                <form id="checkRoomEmpty" action="${pageContext.request.contextPath}/customer/booking/form" method="get" class="h-100 d-flex justify-content-center text-center align-items-center">
+                  <input type="hidden" name="checkIn" value="${sessionScope.filter.fromDate }">
+                  <input type="hidden" name="checkOut" value="${sessionScope.filter.toDate }">
                   <input type="hidden" name="id" value="${room.id}">
-                  <button class="text-blue bg-white border-0 text-decoration-underline" type="submit">Đặt chỗ ngay</button>
+                  <button class="text-blue bg-white text-bg-transparent border-0 text-decoration-underline" type="submit">Booking now!</button>
                 </form>
               </td>
             </tr>
             </c:forEach>
+           	</c:if>
+            
             </tbody>
           </table>
         </div>
@@ -1236,11 +1215,13 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/toolTip.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/sweetalert2/sweetalert2.all.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/inputFilterDate.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/customFilter.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/splide.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/customSliderDetails.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/custom/bsValidation.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/custom/detailsCheckRoom.js"></script>
 </body>
 
 </html>
