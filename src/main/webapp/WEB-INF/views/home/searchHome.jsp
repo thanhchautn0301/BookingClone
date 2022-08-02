@@ -1,5 +1,11 @@
+<%@page import="com.booking.helpers.BookingDateHelper"%>
+<%@page import="com.booking.helpers.Filter"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+Filter filterSession = (Filter) session.getAttribute("filter");
+long stayDays = BookingDateHelper.countDay(filterSession.getFromDate(), filterSession.getToDate());
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,11 +195,11 @@
                               <i class="fa-solid fa-magnifying-glass"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 py-2 shadow-none border-0 bd-r-2 bg-white" name="cityName"
-                             aria-label="province" id="province-filter" autocomplete="off" required value="${filter.cityName}">
+                             aria-label="province" id="province-filter" autocomplete="off" required value="${sessionScope.filter.cityName}">
                              <div class="invalid-feedback mb-1" >
                               <span style="background-color:#fff0f0" class="d-block p-2 bd-r-2 d-flex align-items-center">
                                 <i class="fa-solid fa-circle-info fs-20 me-2"></i>
-                                <span class="text-dark">Vui lòng nhập điểm đến để bắt đầu tìm kiếm.</span>
+                                <span class="text-dark">Please enter a destination to start your search.</span>
                               </span>
                              
                              </div>
@@ -207,7 +213,7 @@
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 p-c py-2 shadow-none border-0 bd-r-2 bg-white"
-                             id="checkin-date-filter" placeholder="Check-in date" name="datecheckin" value="${filter.fromDate}">
+                             id="checkin-date-filter" placeholder="Check-in date" name="datecheckin" value="${sessionScope.filter.fromDate}">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
@@ -220,19 +226,19 @@
                               <i class="fa-solid fa-calendar-day"></i>
                             </span>
                             <input type="text" class="form-control ps-0 fs-14 py-2 p-c shadow-none border-0 bd-r-2 bg-white"
-                              id="checkout-date-filter" placeholder="Check-out date" name="checkout" value="${filter.toDate}">
+                              id="checkout-date-filter" placeholder="Check-out date" name="checkout" value="${sessionScope.filter.toDate}">
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
                           </div>
                         </div>
                         <div class="col-sm-12">
-                          <label for="" class="form-label mb-0 fs-12"><!-- Chau viet tinh ngay o day checkout-checkin --> Night stay</label>
+                          <label for="" class="form-label mb-0 fs-12"><%=stayDays %>&nbsp;Night stay</label>
                           <div class="input-group bd-r-2 position-relative">
-                            <input type="text" class="form-control fs-14 py-2
+                            <input type="text" class="form-control fs-14 py-2 no-validate
                              shadow-none border-0 bd-r-2 bg-white input-drop-select p-c" name="category"
                              aria-label='filterRoom' id="input-filter-room"
-                              value="${filter.adult} adults - ${filter.children} children"/>
+                              value="${sessionScope.filter.adult} adults - ${sessionScope.filter.children} children"/>
                             <span class="input-group-text border-0 bg-white">
                               <i class="fa-solid fa-angle-down fs-12"></i>
                             </span>
@@ -244,7 +250,7 @@
                                     <i class="fa-solid fa-minus"></i>
                                   </button>
                                   <span class="text-dark fw-500 w-40 h-40 d-flex
-                                     align-items-center justify-content-center amount-result" data-field="adults">2</span>
+                                     align-items-center justify-content-center amount-result" data-field="adults">${sessionScope.filter.adult }</span>
                                   <button class="btn btn-action border-0 br-0 shadow-none" data-type="plus" data-field="adults" type="button">
                                     <i class="fa-solid fa-plus"></i>
                                   </button>
@@ -253,11 +259,11 @@
                               <div class="d-flex align-items-center justify-content-between my-1">
                                 <span class="text-dark fw-500 fs-14">Children</span>
                                 <div class="filter-room__action2 d-flex align-items-center me-2 border">
-                                  <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus" data-field="childs" type="button">
+                                  <button class="btn btn-action border-0 br-0 shadow-none" data-type="minus" data-field="childs" type="button">
                                     <i class="fa-solid fa-minus"></i>
                                   </button>
                                   <span class="text-dark fw-500 w-40 h-40 d-flex
-                                     align-items-center justify-content-center amount-result" data-field="childs">0</span>
+                                     align-items-center justify-content-center amount-result" data-field="childs">${sessionScope.filter.children }</span>
                                   <button class="btn btn-action border-0 br-0 shadow-none" data-type="plus" data-field="childs" type="button">
                                     <i class="fa-solid fa-plus"></i>
                                   </button>
@@ -266,7 +272,7 @@
                               <div class="d-flex align-items-center justify-content-between my-1 d-none">
                                 <span class="text-dark fw-500 fs-14">Room</span>
                                 <div class="filter-room__action2 d-flex align-items-center me-2 border">
-                                  <button class="btn btn-action border-0 br-0 shadow-none disable" data-type="minus" data-field="rooms" type="button">
+                                  <button class="btn btn-action border-0 br-0 shadow-none" data-type="minus" data-field="rooms" type="button">
                                     <i class="fa-solid fa-minus"></i>
                                   </button>
                                   <span class="text-dark fw-500 w-40 h-40 d-flex
@@ -517,7 +523,7 @@
                  </aside>
               </div>
               <div class="col-sm-8 col-md-9">
-                <h4 class="h4 fw-bold">${filter.cityName}: ${result} found.</h4>
+                <h4 class="h4 fw-bold">${sessionScope.filter.cityName}: ${result} found.</h4>
                 <div class="row">
                   <div class="col-sm-12"><hr style="color: #ccc;"></div>
                 </div>
@@ -585,8 +591,7 @@
                             </span>
                             <div class="text-secondary fs-12 w-100 ps-2 has-separated limit-line mt-2">
                               ${room.roomType_name}<br/>
-                              ${filter.adult} Adult<br/>${filter.children} Children<br/>
-
+                              ${sessionScope.filter.adult} Adult<br/>${sessionScope.filter.children} Children<br/>
                             </div>
                           </div>
 

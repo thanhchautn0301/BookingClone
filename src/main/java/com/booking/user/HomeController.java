@@ -87,58 +87,50 @@ public class HomeController {
 			filter.setChildren(roomType.getQuantityChildren());
 			if (searchAccommodation != null && searchAccommodation.getAccommodationQuantity() > 0) {
 				int result = searchAccommodation.getAccommodationQuantity();
-
 				List<Accommodation> accomodations = searchAccommodation.getAccommodations();
-
-				session.setAttribute("filter",filter);
 				if (result > 1) {
 					modelMap.put("result", result + " accomodations");
 					modelMap.put("city", city);
 					modelMap.put("accomms", accomodations);
-					modelMap.put("filter", filter);
+//					modelMap.put("filter", filter);
 				} else {
 					modelMap.put("result", result + " accomodation");
 					modelMap.put("city", city);
 					modelMap.put("accomms", accomodations);
-					modelMap.put("filter", filter);
+//					modelMap.put("filter", filter);
 				}
 			} else {
 				List<Accommodation> accomodations = searchAccommodation.getAccommodations();
 				modelMap.put("result", 0 + " accomodation");
 				modelMap.put("city", city);
 				modelMap.put("accomms", null);
-				modelMap.put("filter", filter);
 			}
+			filter.setCityName(cityName);
+			session.setAttribute("filter",filter);
 			return "home/search";
 		}else{
 			Filter filter = new Filter();
 			RoomType roomType = Util.GetRoomType(category);
 			List<String> dates = Util.getDate(dateRange);
-
 			filter.setCityName(cityName);
 			filter.setFromDate(dates.get(0));
 			filter.setToDate(dates.get(1));
 			filter.setAdult(roomType.getQuantityAdult());
 			filter.setChildren(roomType.getQuantityChildren());
-
-			session.setAttribute("filter",filter);
-
 			List<RoomHome> rooms = null;
 			try {
 				 rooms = roomService.findroombycitydaterequest(cityName,dateRange,category);
 				if(rooms.size() > 0){
 					modelMap.put("result", rooms.size() + " Room");
-					modelMap.put("rooms", rooms);
-					modelMap.put("filter", filter);
+					modelMap.put("rooms", rooms);					
 				}else{
 					modelMap.put("result", 0 + " Room");
 					modelMap.put("rooms", null);
-					modelMap.put("filter", filter);
 				}
-
+				session.setAttribute("filter",filter);
 				return "home/searchHome";
 			}catch (Exception e){
-				redirectAttributes.addFlashAttribute("msg","Error server not find");
+				redirectAttributes.addFlashAttribute("msg","Error server not found");
 				return "redirect:/home/index";
 			}
 		}
@@ -173,28 +165,22 @@ public class HomeController {
 
 		AccommodationDetail accommodationDetail = new AccommodationDetail();
 		Filter filter = (Filter) session.getAttribute("filter");
-//		if(filter != null ){
-//			accommodationDetail = accommodationService.findaccommodationdetail1(id, filter.getFromDate(), filter.getToDate(), filter.getAdult(), filter.getChildren());
-//		}else{
-//			accommodationDetail = accommodationService.findaccommodationdetail(id);
-//		}
-		accommodationDetail = accommodationService.findaccommodationdetail(id);
-
+		if(filter.getFromDate() !=null && filter.getToDate() !=null && filter.getAdult() !=null && filter.getChildren() !=null){
+			accommodationDetail = accommodationService.findaccommodationdetail1(id, filter.getFromDate(), filter.getToDate(), filter.getAdult(), filter.getChildren());
+		}else{
+			accommodationDetail = accommodationService.findaccommodationdetail(id);
+		}
 		List<String> images = accommodationDetail.getImages();
 		List<Service> services = accommodationDetail.getServices();
 		List<RoomDetail> rooms = accommodationDetail.getRooms();
-
-
-
-
-
 		Accommodation accommodations = accommodationDetail.getAccommodation();
 		modelMap.put("images",images);
 		modelMap.put("services",services);
+		if(filter.getFromDate() ==null && filter.getToDate() == null) {
+			rooms = null;
+		}
 		modelMap.put("rooms",rooms);
 		modelMap.put("accommodation",accommodations);
-
-
 		return "home/details";
 	}
 
@@ -213,26 +199,23 @@ public class HomeController {
 			filter.setChildren(roomType.getQuantityChildren());
 			if (searchAccommodation != null && searchAccommodation.getAccommodationQuantity() > 0) {
 				int result = searchAccommodation.getAccommodationQuantity();
-
 				List<Accommodation> accomodations = searchAccommodation.getAccommodations();
 				if (result > 1) {
 					modelMap.put("result", result + " accomodations");
 					modelMap.put("city", city);
 					modelMap.put("accomms", accomodations);
-					modelMap.put("filter", filter);
 				} else {
 					modelMap.put("result", result + " accomodation");
 					modelMap.put("city", city);
 					modelMap.put("accomms", accomodations);
-					modelMap.put("filter", filter);
 				}
 			} else {
 				List<Accommodation> accomodations = searchAccommodation.getAccommodations();
 				modelMap.put("result", 0 + " accomodation");
 				modelMap.put("city", city);
 				modelMap.put("accomms", null);
-				modelMap.put("filter", filter);
 			}
+			session.setAttribute("filter", filter);
 			return "home/search";
 		}else{
 			String dateRange = fromDate +" to "+toDate;
@@ -244,22 +227,17 @@ public class HomeController {
 			filter.setToDate(toDate);
 			filter.setAdult(roomType.getQuantityAdult());
 			filter.setChildren(roomType.getQuantityChildren());
-
-			session.setAttribute("filter",filter);
-
 			List<RoomHome> rooms = null;
 			try {
 				rooms = roomService.findroombycitydaterequest(cityName,dateRange,category);
 				if(rooms.size() > 0){
 					modelMap.put("result", rooms.size() + " Room");
 					modelMap.put("rooms", rooms);
-					modelMap.put("filter", filter);
 				}else{
 					modelMap.put("result", 0 + " Room");
 					modelMap.put("rooms", null);
-					modelMap.put("filter", filter);
 				}
-
+				session.setAttribute("filter",filter);
 				return "home/searchHome";
 			}catch (Exception e){
 				redirectAttributes.addFlashAttribute("msg","Error server not find");

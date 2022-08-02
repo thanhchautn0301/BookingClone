@@ -559,6 +559,12 @@ input#province-filter:focus{
     white-space: nowrap;
 }
 
+.form-control.no-validate:valid {
+    border-color: #ced4da;
+    padding-right: .75rem;
+    background: none;
+}
+
 #filter-more::after{
     display: none;
 }
@@ -1071,4 +1077,12 @@ input.ignore-validate{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
     overflow: hidden;
+}
+
+.text-bg-transparent{
+	background-color : transparent !important;
+}
+
+.text-bg-transparent:hover{
+	filter: brightness(50%) !important;
 }
