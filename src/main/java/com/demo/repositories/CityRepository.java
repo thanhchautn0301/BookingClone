@@ -40,11 +40,11 @@ public interface CityRepository extends JpaRepository<City, Integer> {
     public List<AccommodationOfCityApi> findAllCityWithAccommodation();
     
     @Query("select new com.demo.entities_api.AccommodationOfCityApi(c.id,c.name,c.status, count(a.id), c.image) " + 
-    "from Accomodation as a, City as c where c.status = true and a.status = true and a.city.id = c.id  and c.home = 1 " + 
-    "group by c.id")
-    public List<AccommodationOfCityApi> findHomeCity();
-
-    @Query("select new com.demo.entities_api.CityApi(id,name,status,image, home) from City where status = 1")
-    public List<CityApi> findAllCityWithHome();
+            "from Accomodation as a, City as c where c.status = true and a.status = true and a.city.id = c.id and c.name like %"+":keyword"+"% "+ 
+            "group by c.id")
+        public List<AccommodationOfCityApi> findAllCityWithAccommodation2(String keyword);
+    
+    @Query("select new com.demo.entities_api.CityApi(id,name,status, image, home) from City where status = 1 and home = 1")
+    public List<CityApi> findHomeCity();
 
 }
