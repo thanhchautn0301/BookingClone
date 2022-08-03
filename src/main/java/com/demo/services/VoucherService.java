@@ -97,7 +97,14 @@ public class VoucherService implements IVoucherService {
         return voucherRepository.findAllVoucherPagination(PageRequest.of(offset,no));
     }
 
-	@Override
+    @Override
+    public List<VoucherApi> findallbyhostid(int id) {
+        return voucherRepository.findAllVoucherByHostId(id);
+    }
+
+
+
+    @Override
 	public VoucherApi findVoucherByName(String name, int accomodation_id) {
 		 try {
 	            return  voucherRepository.findVoucherByName(name,accomodation_id);

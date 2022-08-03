@@ -18,4 +18,5 @@ public interface ICityService {
 	    public List<AccommodationOfCityApi> findAllAccommodationOfCity();
 	    public List<AccommodationOfCityApi> findAllAccommodationOfCity2(String keyword);
 	    public List<CityApi> findHomeCity();
+		public List<CityApi> findAllCityWithHome();
 }

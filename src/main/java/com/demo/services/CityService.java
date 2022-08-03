@@ -102,9 +102,9 @@ public class CityService implements ICityService {
 		else {
 			return new ArrayList<CityApi>();
 		}
-	public List<AccommodationOfCityApi> findHomeCity() {
+	/*public List<AccommodationOfCityApi> findHomeCity() {
 		System.out.println("size:  " + cityRepository.findHomeCity().size());
-		return cityRepository.findHomeCity();
+		return cityRepository.findHomeCity();*/
 	}
 
 
