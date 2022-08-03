@@ -54,7 +54,7 @@ public class StaffService implements IStaffService{
             staff.setPassword(hashedPw);
             staff.setDob(staffApi.getDob());
             staff.setAddress(staffApi.getAddress());
-            staff.setStatus(false);
+            staff.setStatus(true);
 
             // Gan role cho staff
             staff.setRole(role);
