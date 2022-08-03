@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.entities.City;
@@ -88,6 +89,16 @@ public class CityController {
 			public ResponseEntity<List<AccommodationOfCityApi>> findAllAccommodationOfCity(){
 						try {
 							return new ResponseEntity<List<AccommodationOfCityApi>>(cityService.findAllAccommodationOfCity(),HttpStatus.OK);
+						} catch (Exception e) {
+							return new ResponseEntity<List<AccommodationOfCityApi>>(HttpStatus.BAD_REQUEST);
+						}
+			}
+	
+	@RequestMapping(value = "findCityByKeyword" , produces = MimeTypeUtils.APPLICATION_JSON_VALUE,
+			method = RequestMethod.GET)
+			public ResponseEntity<List<AccommodationOfCityApi>> findCityByKeyword(@RequestParam("keyword") String keyword){
+						try {
+							return new ResponseEntity<List<AccommodationOfCityApi>>(cityService.findAllAccommodationOfCity2(keyword),HttpStatus.OK);
 						} catch (Exception e) {
 							return new ResponseEntity<List<AccommodationOfCityApi>>(HttpStatus.BAD_REQUEST);
 						}

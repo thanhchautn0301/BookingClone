@@ -16,5 +16,6 @@ public interface ICityService {
 
 	    public List<CityApi> findAllPaginate(int offset, int no);
 	    public List<AccommodationOfCityApi> findAllAccommodationOfCity();
+	    public List<AccommodationOfCityApi> findAllAccommodationOfCity2(String keyword);
 	    public List<CityApi> findHomeCity();
 }

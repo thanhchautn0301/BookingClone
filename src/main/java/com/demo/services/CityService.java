@@ -94,6 +94,13 @@ public class CityService implements ICityService {
 	public List<CityApi> findHomeCity() {
 		return cityRepository.findHomeCity().subList(0, 5);
 	}
+
+
+
+	@Override
+	public List<AccommodationOfCityApi> findAllAccommodationOfCity2(String keyword) {
+		return cityRepository.findAllCityWithAccommodation2(keyword);
+	}
 	
 	
 
