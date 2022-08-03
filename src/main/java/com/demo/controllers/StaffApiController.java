@@ -82,7 +82,7 @@ public class StaffApiController {
             }
             else {
                 String accessToken = jwtTokenUtil.generateAccessToken(staffApi);
-                AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken, staffApi.getId());
+                AuthResponse authResponse = new AuthResponse(staffApi.getEmail(), accessToken, staffApi.getId(), staffApi.getRole_name());
                 return ResponseEntity.ok(authResponse);
             }
         } catch(HttpClientErrorException.BadRequest ex) {

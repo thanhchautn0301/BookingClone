@@ -58,7 +58,7 @@ public class CustomerApiController {
 			}
 			else {
 				String accessToken = jwtTokenUtil.generateCustomerAccessToken(customerApi);
-				AuthResponse authResponse = new AuthResponse(customerApi.getEmail(), accessToken, customerApi.getId());
+				AuthResponse authResponse = new AuthResponse(customerApi.getEmail(), accessToken, customerApi.getId(), "ROLE_CUSTOMER");
 				System.out.println("Customer access token: "+authResponse.getAccessToken());
 				System.out.println("Customer id: "+authResponse.getId());
 				return ResponseEntity.ok(authResponse);
