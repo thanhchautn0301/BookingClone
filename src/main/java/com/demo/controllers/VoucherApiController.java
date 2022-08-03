@@ -94,10 +94,11 @@ public class VoucherApiController {
             return new ResponseEntity<List<VoucherApi>>(HttpStatus.BAD_REQUEST);
         }
     }
-            @RequestMapping(value="findvoucherbyname", method=RequestMethod.GET)
-    public ResponseEntity<VoucherApi> findvoucherbyname(@RequestParam("name") String name) {
+           
+    @RequestMapping(value="findvoucherbyname", method=RequestMethod.GET)
+    public ResponseEntity<VoucherApi> findvoucherbyname(@RequestParam("name") String name,@RequestParam("accomodation_id") int accomodation_id) {
         try {
-            return new ResponseEntity<VoucherApi>(voucherService.findVoucherByName(name),HttpStatus.OK);
+            return new ResponseEntity<VoucherApi>(voucherService.findVoucherByName(name,accomodation_id),HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<VoucherApi>(HttpStatus.BAD_REQUEST);

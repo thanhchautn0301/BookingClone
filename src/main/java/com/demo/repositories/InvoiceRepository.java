@@ -24,4 +24,19 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     @Query("select new com.demo.entities_api.InvoiceApi(id, booking.id, voucher.id, total, deposit, status, oweMoney) from Invoice where status =true and id =:id")
     public InvoiceApi findInvoiceById(@Param("id") int id);
+
+    @Query("select new com.demo.entities_api.InvoiceApi(B.dateBooking, Inv.total, Inv.total, Inv.oweMoney, B.payment, V.name) " +
+            "from Invoice Inv, Booking B,Customer C LEFT OUTER JOIN Voucher V " +
+            "ON Inv.voucher.id = V.id " +
+            "where Inv.booking.id = B.id and B.customer.id = C.id " +
+            "and Inv.status = true and C.id = :id")
+    public List<InvoiceApi> findAllInvoiceByCustomerId(@Param("id") int id);
+
+    // Xem chi tiet cua hoa don
+    @Query("select new com.demo.entities_api.InvoiceApi(B.dateBooking, Inv.total, Inv.total, Inv.oweMoney, B.payment, V.name) " +
+            "from Invoice Inv, Booking B,Customer C LEFT OUTER JOIN Voucher V " +
+            "ON Inv.voucher.id = V.id " +
+            "where Inv.booking.id = B.id and B.customer.id = C.id " +
+            "and Inv.status = true and C.id = :id")
+    public List<InvoiceApi> findDetailInvoiceByInvoiceId(@Param("id") int id);
 }

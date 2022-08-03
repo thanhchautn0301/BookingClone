@@ -1,10 +1,16 @@
 package com.demo.entities_api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-public class CustomerApi {
+public class CustomerApi implements UserDetails {
     private Integer id;
     private String name;
     private String email;
@@ -58,8 +64,43 @@ public class CustomerApi {
         this.dob = dob;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//        System.out.println("role_name: "+role_name);
+        SimpleGrantedAuthority sGA = new SimpleGrantedAuthority("ROLE_CUSTOMER");
+        authorities.add(sGA);
+//        System.out.println("Simple granted authority la: "+authorities.get(0).getAuthority().toString());
+        return authorities;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

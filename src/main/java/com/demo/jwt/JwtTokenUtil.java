@@ -1,5 +1,6 @@
 package com.demo.jwt;
 
+import com.demo.entities_api.CustomerApi;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
 import io.jsonwebtoken.*;
@@ -38,6 +39,18 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    public String generateCustomerAccessToken(CustomerApi customerApi) {
+        return Jwts.builder()
+                .setSubject(customerApi.getId()+","+customerApi.getEmail())
+                .claim("role","ROLE_CUSTOMER")
+                .claim("id",customerApi.getId())
+                .setIssuer("GiaTuan")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
+                .signWith(SignatureAlgorithm.HS512,secretKey)
+                .compact();
+    }
+
     public String generateActivateToken(StaffApi staffApi) {
         return Jwts.builder()
                 .setSubject(staffApi.getId()+","+staffApi.getEmail())
@@ -50,11 +63,35 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    public String generateCustomerActivateToken(CustomerApi customerApi) {
+        return Jwts.builder()
+                .setSubject(customerApi.getId()+","+customerApi.getEmail())
+                .claim("role","ROLE_CUSTOMER")
+                .claim("id",customerApi.getId())
+                .setIssuer("GiaTuan")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION_FOR_ACTIVATE_ACCOUNT))
+                .signWith(SignatureAlgorithm.HS512,secretKey)
+                .compact();
+    }
+
     public String generateResetPwToken(StaffApi staffApi) {
         return Jwts.builder()
                 .setSubject(staffApi.getId()+","+staffApi.getEmail())
                 .claim("role",staffApi.getRole_name())
                 .claim("id",staffApi.getId())
+                .setIssuer("GiaTuan")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION_FOR_RESET_PW))
+                .signWith(SignatureAlgorithm.HS512,secretKey)
+                .compact();
+    }
+
+    public String generateCustomerResetPwToken(CustomerApi customerApi) {
+        return Jwts.builder()
+                .setSubject(customerApi.getId()+","+customerApi.getEmail())
+                .claim("role","ROLE_CUSTOMER")
+                .claim("id",customerApi.getId())
                 .setIssuer("GiaTuan")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION_FOR_RESET_PW))

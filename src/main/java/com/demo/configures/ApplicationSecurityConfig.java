@@ -3,8 +3,11 @@ package com.demo.configures;
 import com.demo.jwt.JwtTokenFilter;
 import com.demo.repositories.CustomerRepository;
 import com.demo.repositories.StaffRepository;
+import com.demo.services.IStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,6 +30,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private StaffRepository staffRepository;
 
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
     private JwtTokenFilter jwtTokenFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,9 +41,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // Auth for staff
         auth.userDetailsService(username ->staffRepository.findStaffApiByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Email "+username +" not found !"))
                 );
+
+        // Auth for customer
+        auth.userDetailsService(username ->customerRepository.findCustomerApiByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email "+username +" not found !"))
+        );
     }
 
     @Override @Bean
@@ -53,18 +65,38 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // allow request ( chia role )
-        http.authorizeRequests().anyRequest().permitAll();
-              //  .antMatchers("/api/staff/login").permitAll()
-              //  .antMatchers("/api/staff/create").permitAll()
-              //  .antMatchers("/api/staff/findstaffbyid").permitAll()
-             //   .antMatchers("/api/staff/findstaffapibyemail").permitAll()
-              //  .antMatchers("/api/staff/forgotpw").permitAll()
-             //   .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
-              //  .antMatchers("/api/accomodation/*").permitAll()
-              //  .antMatchers("/api/image/getimage/{name}").permitAll()
-             //   .antMatchers("/api/category/*").permitAll()
-            //    .antMatchers("/api/city/*").permitAll()
-            //    .anyRequest().authenticated();
+        http.authorizeRequests()
+                // permit cua customer
+                // other require token
+                .antMatchers("/api/room/findroombyid/{id}").permitAll()
+                .antMatchers("/api/room/findprice/{id}").permitAll()
+                .antMatchers("/api/customer/login").permitAll()
+                .antMatchers("/api/customer/register").permitAll()
+                .antMatchers("/api/customer/forgotpw").permitAll()
+                .antMatchers("/api/customer/findcustomerbyid/{id}").permitAll()
+                .antMatchers("/api/customer/findcustomerbyemail").permitAll()
+
+                // permit cua staff
+                // other require token
+                .antMatchers("/api/staff/login").permitAll()
+                .antMatchers("/api/staff/create").permitAll()
+                .antMatchers("/api/staff/findstaffbyid").permitAll()
+                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+                .antMatchers("/api/staff/forgotpw").permitAll()
+
+                // permit cho user search
+                .antMatchers("/api/accomodation/findaccommodationdetail1/{id}").permitAll()
+                .antMatchers("/api/accomodation/findaccommodationdetail/{id}").permitAll()
+                .antMatchers("/api/room/findroombycitydaterequest").permitAll()
+                .antMatchers("/api/voucher/findvoucherbyname").permitAll()
+
+                // yeu cau login moi duoc booking
+                .antMatchers("/api/accomodation/*").permitAll()
+                .antMatchers("/api/image/getimage/{name}").permitAll()
+                .antMatchers("/api/image/*").permitAll()
+                .antMatchers("/api/category/*").permitAll()
+                .antMatchers("/api/city/*").permitAll()
+                .anyRequest().authenticated();
 
         // handling error
         http.exceptionHandling().authenticationEntryPoint(

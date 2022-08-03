@@ -89,6 +89,17 @@ public class InvoiceApiController {
         }
     }
 
+    @RequestMapping(value="findallinvoicebycustomerid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<List<InvoiceApi>> findallinvoicebycustomerid(@PathVariable("id") int id) {
+        try {
+            List<InvoiceApi> invs = invoiceService.findallinvoicebycustomerid(id);
+            return new ResponseEntity<List<InvoiceApi>>(invs,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<List<InvoiceApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value="turnoverOfHost", method=RequestMethod.POST)
     public ResponseEntity<Double> turnoverOfHost(@RequestParam("hostId") int hostId, @RequestParam(value = "accomodationId", required=false) Integer accomodationId,
     @RequestParam("fromDate") String fromDate, @RequestParam("untilDate") String untilDate) {

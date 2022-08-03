@@ -1,5 +1,9 @@
 package com.demo.entities_api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class InvoiceApi {
     private Integer id;
 	private Integer booking_id;
@@ -8,6 +12,45 @@ public class InvoiceApi {
 	private Double deposit;
 	private Boolean status;
 	private Double oweMoney;
+
+    private String voucherCode;
+    @JsonFormat(pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
+    private Date dateBooking;
+    private String payment;
+
+    public String getVoucherCode() {
+        return voucherCode;
+    }
+
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
+    }
+
+    public Date getDateBooking() {
+        return dateBooking;
+    }
+
+    public void setDateBooking(Date dateBooking) {
+        this.dateBooking = dateBooking;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public InvoiceApi(Date dateBooking, Double total, Double deposit, Double owe, String payment, String voucherCode ) {
+        this.dateBooking = dateBooking;
+        this.total = total;
+        this.deposit = deposit;
+        this.oweMoney = owe;
+        this.payment = payment;
+        this.voucherCode = voucherCode;
+    }
+
     public InvoiceApi(Integer id, Integer booking_id, Integer voucher_id, Double total, Double deposit, Boolean status,
             Double oweMoney) {
         this.id = id;

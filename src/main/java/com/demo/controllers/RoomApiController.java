@@ -30,7 +30,6 @@ import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 public class RoomApiController implements ServletContextAware {
     @Autowired
     private IRoomService roomService;
-    
     private ServletContext servletContext;
     
     @RequestMapping(value="findall", method=RequestMethod.GET)
@@ -125,7 +124,7 @@ public class RoomApiController implements ServletContextAware {
 //    }
 
     @RequestMapping(value="findroombyid/{id}", method=RequestMethod.GET)
-    public ResponseEntity<RoomApi> findallroomtypewithpaginate(@PathVariable int id) {
+    public ResponseEntity<RoomApi> findroombyid(@PathVariable int id) {
         try {
             return new ResponseEntity<RoomApi>(roomService.findByRoomId(id), HttpStatus.OK);
         } catch (Exception ex) {
@@ -201,7 +200,9 @@ public class RoomApiController implements ServletContextAware {
             if(category != null){
                 roomType = Util.GetRoomType(category);
             }
-            return new ResponseEntity<List<RoomApi>>(roomService.findRoomByCityDateRequest(name, from, to, roomType.getQuantityChildren(), roomType.getQuantityAdult()), HttpStatus.OK);
+            System.out.print("Quantity: "+ roomType.getQuantityAdult());
+            List<RoomApi> result = roomService.findRoomByCityDateRequest(name, from, to, roomType.getQuantityChildren(), roomType.getQuantityAdult());
+            return new ResponseEntity<List<RoomApi>>(result, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<RoomApi>>(HttpStatus.BAD_REQUEST);

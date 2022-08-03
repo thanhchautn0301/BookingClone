@@ -1,5 +1,7 @@
 package com.demo.jwt;
 
+import com.demo.entities.Role;
+import com.demo.entities_api.CustomerApi;
 import com.demo.entities_api.RoleApi;
 import com.demo.entities_api.StaffApi;
 import com.demo.repositories.RoleRepository;
@@ -35,8 +37,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         // check validate access token
         if(!jwtUtil.validateAccessToken(accessToken)) {
-           filterChain.doFilter(request,response);
-           return;
+            filterChain.doFilter(request,response);
+            return;
         }
         // check authentication context
         setAuthenticationContext(accessToken,request);
@@ -45,10 +47,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private boolean hasAuthorizedBearer(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        System.out.println("Authorization header: "+header);
+//        System.out.println("Authorization header: "+header);
 
         if(ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")) {
-            System.out.println("Loi header");
+//            System.out.println("Loi header");
             return false;
         }
 
@@ -59,7 +61,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
         String token = header.split(" ")[1].trim();
 
-        System.out.println("Access token: "+token);
+//        System.out.println("Access token: "+token);
 
         return token;
     }
@@ -73,7 +75,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private UserDetails getUserDetails(String accessToken) {
-        StaffApi userDetails = new StaffApi();
         Claims claims = jwtUtil.parseClaims(accessToken);
         String subject = (String) claims.get(Claims.SUBJECT);
         String roleName = (String) claims.get("role");
@@ -84,15 +85,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         RoleApi role = roleRepository.findRoleByName(roleName);
 
-        System.out.println("Role tim ve dc la: "+role.getId());
+        StaffApi userDetails = new StaffApi();
+            // Assign role for userDetails
+            userDetails.setRole_name(role.getName());
 
-        // Assign role for userDetails
-        userDetails.setRole_name(role.getName());
+            String[] jwtSubject = subject.split(",");
 
-        String[] jwtSubject = subject.split(",");
-
-        userDetails.setId(Integer.parseInt(jwtSubject[0]));
-        userDetails.setEmail(jwtSubject[1]);
-        return userDetails;
+            userDetails.setId(Integer.parseInt(jwtSubject[0]));
+            userDetails.setEmail(jwtSubject[1]);
+            return userDetails;
     }
 }

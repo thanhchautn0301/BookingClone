@@ -30,6 +30,7 @@ public interface IRoomService {
     public List<RoomDetail> findRoomByAccommodationId1(int accommodationId,Date from,Date to,int childrenQuantity,int adultQuantity);
 
     public List<RoomApi> findRoomByCityDateRequest(String nameCity,Date from,Date to,int childrenQuantity,int adultQuantity);
-
+    
     public double findPriceByRoomId(int id);
+
 }

@@ -41,17 +41,14 @@ public class InvoiceService implements IInvoiceService {
         	
             Booking booking = bookingRepository.findById(invoiceApi.getBooking_id()).get();
             invoice.setBooking(booking);
-            invoice.setTotal(invoiceApi.getTotal());
             if(invoiceApi.getVoucher_id() !=null) {
                 Voucher voucher = voucherRepository.findById(invoiceApi.getVoucher_id()).get();
                 invoice.setVoucher(voucher);
-                Double newPrice = invoiceApi.getTotal() - voucher.getPriceDiscount();
-                invoice.setTotal(newPrice);
             }
             invoice.setDeposit(invoiceApi.getDeposit());
             invoice.setOweMoney(invoiceApi.getOweMoney());            
         	invoice.setStatus(invoiceApi.getStatus());
-        	
+            invoice.setTotal(invoiceApi.getTotal());
         	Invoice newInvoice = invoiceRepository.save(invoice);
         	invoiceApi.setId(newInvoice.getId());
             return invoiceApi;
@@ -102,5 +99,10 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public List<InvoiceApi> findallinvoicepaginate(int offset, int no) {
         return invoiceRepository.findAllInvoicePagination(PageRequest.of(offset,no));
+    }
+
+    @Override
+    public List<InvoiceApi> findallinvoicebycustomerid(int id) {
+        return invoiceRepository.findAllInvoiceByCustomerId(id);
     }
 }

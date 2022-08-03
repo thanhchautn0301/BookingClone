@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.demo.entities.Customer;
 import com.demo.entities_api.CustomerApi;
@@ -23,23 +24,40 @@ public class CustomerService implements ICustomerService {
 	}
 
 	@Override
-	public CustomerApi findCityById(int id) {
+	public CustomerApi findCustomerById(int id) {
 		// TODO Auto-generated method stub
-		return customerRepository.findCustomerById(id);
+			return customerRepository.findCustomerById(id);
+	}
+
+	@Override
+	public CustomerApi findByEmail(String email) {
+		return customerRepository.findCustomerApiByEmail(email).get();
 	}
 
 	@Override
 	public boolean create(CustomerApi customerApi) {
 		// TODO Auto-generated method stub
 		Customer customer = new Customer();
-		customer.setName(customerApi.getName());
+		customer.setName(null);
 		customer.setEmail(customerApi.getEmail());
-		customer.setPhone(customerApi.getPhone()); 
-		customer.setDob(customerApi.getDob());
-		customer.setPassword(Encrypt.BcryptPass(customerApi.getPassword()));
-		customer.setCivilIdentity(customerApi.getCivilIdentity());
-		customer.setStatus(customerApi.isStatus());
+		customer.setPhone(null);
+		customer.setDob(null);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPw = passwordEncoder.encode(customerApi.getPassword());
+		customer.setPassword(hashedPw);
+		customer.setCivilIdentity(null);
+		customer.setStatus(false);
 		return customerRepository.save(customer) != null;
+	}
+
+	@Override
+	public int activateAccount(int id) {
+		try {
+			return customerRepository.activateAccount(id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	@Override
@@ -82,7 +100,34 @@ public class CustomerService implements ICustomerService {
 		return customerRepository.findAllCustomerPagination(PageRequest.of(offset,pageSize));
 	}
 
-	
-	
+	@Override
+	public int resetPassword(int id, String password) {
+		try {
+			return customerRepository.resetPassword(id, Encrypt.BcryptPass(password));
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public int resetEmail(int id, String email) {
+		try {
+			return customerRepository.resetEmail(id,email);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	@Override
+	public int resetPhone(int id, String phone) {
+		try {
+			return customerRepository.resetPhone(id,phone);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 
 }
