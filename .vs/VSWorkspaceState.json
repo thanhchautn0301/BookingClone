@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\demo",
+    "\\src\\main\\java\\com\\demo\\entities_api",
+    "\\src\\main\\java\\com\\demo\\helper",
+    "\\src\\main\\java\\com\\demo\\repositories",
+    "\\src\\main\\java\\com\\demo\\services"
+  ],
+  "PreviewInSolutionExplorer": false
+}
