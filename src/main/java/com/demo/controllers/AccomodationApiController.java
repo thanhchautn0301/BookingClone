@@ -130,6 +130,20 @@ public class AccomodationApiController {
         }
     }
 
+    @RequestMapping(value="findaccomodationbycategoryid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Object> findaccomodationbycategoryid(@PathVariable("id") int id) {
+        try {
+            List<AccomodationApi> accommodations = accomodationService.findallaccomodationbycategoryid(id);
+            return new ResponseEntity<Object>(new Object() {
+                public int accomodationQuantity = accommodations.size();
+                public List<AccomodationApi> accomodations = accommodations;
+            },HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<Object>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
+
   
 
     @RequestMapping(value="findaccomodationbycityname", method=RequestMethod.GET)

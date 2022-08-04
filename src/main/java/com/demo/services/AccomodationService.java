@@ -148,6 +148,11 @@ public class AccomodationService implements IAccomodationService {
         return accomodationRepository.findAllAccomodationByCityName(cityName);
     }
 
+    @Override
+    public List<AccomodationApi> findallaccomodationbycategoryid(int categoryId) {
+        return accomodationRepository.findAllAccomodationByCategoryId(categoryId);
+    }
+
 
 
 }
