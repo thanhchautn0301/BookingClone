@@ -42,7 +42,8 @@ public class InvoiceApi {
         this.payment = payment;
     }
 
-    public InvoiceApi(Date dateBooking, Double total, Double deposit, Double owe, String payment, String voucherCode ) {
+    public InvoiceApi(Integer id, Date dateBooking, Double total, Double deposit, Double owe, String payment, String voucherCode ) {
+        this.id = id;
         this.dateBooking = dateBooking;
         this.total = total;
         this.deposit = deposit;

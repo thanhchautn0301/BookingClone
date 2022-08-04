@@ -46,8 +46,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query("update Customer c set c.email = :email where c.id = :id")
-    public int resetEmail(@Param("id" ) int id, @Param("email") String email);
+    @Query("update Customer c set c.name = :name where c.id = :id")
+    public int resetName(@Param("id" ) int id, @Param("name") String name);
 
     @Modifying(clearAutomatically = true)
     @Transactional

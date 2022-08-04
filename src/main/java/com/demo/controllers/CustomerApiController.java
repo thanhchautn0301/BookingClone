@@ -177,10 +177,10 @@ public class CustomerApiController {
 		}
 	}
 
-	@RequestMapping(value="resetemail", method= RequestMethod.PUT)
-	public ResponseEntity<?> resetemail(@RequestParam("id") int id,@RequestParam("email") String email) {
+	@RequestMapping(value="resetname", method= RequestMethod.PUT)
+	public ResponseEntity<?> resetname(@RequestParam("id") int id,@RequestParam("name") String name) {
 		try {
-			int result = customerService.resetEmail(id, email);
+			int result = customerService.resetName(id, name);
 			return new ResponseEntity<Integer>(result,HttpStatus.OK);
 		} catch (Exception ex) {
 			ex.printStackTrace();

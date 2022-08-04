@@ -19,6 +19,6 @@ public interface ICustomerService {
 		// kich hoat tai khoan xac nhan qua email
 		public int activateAccount(int id);
 		public int resetPassword(int id, String password);
-		public int resetEmail(int id, String email);
+		public int resetName(int id, String name);
 		public int resetPhone(int id, String phone);
 }

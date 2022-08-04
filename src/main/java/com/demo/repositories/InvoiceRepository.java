@@ -1,6 +1,7 @@
 package com.demo.repositories;
 
 import com.demo.entities.Invoice;
+import com.demo.entities_api.DetailInvoiceApi;
 import com.demo.entities_api.InvoiceApi;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,7 +26,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
     @Query("select new com.demo.entities_api.InvoiceApi(id, booking.id, voucher.id, total, deposit, status, oweMoney) from Invoice where status =true and id =:id")
     public InvoiceApi findInvoiceById(@Param("id") int id);
 
-    @Query("select new com.demo.entities_api.InvoiceApi(B.dateBooking, Inv.total, Inv.total, Inv.oweMoney, B.payment, V.name) " +
+    @Query("select new com.demo.entities_api.InvoiceApi(Inv.id, B.dateBooking, Inv.total, Inv.total, Inv.oweMoney, B.payment, V.name) " +
             "from Invoice Inv, Booking B,Customer C LEFT OUTER JOIN Voucher V " +
             "ON Inv.voucher.id = V.id " +
             "where Inv.booking.id = B.id and B.customer.id = C.id " +
@@ -33,10 +34,9 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
     public List<InvoiceApi> findAllInvoiceByCustomerId(@Param("id") int id);
 
     // Xem chi tiet cua hoa don
-    @Query("select new com.demo.entities_api.InvoiceApi(B.dateBooking, Inv.total, Inv.total, Inv.oweMoney, B.payment, V.name) " +
-            "from Invoice Inv, Booking B,Customer C LEFT OUTER JOIN Voucher V " +
-            "ON Inv.voucher.id = V.id " +
-            "where Inv.booking.id = B.id and B.customer.id = C.id " +
-            "and Inv.status = true and C.id = :id")
-    public List<InvoiceApi> findDetailInvoiceByInvoiceId(@Param("id") int id);
+    @Query("select new com.demo.entities_api.DetailInvoiceApi(BD.checkin, BD.checkout, BD.quantityAdult, BD.quantityChildren, R.name, A.name) " +
+            "from Invoice Inv, Booking B, BookingDetail BD, Room R, Accomodation  A " +
+            "where Inv.booking.id = B.id and B.id = BD.booking.id and Inv.id = :id " +
+            "and BD.room.id = R.id and R.accomodation.id = A.id" )
+    public DetailInvoiceApi findDetailInvoiceByInvoiceId(@Param("id") int id);
 }
