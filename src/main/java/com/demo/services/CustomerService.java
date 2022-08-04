@@ -111,9 +111,9 @@ public class CustomerService implements ICustomerService {
 	}
 
 	@Override
-	public int resetEmail(int id, String email) {
+	public int resetName(int id, String name) {
 		try {
-			return customerRepository.resetEmail(id,email);
+			return customerRepository.resetName(id,name);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return -1;

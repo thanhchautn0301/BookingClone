@@ -3,6 +3,7 @@ package com.demo.services;
 import com.demo.entities.Invoice;
 import com.demo.entities.Booking;
 import com.demo.entities.Voucher;
+import com.demo.entities_api.DetailInvoiceApi;
 import com.demo.entities_api.InvoiceApi;
 import com.demo.repositories.InvoiceRepository;
 import com.demo.repositories.BookingRepository;
@@ -104,5 +105,10 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public List<InvoiceApi> findallinvoicebycustomerid(int id) {
         return invoiceRepository.findAllInvoiceByCustomerId(id);
+    }
+
+    @Override
+    public DetailInvoiceApi findinvoicedetailbyid(int id) {
+        return invoiceRepository.findDetailInvoiceByInvoiceId(id);
     }
 }

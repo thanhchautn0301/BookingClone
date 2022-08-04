@@ -1,5 +1,6 @@
 package com.demo.controllers;
 
+import com.demo.entities_api.DetailInvoiceApi;
 import com.demo.entities_api.InvoiceApi;
 import com.demo.entities_api.Turnover;
 import com.demo.services.IInvoiceService;
@@ -98,6 +99,17 @@ public class InvoiceApiController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<InvoiceApi>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value="findinvoicedetailbyid/{id}", method=RequestMethod.GET)
+    public ResponseEntity<DetailInvoiceApi> findinvoicedetailbyid(@PathVariable("id") int id) {
+        try {
+            DetailInvoiceApi inv = invoiceService.findinvoicedetailbyid(id);
+            return new ResponseEntity<DetailInvoiceApi>(inv,HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<DetailInvoiceApi>(HttpStatus.BAD_REQUEST);
         }
     }
 
