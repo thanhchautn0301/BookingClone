@@ -19,4 +19,6 @@ public interface IImageService {
     public String uploadImage(ServletContext servletContext,MultipartFile file);
 
     public List<String> findImageByAccommodationId(int accommodationId);
+    public List<String> findImageByRoomId(int roomId);
+    public boolean deleteByRoomId(int roomId);
 }
