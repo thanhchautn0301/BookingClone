@@ -65,39 +65,41 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // allow request ( chia role )
-        http.authorizeRequests().anyRequest().permitAll();
-//                // permit cua customer
-//                // other require token
-//                .antMatchers("/api/room/findroombyid/{id}").permitAll()
-//                .antMatchers("/api/room/findprice/{id}").permitAll()
-//                .antMatchers("/api/customer/login").permitAll()
-//                .antMatchers("/api/customer/register").permitAll()
-//                .antMatchers("/api/customer/forgotpw").permitAll()
-//                .antMatchers("/api/customer/findcustomerbyid/{id}").permitAll()
-//                .antMatchers("/api/customer/findcustomerbyemail").permitAll()
-//
-//                // permit cua staff
-//                // other require token
-//                .antMatchers("/api/staff/login").permitAll()
-//                .antMatchers("/api/staff/create").permitAll()
-//                .antMatchers("/api/staff/findstaffbyid").permitAll()
-//                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
-//                .antMatchers("/api/staff/forgotpw").permitAll()
-//                .antMatchers("/api/invoice/turnoverOfHost").permitAll()
-//
-//                // permit cho user search
-//                .antMatchers("/api/accomodation/findaccommodationdetail1/{id}").permitAll()
-//                .antMatchers("/api/accomodation/findaccommodationdetail/{id}").permitAll()
-//                .antMatchers("/api/room/findroombycitydaterequest").permitAll()
-//                .antMatchers("/api/voucher/findvoucherbyname").permitAll()
-//
-//                // yeu cau login moi duoc booking
-//                .antMatchers("/api/accomodation/*").permitAll()
-//                .antMatchers("/api/image/getimage/{name}").permitAll()
-//                .antMatchers("/api/image/*").permitAll()
-//                .antMatchers("/api/category/*").permitAll()
-//                .antMatchers("/api/city/*").permitAll()
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                // permit cua customer
+                // other require token
+                .antMatchers("/api/room/findroombyid/{id}").permitAll()
+                .antMatchers("/api/room/findprice/{id}").permitAll()
+                .antMatchers("/api/customer/login").permitAll()
+                .antMatchers("/api/customer/register").permitAll()
+                .antMatchers("/api/customer/forgotpw").permitAll()
+                .antMatchers("/api/customer/findcustomerbyid/{id}").permitAll()
+                .antMatchers("/api/customer/findcustomerbyemail").permitAll()
+
+                // permit cua staff
+                // other require token
+                .antMatchers("/api/staff/login").permitAll()
+                .antMatchers("/api/staff/create").permitAll()
+                .antMatchers("/api/staff/findstaffbyid").permitAll()
+                .antMatchers("/api/staff/findstaffapibyemail").permitAll()
+                .antMatchers("/api/staff/forgotpw").permitAll()
+                .antMatchers("/api/invoice/turnoverOfHost").permitAll()
+
+                // permit cho user search
+                .antMatchers("/api/accomodation/findaccommodationdetail1/{id}").permitAll()
+                .antMatchers("/api/accomodation/findaccommodationdetail/{id}").permitAll()
+                .antMatchers("/api/accomodation/findaccomodationbycityid/{id}").permitAll()
+                .antMatchers("/api/accomodation/findaccomodationbycategoryid/{id}").permitAll()
+                .antMatchers("/api/room/findroombycitydaterequest").permitAll()
+                .antMatchers("/api/voucher/findvoucherbyname").permitAll()
+
+                // yeu cau login moi duoc booking
+                .antMatchers("/api/accomodation/*").permitAll()
+                .antMatchers("/api/image/getimage/{name}").permitAll()
+                .antMatchers("/api/image/*").permitAll()
+                .antMatchers("/api/category/*").permitAll()
+                .antMatchers("/api/city/*").permitAll()
+                .anyRequest().authenticated();
 
         // handling error
         http.exceptionHandling().authenticationEntryPoint(
