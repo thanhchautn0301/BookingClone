@@ -59,4 +59,11 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
             "on A.id = I.accomodation.id " +
             "where A.status =true and A.city.name = :cityName")
     public List<AccomodationApi> findAllAccomodationByCityName(@Param("cityName") String cityName);
+
+    @Query("select new com.demo.entities_api.AccomodationApi(A.id,A.category.name, A.city.name, A.name, A.status, I.name, A.description) " +
+    "from Accomodation A LEFT OUTER JOIN Image I " +
+    "on A.id = I.accomodation.id " +
+    "where A.status =true and  A.category.id = :categoryId")
+     public List<AccomodationApi> findAllAccomodationByCategoryId(@Param("categoryId") int categoryId);
+
 }

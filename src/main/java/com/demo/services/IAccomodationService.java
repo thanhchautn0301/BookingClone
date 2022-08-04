@@ -18,4 +18,6 @@ public interface IAccomodationService {
     public List<AccomodationApi> findallaccomodationbycityname(String cityName);
     // loc_home_accomm_detail
     public AccomodationApi getAccommodationById(Integer id);
+    public List<AccomodationApi> findallaccomodationbycategoryid(int categoryId);
+
 }
