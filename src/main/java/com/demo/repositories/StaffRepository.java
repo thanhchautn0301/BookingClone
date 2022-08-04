@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Repository
 public interface StaffRepository extends CrudRepository<Staff,Integer> {
-    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where status = true ")
+    @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where status = true and role.name = 'ROLE_HOST'")
     public List<StaffApi> findAllStaff();
 
     @Query("select new com.demo.entities_api.StaffApi(id,name,phone,email,civilIdentity,password,dob,address,role.id,role.name,status,role.status) from Staff where id= :id")
