@@ -18,26 +18,30 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "ON A.id = I.accomodation.id " +
-            "where A.status =true")
+            "where A.status =true " +
+            "group by A.id")
     public List<AccomodationApi> findAllAccomodation();
 
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id "+
-            "where A.status =true")
+            "where A.status =true " +
+            "group by A.id")
     public List<AccomodationApi> findAllAccomodationSort(Sort sort);
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id " +
-            "where A.status =true")
+            "where A.status =true " +
+            "group by A.id")
     public List<AccomodationApi> findAllAccomodationPagination(Pageable pageable);
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id " +
-            "where A.status =true and A.id=:id ")
+            "where A.status =true and A.id=:id " +
+            "group by A.id")
     public AccomodationApi findAccomodationById(@Param("id") int id);
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id, A.category.id, A.category.name, A.city.id, A.city.name , A.staff.id, A.name, A.status, I.name, A.description) " +
@@ -51,19 +55,22 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Integ
     @Query("select new com.demo.entities_api.AccomodationApi(A.id,A.category.name, A.city.name, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id " +
-            "where A.status =true and  A.city.id = :cityId")
+            "where A.status =true and  A.city.id = :cityId " +
+            "group by A.id" )
     public List<AccomodationApi> findAllAccomodationByCityId(@Param("cityId") int cityId);
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id,A.category.name, A.city.name, A.name, A.status, I.name, A.description) " +
             "from Accomodation A LEFT OUTER JOIN Image I " +
             "on A.id = I.accomodation.id " +
-            "where A.status =true and A.city.name = :cityName")
+            "where A.status =true and A.city.name = :cityName " +
+            "group by A.id")
     public List<AccomodationApi> findAllAccomodationByCityName(@Param("cityName") String cityName);
 
     @Query("select new com.demo.entities_api.AccomodationApi(A.id,A.category.name, A.city.name, A.name, A.status, I.name, A.description) " +
     "from Accomodation A LEFT OUTER JOIN Image I " +
     "on A.id = I.accomodation.id " +
-    "where A.status =true and  A.category.id = :categoryId")
+    "where A.status =true and  A.category.id = :categoryId " +
+            "group by A.id ")
      public List<AccomodationApi> findAllAccomodationByCategoryId(@Param("categoryId") int categoryId);
 
 }
