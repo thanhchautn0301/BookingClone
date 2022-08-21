@@ -1,2 +1,2 @@
 # BookingClone
-Booking Clone 
+This Project is based on Booking.com
