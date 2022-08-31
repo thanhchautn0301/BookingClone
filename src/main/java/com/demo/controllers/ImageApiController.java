@@ -143,24 +143,14 @@ public class ImageApiController implements ServletContextAware{
 		// TODO Auto-generated method stub
 		this.servletContext = servletContext;
 	}
-
-    @RequestMapping(value="findByRoomId/{id}", method=RequestMethod.GET)
+	
+	@RequestMapping(value="findByRoomId/{id}", method=RequestMethod.GET)
     public ResponseEntity<List<String>> findByRoomId(@PathVariable("id") int id) {
         try {
             return new ResponseEntity<List<String>>(imageService.findImageByRoomId(id), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @RequestMapping(value="deleteByRoomId/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteByRoomId(@PathVariable("id") int roomId) {
-        try {
-            return new ResponseEntity<Boolean>(imageService.deleteByRoomId(roomId),HttpStatus.OK);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
         }
     }
 }

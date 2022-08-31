@@ -20,5 +20,4 @@ public interface IImageService {
 
     public List<String> findImageByAccommodationId(int accommodationId);
     public List<String> findImageByRoomId(int roomId);
-    public boolean deleteByRoomId(int roomId);
 }

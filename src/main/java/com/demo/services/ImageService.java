@@ -140,25 +140,4 @@ public class ImageService implements IImageService, ServletContextAware {
     public List<String> findImageByRoomId(int roomId) {
         return imageRepository.findImageByRoomId(roomId);
     }
-
-    @Override
-    public boolean deleteByRoomId(int roomId) {
-        try {
-        	// List<Image> images = imageRepository.findAllImageByRoomId(roomId);
-        	List<Image> images = imageRepository.findAll();
-            System.out.println("123");
-            System.out.println();
-        	for (Image image : images) {
-                if(image.getRoom() != null){
-                    if(image.getRoom().getId() == roomId){
-                        delete(image.getId());
-                    } 
-                }           
-            }
-        	return true;
-        } catch(Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }
